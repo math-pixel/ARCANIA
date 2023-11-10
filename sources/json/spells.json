@@ -1,0 +1,19 @@
+{
+    "spells": [
+        {
+            "name": "circle",
+            "videoSrc": "./medias/sort_de_feu.webm",
+            "audioSrc": "",
+            "damage": 15,
+            "heal": 0, 
+            "combo": ["cercle"]
+        },{
+            "name": "line",
+            "videoSrc": "./medias/sort_de_glace.webm",
+            "audioSrc": "",
+            "damage": 15,
+            "heal": 0,
+            "combo": ["ligne"]
+        }
+    ]
+}

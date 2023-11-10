@@ -5,6 +5,8 @@ const { Server } = require('socket.io');
 const path = require('path')
 
 const app = express();
+app.use('/medias', express.static(join(__dirname, 'medias')))
+app.use('/sources', express.static(join(__dirname, 'sources')))
 app.use('/phone', express.static(path.join(__dirname, 'phone')))
 app.use('/model', express.static(path.join(__dirname, 'model')))
 const server = createServer(app);
@@ -15,7 +17,7 @@ app.get('/', (req, res) => {
 });
 
 app.get('/projo', (req, res) => {
-  res.sendFile(join(__dirname, 'projo.html'));
+  res.sendFile(join(__dirname, 'sources/projo/projo.html'));
 });
 
 io.on('connection', (socket) => {
