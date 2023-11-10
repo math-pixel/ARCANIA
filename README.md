@@ -26,13 +26,13 @@ node server.js
 
 Computer :
 GO to :
-```HTTP
+```
 http://localhost:3000/projo
 ```
 
 PHONE :
 GO to :
-```HTTP
+```
 http://[computer-ip]:3000/projo
 ```
 ## License
