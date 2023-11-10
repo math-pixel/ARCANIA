@@ -14,7 +14,6 @@ let circleSong
 let triangleSong
 
 let labelAllConfidence = ""
-let textConfidence = document.getElementById("textConfidence")
 
 let currentSpellLabel = "nothing"
 let arrayAverageSpell = []
@@ -56,14 +55,14 @@ function setup() {
 
     brain = ml5.neuralNetwork(options);
     const modelInfo = {
-        model: '/model/halfclass/model.json',
-        metadata: '/model/halfclass/model_meta.json',
-        weights: '/model/halfclass/model.weights.bin',
+        model: '/model/formeSimple/80epc_036/model.json',
+        metadata: '/model/formeSimple/80epc_036/model_meta.json',
+        weights: '/model/formeSimple/80epc_036/model.weights.bin',
     };//capteur_orientation/model2_027
     brain.load(modelInfo, brainLoaded);
 
     // Boutons pour la collecte de données
-    createCollectButton('Test');
+    createCollectButton('Start Detection Spell');
 }
 
 function brainLoaded() {
@@ -103,7 +102,6 @@ function collectData(x, y, z, xOrientation, yOrientation, zOrientation) {
                 for (let index = 0; index < results.length; index++) {
                     labelAllConfidence += `${results[index].label} : ${results[index].confidence} <br>`
                 }
-                // textConfidence.innerHTML = labelAllConfidence
 
 
                 let label = results[0].label;
@@ -149,7 +147,6 @@ function getAverageSpell(array){
     });
     
     // console.log(elementCounts)
-    textConfidence.innerHTML = biggest;
     return biggest[0]
 }
 
