@@ -6,12 +6,12 @@ let sequenceLength = 10; // La longueur de la séquence pour chaque axe
 let collectionInterval; // Pour stocker l'identifiant de l'intervalle de collecte
 
 // Charger un son pour le bip
-let bipSound;
+// let bipSound;
 
-let lineSong
-let squareSong
-let circleSong
-let triangleSong
+// let lineSong
+// let squareSong
+// let circleSong
+// let triangleSong
 
 let labelAllConfidence = ""
 
@@ -23,12 +23,12 @@ let arrayAverageSpell = []
 // const socket = io();
 
 function preload() {
-    bipSound = loadSound('../sound/bip.mp3');
+    // bipSound = loadSound('../sound/bip.mp3');
 
-    lineSong = loadSound('../sound/ligne.mp3')
-    squareSong = loadSound('../sound/carrer.mp3')
-    circleSong = loadSound('../sound/cercle.mp3')
-    triangleSong = loadSound('../sound/triangle.mp3')
+    // lineSong = loadSound('../sound/ligne.mp3')
+    // squareSong = loadSound('../sound/carrer.mp3')
+    // circleSong = loadSound('../sound/cercle.mp3')
+    // triangleSong = loadSound('../sound/triangle.mp3')
 }
 
 function setup() {
@@ -152,17 +152,17 @@ function getAverageSpell(array){
 
 function definedSpell(label){
     if (label == "triangle") {
-        triangleSong.play()
+        // triangleSong.play()
         // socket.emit("triangle", "triangle")
         resetForm()
     }else if(label == "square"){
-        squareSong.play()
+        // squareSong.play()
         resetForm()
     }else if(label == "circle"){
-        circleSong.play()
+        // circleSong.play()
         resetForm()
     }else if(label == "line" || label ==  "linehorizontal" || label == "LigneVertical" ){
-        lineSong.play()
+        // lineSong.play()
         resetForm()
     }
 }
@@ -188,7 +188,7 @@ function prepareToCollect() {
 
 function startCollecting() {
     if (state === 'preparing') {
-        bipSound.play();
+        // bipSound.play();
         state = 'collecting';
         collectionInterval = setInterval(() => {
             if (window.DeviceMotionEvent && window.latestDeviceMotionEvent && latestDeviceOrientationEvent) {
