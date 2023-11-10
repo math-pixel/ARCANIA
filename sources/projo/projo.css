@@ -96,3 +96,15 @@ video {
     padding: 0;
     mix-blend-mode: screen;
 }
+
+#vidIntro{
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 99;
+
+    width: 100vw;   
+    height: 100vh;
+
+    background-color: white;
+}

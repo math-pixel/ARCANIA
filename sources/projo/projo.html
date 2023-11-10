@@ -8,11 +8,11 @@
 </head>
 <body>
   <div id="intro">
-    <button id="introButton" onclick="startVideo()">
+    <button id="introButton">
       Lancer
     </button>
   </div>
-  <video src="/medias/intro_video.mp4" id="vidIntro" width="1920" height="1080"></video>
+  <video src="/medias/intro_video.mp4" id="vidIntro" width="1920" height="1080" muted controls></video>
   <div id="videoDiv"></div>
   <div id="playerInfo">
     <div id="player1">
@@ -41,10 +41,15 @@
 // Mouse: https://editor.p5js.org/codingtrain/sketches/JgLVfCS4E
 // Webcam: https://editor.p5js.org/codingtrain/sketches/2hZGBkqqq
 
+document.getElementById("introButton").addEventListener("click", () => {
+  startVideo()
+})
+
 function startVideo() {
   let introDiv = document.getElementById("intro")
   introDiv.parentNode.removeChild(introDiv);
-  let videoIntro = document.getElementById('vidIntro')
+  let videoIntro = document.getElementById("vidIntro")
+  console.log(videoIntro)
   videoIntro.play()
   setTimeout(() => {
     videoIntro.parentNode.removeChild(videoIntro);

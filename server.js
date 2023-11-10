@@ -25,10 +25,12 @@ io.on('connection', (socket) => {
 
   socket.on('circle', (value, callback) => {
     io.emit("circle", "player1")
+    console.log("circle")
   });
 
   socket.on('line', (value, callback) => {
     io.emit("line", "player2")
+    console.log("line")
   });
 
 });
