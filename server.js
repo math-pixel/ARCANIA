@@ -4,8 +4,14 @@ const { join } = require('node:path');
 const { Server } = require('socket.io');
 
 const app = express();
+app.use('/phone', express.static(path.join(__dirname, 'phone')))
+app.use('/model', express.static(path.join(__dirname, 'model')))
 const server = createServer(app);
 const io = new Server(server);
+
+app.get('/', (req, res) => {
+  res.sendFile(join(__dirname, 'phone/index.html'));
+});
 
 app.get('/projo', (req, res) => {
   res.sendFile(join(__dirname, 'projo.html'));
