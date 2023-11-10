@@ -24,14 +24,11 @@ node server.js
 
 ## Use
 
-Computer :
-GO to :
+On your computer open url :
 ```
 http://localhost:3000/projo
 ```
-
-PHONE :
-GO to :
+On your phone open url :
 ```
 http://[computer-ip]:3000/projo
 ```
