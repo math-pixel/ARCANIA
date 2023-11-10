@@ -22,11 +22,11 @@ io.on('connection', (socket) => {
   console.log('a user connected');
 
   socket.on('circle', (value, callback) => {
-    socket.emit("circle", "player1")
+    io.emit("circle", "player1")
   });
 
   socket.on('line', (value, callback) => {
-    socket.emit("line", "player2")
+    io.emit("line", "player2")
   });
 
 });
