@@ -20,7 +20,7 @@ let arrayAverageSpell = []
 
 
 // init websocket
-// const socket = io();
+const socket = io();
 
 function preload() {
     // bipSound = loadSound('../sound/bip.mp3');
@@ -153,16 +153,17 @@ function getAverageSpell(array){
 function definedSpell(label){
     if (label == "triangle") {
         // triangleSong.play()
-        // socket.emit("triangle", "triangle")
         resetForm()
     }else if(label == "square"){
         // squareSong.play()
         resetForm()
     }else if(label == "circle"){
         // circleSong.play()
+        socket.emit("circle", "circle")
         resetForm()
     }else if(label == "line" || label ==  "linehorizontal" || label == "LigneVertical" ){
         // lineSong.play()
+        socket.emit("line", "line")
         resetForm()
     }
 }
