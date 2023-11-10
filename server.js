@@ -20,6 +20,15 @@ app.get('/projo', (req, res) => {
 
 io.on('connection', (socket) => {
   console.log('a user connected');
+
+  socket.on('circle', (value, callback) => {
+    socket.emit("circle", "player1")
+  });
+
+  socket.on('line', (value, callback) => {
+    socket.emit("line", "player2")
+  });
+
 });
 
 server.listen(3000, () => {
