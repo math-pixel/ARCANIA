@@ -7,7 +7,7 @@
 Welcome to the realm of Arcania. 
 In this immersive **interactive experience**, you embody two wizards from the Citadel, whose families have been at war since time immemorial. Prepare yourself to engage in your ultimate battle and determine who will be the next king of the world of the Twelve. Use your phone as a magical wand and cast spells at your opponent using your own movements. At the end of the battle, review your performance and unlock achievements.
 
-
+![GIF DEMO](https://tenor.com/vq0d245EfuJ.gif)
 
 ## Installation
 
