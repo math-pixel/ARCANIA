@@ -141,19 +141,32 @@ document.getElementById("introButton").addEventListener("click", () => {
     }
   }
   
-    socket.on("circle", (player) => {
-      if (player == "player1") {
-        detectSpell("circle", player1)
-      } else {
-        detectSpell("circle", player2)
-      }
-      
+
+    socket.on("player1", (spell) => {
+        switch (spell) {
+            case "circle":
+                detectSpell("circle", player1)
+                break;
+
+            case "line":
+                detectSpell("line", player1)
+                break;
+        
+            default:
+                break;
+        }
     })
-    
-    socket.on("line", (player) => {
-      if (player == "player1") {
-        detectSpell("line", player1)
-      } else {
-        detectSpell("line", player2)
-      }
+    socket.on("player2", (spell) => {
+        switch (spell) {
+            case "circle":
+                detectSpell("circle", player2)
+                break;
+
+            case "line":
+                detectSpell("line", player2)
+                break;
+        
+            default:
+                break;
+        }
     })
