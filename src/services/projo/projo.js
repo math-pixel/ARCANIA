@@ -33,15 +33,15 @@ document.getElementById("introButton").addEventListener("click", () => {
   
   
   let player1 = {
-    "name": "player1",
-    "life": 100,
-    "mana": 0
+    name: "player1",
+    life: 100,
+    mana: 0
   }
   
   let player2 = {
-    "name": "player2",
-    "life": 100,
-    "mana": 0
+    name: "player2",
+    life: 100,
+    mana: 0
   }
   
   let parentVideo = document.getElementById("videoDiv")
@@ -56,15 +56,13 @@ document.getElementById("introButton").addEventListener("click", () => {
 
     let video = document.createElement('video')
     video.src = source.videoSrc
-    video.muted = true
     // video.width = 1980; // in px
     // video.height = 1080; // in px
     video.autoplay = true
     video.type = "video/webp"
     video.preload = "auto"
-    video.style.position = "absolute"
-    if (player == player2) {
-      video.style.scale = "-1"
+    if (player.name == "player2") {
+      video.style.transform = "rotate(180deg)"
     }
     video.addEventListener("ended", function() {
       video.parentNode.removeChild(video);
@@ -142,31 +140,34 @@ document.getElementById("introButton").addEventListener("click", () => {
   }
   
 
-    socket.on("player1", (spell) => {
-        switch (spell) {
-            case "circle":
-                detectSpell("circle", player1)
-                break;
+/* -------------------------------------------------------------------------- */
+/*                                  Websocket                                 */
+/* -------------------------------------------------------------------------- */
+socket.on("player1", (spell) => {      
+    switch (spell) {
+        case "circle":
+            detectSpell("circle", player1)
+            break;
 
-            case "line":
-                detectSpell("line", player1)
-                break;
-        
-            default:
-                break;
-        }
-    })
-    socket.on("player2", (spell) => {
-        switch (spell) {
-            case "circle":
-                detectSpell("circle", player2)
-                break;
+        case "line":
+            detectSpell("line", player1)
+            break;
+    
+        default:
+            break;
+    }
+})
+socket.on("player2", (spell) => {
+    switch (spell) {
+        case "circle":
+            detectSpell("circle", player2)
+            break;
 
-            case "line":
-                detectSpell("line", player2)
-                break;
-        
-            default:
-                break;
-        }
-    })
+        case "line":
+            detectSpell("line", player2)
+            break;
+    
+        default:
+            break;
+    }
+})
