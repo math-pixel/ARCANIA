@@ -1,3 +1,7 @@
+/* -------------------------------------------------------------------------- */
+/*                               Set up varible                               */
+/* -------------------------------------------------------------------------- */
+// ##### ml5 #####
 let brain;
 let state = 'waiting';
 let targetLabel;
@@ -5,22 +9,52 @@ let rawData = []; // Stocke les données brutes de l'accéléromètre
 let sequenceLength = 10; // La longueur de la séquence pour chaque axe
 let collectionInterval; // Pour stocker l'identifiant de l'intervalle de collecte
 
-// Charger un son pour le bip
-// let bipSound;
 
+// ##### Song #####
+// let bipSound;
 // let lineSong
 // let squareSong
 // let circleSong
 // let triangleSong
 
+// ##### Label #####
 let labelAllConfidence = ""
 
+
+// ##### Average Spell #####
 let currentSpellLabel = "nothing"
 let arrayAverageSpell = []
 
 
-// init websocket
+/* -------------------------------------------------------------------------- */
+/*                               init websocket                               */
+/* -------------------------------------------------------------------------- */
 const socket = io();
+
+/* -------------------------------------------------------------------------- */
+/*                         Init/Defined player number                         */
+/* -------------------------------------------------------------------------- */
+let player = "player";
+let indicationPlayerConnection = document.getElementById("playerNumber")
+const queryString = window.location.search;
+const urlParams = new URLSearchParams(queryString);
+
+if(urlParams.has('playerNumber')){
+    const number = urlParams.get('playerNumber')
+
+    if (number >= 1 && number <= 2) {
+        // set player id
+        player = `player${number}`;
+
+        // remove indication of player connection
+        indicationPlayerConnection.innerHTML = ""
+    }else{
+        indicationPlayerConnection.innerHTML = "Wrong id Player must be 1 or 2"
+    }
+
+}else{
+
+}
 
 function preload() {
     // bipSound = loadSound('../sound/bip.mp3');
@@ -159,11 +193,11 @@ function definedSpell(label){
         resetForm()
     }else if(label == "circle"){
         // circleSong.play()
-        socket.emit("circle", "circle")
+        socket.emit(player, "circle")
         resetForm()
     }else if(label == "line" || label ==  "linehorizontal" || label == "LigneVertical" ){
         // lineSong.play()
-        socket.emit("line", "line")
+        socket.emit(player, "line")
         resetForm()
     }
 }
