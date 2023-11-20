@@ -53,9 +53,12 @@ if(urlParams.has('playerNumber')){
     }
 
 }else{
-
+    console.error("there is not 'playerNumber' in URL")
 }
 
+/* -------------------------------------------------------------------------- */
+/*                                preload Song                                */
+/* -------------------------------------------------------------------------- */
 function preload() {
     // bipSound = loadSound('../sound/bip.mp3');
 
@@ -65,6 +68,9 @@ function preload() {
     // triangleSong = loadSound('../sound/triangle.mp3')
 }
 
+/* -------------------------------------------------------------------------- */
+/*                              Setup p5 project                              */
+/* -------------------------------------------------------------------------- */
 function setup() {
     createCanvas(640, 480);
     background(255);
@@ -99,10 +105,16 @@ function setup() {
     createCollectButton('Start Detection Spell');
 }
 
+/* -------------------------------------------------------------------------- */
+/*                              Machine Learning                              */
+/* -------------------------------------------------------------------------- */
 function brainLoaded() {
     console.log('Classification ready!');
 }
 
+/* -------------------------------------------------------------------------- */
+/*           Defined whitch spell is catch and send it in websocket           */
+/* -------------------------------------------------------------------------- */
 function collectData(x, y, z, xOrientation, yOrientation, zOrientation) {
     // Arrondir les valeurs à deux décimales
     let roundedX = parseFloat(x.toFixed(3));
@@ -138,12 +150,18 @@ function collectData(x, y, z, xOrientation, yOrientation, zOrientation) {
                 }
 
 
+                /* -------------------------------------------------------------------------- */
+                /*           Create array of finding spell and get the most popular           */
+                /* -------------------------------------------------------------------------- */
+
                 let label = results[0].label;
                 let confidence = results[0].confidence;
                 if (confidence > 0.70) {
                     // console.log(label, confidence);
                     targetLabel = label;
-                    // definedSpell(label)
+
+                    //* add spell to array
+                    //? MAX 5 spells | Average 3 to send it to server
                     if (arrayAverageSpell.length > 4) {
 
                         // remove first element and add new
@@ -155,7 +173,7 @@ function collectData(x, y, z, xOrientation, yOrientation, zOrientation) {
                     }
 
                     currentSpellLabel = getAverageSpell(arrayAverageSpell)
-                    definedSpell(currentSpellLabel)
+                    sendSpellInWebsocket(currentSpellLabel)
                     
                 }
                 
@@ -166,6 +184,9 @@ function collectData(x, y, z, xOrientation, yOrientation, zOrientation) {
     }
 }
 
+/* -------------------------------------------------------------------------- */
+/*                 Get an array and return the biggest average                */
+/* -------------------------------------------------------------------------- */
 function getAverageSpell(array){
 
     let uniqueElements = [...new Set(array)];
@@ -184,30 +205,35 @@ function getAverageSpell(array){
     return biggest[0]
 }
 
-function definedSpell(label){
+/* -------------------------------------------------------------------------- */
+/*                        Send spell Form in Websocket                        */
+/* -------------------------------------------------------------------------- */
+function sendSpellInWebsocket(label){
     if (label == "triangle") {
         // triangleSong.play()
-        resetForm()
+        resetSpellArray()
     }else if(label == "square"){
         // squareSong.play()
-        resetForm()
+        resetSpellArray()
     }else if(label == "circle"){
         // circleSong.play()
         socket.emit(player, "circle")
-        resetForm()
+        resetSpellArray()
     }else if(label ==  "linehorizontal"){
         // lineSong.play()
         socket.emit(player, "lineH")
-        resetForm()
+        resetSpellArray()
     }else if(label == "LigneVertical"){
         socket.emit(player, 'lineV')
     }
 }
 
-function resetForm(){
+function resetSpellArray(){
     arrayAverageSpell = ["nothing","nothing","nothing","nothing"]
 }
 
+// create start button
+//TODO test with iphone for authorization
 function createCollectButton(buttonText) {
     let button = createButton(buttonText);
     button.position(20, 60);
@@ -216,6 +242,10 @@ function createCollectButton(buttonText) {
     });
 }
 
+
+/* -------------------------------------------------------------------------- */
+/*                                Ml5 Function                                */
+/* -------------------------------------------------------------------------- */
 function prepareToCollect() {
     if (state === 'waiting') {
         state = 'preparing';
@@ -244,6 +274,11 @@ function startCollecting() {
     }
 }
 
+/* -------------------------------------------------------------------------- */
+/*      Get Device Orientation ( Gyroscope ) and Motion ( Accelerometer )     */
+/* -------------------------------------------------------------------------- */
+//? merge all information with 'startCollecting' Function in ml5 part 
+
 window.addEventListener("deviceorientation", (event) => {
     latestDeviceOrientationEvent = {
         x : event.alpha,
@@ -252,6 +287,16 @@ window.addEventListener("deviceorientation", (event) => {
     }
   });
 
+  // Gestionnaire d'événements pour l'accéléromètre
+if (window.DeviceMotionEvent) {
+    window.addEventListener('devicemotion', (event) => {
+        window.latestDeviceMotionEvent = event;
+    });
+}
+
+/* -------------------------------------------------------------------------- */
+/*                             Draw Function p5js                             */
+/* -------------------------------------------------------------------------- */
 function draw() {
     background(255);
     fill(0);
@@ -261,9 +306,4 @@ function draw() {
     text('Label: ' + targetLabel, 50, 70);
 }
 
-// Gestionnaire d'événements pour l'accéléromètre
-if (window.DeviceMotionEvent) {
-    window.addEventListener('devicemotion', (event) => {
-        window.latestDeviceMotionEvent = event;
-    });
-}
+

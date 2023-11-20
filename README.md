@@ -30,7 +30,7 @@ http://localhost:3000/projo
 ```
 On your phone open url :
 ```
-http://[computer-ip]:3000/projo
+http://[computer-ip]:3000/
 ```
 ## License
 
