@@ -3,14 +3,14 @@
         {
             "name": "circle",
             "videoSrc": "/medias/spells/fire_spell.webm",
-            "audioSrc": "",
+            "audioSrc": "/medias/audio_spells/fire_spell.mp3",
             "damage": 15,
             "heal": 0, 
             "combo": ["cercle"]
         },{
             "name": "line",
             "videoSrc": "/medias/spells/frozen_spell.webm",
-            "audioSrc": "",
+            "audioSrc": "/medias/audio_spells/frozen_spell.mp3",
             "damage": 15,
             "heal": 0,
             "combo": ["ligne"]
