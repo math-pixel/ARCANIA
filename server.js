@@ -59,13 +59,13 @@ function actionWebsocket(value, player){
       io.emit(player, "circle_loading")
       break;
     case 'circle':
-      io.emit(player, "circle_loading")
+      io.emit(player, "circle")
       break;
     case 'line_loading':
-      io.emit(player, "circle_loading")
+      io.emit(player, "line_loading")
       break;
     case 'line':
-      io.emit(player, "circle_loading")
+      io.emit(player, "line")
       break;
     case 'cast_spell':
       break;
