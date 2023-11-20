@@ -3,18 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/sources/projo/projo.css">
+    <link rel="stylesheet" href="projo.css">
     <title>Document</title>
 </head>
-<body>
+<body>  
   <div id="intro">
     <button id="introButton">
       Lancer
     </button>
   </div>
-  <video src="/medias/intro_video.mp4" id="vidIntro" width="1920" height="1080" muted controls></video>
+  <video src="/medias/rules_video.mp4" id="vidIntro" width="1920" height="1080" muted></video>
   <div id="videoDiv"></div>
-  <div id="playerInfo">
+  <div id="playerInfo">   
     <div id="player1">
       <div id="life1">
         <div id="infoLife1"></div>
@@ -59,7 +59,7 @@ function startVideo() {
 let spells = []; // Declare the variable to hold the preloaded data
 
 function preloadSpells() {
-  fetch('sources/json/spells.json')
+  fetch('/json/spells.json')
     .then((response) => response.json())
     .then((json) => {
         spells = json["spells"]; // Assign the JSON data to the spells variable

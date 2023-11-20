@@ -2,14 +2,14 @@
     "spells": [
         {
             "name": "circle",
-            "videoSrc": "./medias/sort_de_feu.webm",
+            "videoSrc": "/medias/spells/fire_spell.webm",
             "audioSrc": "",
             "damage": 15,
             "heal": 0, 
             "combo": ["cercle"]
         },{
             "name": "line",
-            "videoSrc": "./medias/sort_de_glace.webm",
+            "videoSrc": "/medias/spells/frozen_spell.webm",
             "audioSrc": "",
             "damage": 15,
             "heal": 0,
