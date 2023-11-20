@@ -39,17 +39,37 @@ app.get('/projo', (req, res) => {
 io.on('connection', (socket) => {
   console.log('a user connected');
 
-  socket.on('circle', (value, callback) => {
-    io.emit("circle", "player1")
-    console.log("circle")
+  // * Remote Connected
+  socket.on('player1', (value, callback) => {
+    actionWebsocket(value, "player1")
   });
-
-  socket.on('line', (value, callback) => {
-    io.emit("line", "player2")
-    console.log("line")
+  socket.on('player2', (value, callback) => {
+    actionWebsocket(value, "player2")
   });
 
 });
+
+function actionWebsocket(value, player){
+
+  switch (value){
+    case 'Connection':
+      //TODO do action when player is connected
+      break;
+    case 'circle_loading':
+      io.emit(player, "circle_loading")
+      break;
+    case 'circle':
+      io.emit(player, "circle_loading")
+      break;
+    case 'Frozen_spell_loading':
+      io.emit(player, "circle_loading")
+      break;
+    case 'Frozen_spell':
+      io.emit(player, "circle_loading")
+      break;
+  }
+
+}
 
 // Listen HTTP server
 server.listen(3000, () => {
