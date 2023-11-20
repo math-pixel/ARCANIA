@@ -195,10 +195,12 @@ function definedSpell(label){
         // circleSong.play()
         socket.emit(player, "circle")
         resetForm()
-    }else if(label == "line" || label ==  "linehorizontal" || label == "LigneVertical" ){
+    }else if(label ==  "linehorizontal"){
         // lineSong.play()
-        socket.emit(player, "line")
+        socket.emit(player, "lineH")
         resetForm()
+    }else if(label == "LigneVertical"){
+        socket.emit(player, 'lineV')
     }
 }
 
