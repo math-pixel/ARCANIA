@@ -51,6 +51,7 @@ io.on('connection', (socket) => {
 
 function actionWebsocket(value, player){
 
+  console.log(value, player)
   switch (value){
     case 'Connection':
       //TODO do action when player is connected
@@ -62,13 +63,13 @@ function actionWebsocket(value, player){
       io.emit(player, "circle")
       break;
     case 'lineH_loading':
-      io.emit(player, "line_loading")
+      io.emit(player, "lineH_loading")
       break;
     case 'lineH':
       io.emit(player, "lineH")
       break;
     case 'lineV_loading':
-      io.emit(player, "line_loading")
+      io.emit(player, "lineV_loading")
       break;
     case 'lineV':
       io.emit(player, "lineV")

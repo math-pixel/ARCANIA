@@ -8,9 +8,16 @@
             "heal": 0, 
             "combo": ["cercle"]
         },{
-            "name": "line",
+            "name": "lineV",
             "videoSrc": "/medias/spells/frozen_spell.webm",
             "audioSrc": "/medias/audio_spells/frozen_spell.mp3",
+            "damage": 15,
+            "heal": 0,
+            "combo": ["ligne"]
+        },{
+            "name": "lineH",
+            "videoSrc": "/medias/spells/poison_spell.webm",
+            "audioSrc": "/medias/audio_spells/fire_spell.mp3",
             "damage": 15,
             "heal": 0,
             "combo": ["ligne"]

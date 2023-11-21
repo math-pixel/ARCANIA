@@ -22,7 +22,7 @@ let labelAllConfidence = ""
 
 
 // ##### Average Spell #####
-let currentSpellLabel = "nothing"
+let currentSpell = "nothing"
 let arrayAverageSpell = []
 
 
@@ -172,8 +172,19 @@ function collectData(x, y, z, xOrientation, yOrientation, zOrientation) {
                         arrayAverageSpell.push(label)
                     }
 
-                    currentSpellLabel = getAverageSpell(arrayAverageSpell)
-                    sendSpellInWebsocket(currentSpellLabel)
+                    currentSpell = getAverageSpell(arrayAverageSpell)
+
+                    // TODO Fix issues #10 
+                    if (currentSpell.biggestSpell != "nothing") {
+                        sendSpellInWebsocket(currentSpell.biggestSpell)
+                        // document.getElementById("debug").innerHTML = currentSpell.biggestSpell
+                    }
+
+                    if (currentSpell.chargingSpell != "nothing") {
+                        sendSpellInWebsocket(currentSpell.chargingSpell + "_loading")
+                        // document.getElementById("debug").innerHTML = currentSpell.chargingSpell + "_loading"
+
+                    }
                     
                 }
                 
@@ -185,7 +196,7 @@ function collectData(x, y, z, xOrientation, yOrientation, zOrientation) {
 }
 
 /* -------------------------------------------------------------------------- */
-/*                 Get an array and return the biggest average                */
+/*         Get an array and return the biggest and second most average        */
 /* -------------------------------------------------------------------------- */
 function getAverageSpell(array){
 
@@ -193,22 +204,30 @@ function getAverageSpell(array){
 
     const elementCounts = uniqueElements.map(value => [value, array.filter(str => str === value).length]);
 
-    
-    let biggest = ["toto", 0]
+    //? example
+    let biggest = ["nothing", 2]
+    let second = ["nothing", 0]
     elementCounts.forEach(element => {
+    // document.getElementById("debug").innerHTML = elementCounts
+
+        //? get biggest element
         if (element[1] > biggest[1]) {
             biggest = element
+        }else if (element[1] < biggest[1] && element [1] > second[1]){
+            //? get the charging form
+            second = element
         }
     });
     
-    // console.log(elementCounts)
-    return biggest[0]
+    document.getElementById("debug").innerHTML = JSON.stringify({ "biggestSpell" : biggest[0], "chargingSpell" : second[0] }) + elementCounts
+    return { "biggestSpell" : biggest[0], "chargingSpell" : second[0] }
 }
 
 /* -------------------------------------------------------------------------- */
 /*                        Send spell Form in Websocket                        */
 /* -------------------------------------------------------------------------- */
 function sendSpellInWebsocket(label){
+
     if (label == "triangle") {
         // triangleSong.play()
         resetSpellArray()
@@ -223,8 +242,15 @@ function sendSpellInWebsocket(label){
         // lineSong.play()
         socket.emit(player, "lineH")
         resetSpellArray()
+    }else if(label == "linehorizontal_loading"){
+        socket.emit(player, 'lineH_loading')
+        resetSpellArray()
     }else if(label == "LigneVertical"){
         socket.emit(player, 'lineV')
+        resetSpellArray()
+    }else if(label == "LigneVertical_loading"){
+        socket.emit(player, 'lineV_loading')
+        resetSpellArray()
     }
 }
 
