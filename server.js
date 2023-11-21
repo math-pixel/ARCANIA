@@ -36,18 +36,68 @@ app.get('/projo', (req, res) => {
 /* -------------------------------------------------------------------------- */
 /*                              Websocket Server                              */
 /* -------------------------------------------------------------------------- */
+let idRemotes = [0, 0]
 io.on('connection', (socket) => {
-  console.log('a user connected');
+  console.log('a user connected in websocket');
+
+
+
+  socket.on("phone_name", (value) => {
+    managerIDWebsocket(value, socket)
+  });
 
   // * Remote Connected
   socket.on('player1', (value, callback) => {
-    actionWebsocket(value, "player1")
+    if (idRemotes[0] == socket.id) {
+      actionWebsocket(value, "player1")
+    }
   });
   socket.on('player2', (value, callback) => {
-    actionWebsocket(value, "player2")
+    if (idRemotes[1] == socket.id) {
+      actionWebsocket(value, "player2")
+    }
+  });
+
+  //* ##### when save's remote is disconnected remove id #####
+  socket.on("disconnect", () => {
+
+    for (indexRemote in idRemotes) {
+      if (idRemotes[indexRemote] == socket.id) {
+        idRemotes[indexRemote] = 0
+      }
+    }
+
+    // console.log(idRemotes)
   });
 
 });
+
+// * add id if idRemote is equal to 0
+function managerIDWebsocket(phone_name, socket){
+  switch (phone_name){
+    case "player1":
+      if (idRemotes[0] == 0) {
+        idRemotes[0] = socket.id
+        console.log("new phone connection player 1", socket.id)
+      }else{
+        // console.log("new phone player 1 try connection but place already taken", socket.id)
+      }
+
+      break;
+    case "player2":
+      if (idRemotes[1] == 0) {
+        idRemotes[1] = socket.id
+        console.log("new phone connection player 2", socket.id)
+      }else{
+        // console.log("new phone player 2 try connection but place already taken", socket.id)
+      }
+
+      break;
+    default:
+      console.error("Error while new phone device is connected : missing 'player[number]")
+      break;
+  }
+}
 
 function actionWebsocket(value, player){
 
