@@ -24,7 +24,7 @@
         },{
             "name": "circle_loading",
             "videoSrc": "/medias/loading_spells/fire_spell_loading.webm",
-            "audioSrc": "/medias/audio_spells/fire_spell.mp3",
+            "audioSrc": "/medias/audio_spells/fire_spell_loading.mp3",
             "damage": 0,
             "heal": 0,
             "combo": []

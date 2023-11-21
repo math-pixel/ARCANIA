@@ -90,19 +90,21 @@ function displaySpell(source, player) {
 
   // Detect Loading Spell
   if (!source.name.includes("loading")) {
-      player.loading = false
+      //* ##### Update mana bar #####
+      manaManager(player, "gain")
+      player["loading"] = false
       video.addEventListener("ended", function() {
           video.parentNode.removeChild(video);
           lifeManager(player, source)
       })
   } else {
       video.loop = true
-      player.loading = true
-      setInterval((video, player) => {
-          if (!player.loading) {
-              video.parentNode.removeChild(video);
-          }
-      }, 100)
+      player["loading"] = true
+      // setInterval((video, player) => {
+      //     if (!player["loading"]) {
+      //         video.parentNode.removeChild(video);
+      //     }
+      // }, 100)
   }
 
   //* ##### Catch Spell Video / Audio #####
@@ -157,34 +159,47 @@ function lifeManager(player, lifeValue) {
 
 //* ##### Update Visual Life Bar #####
 function updateLife(player, state) {
-    console.log(player)
-    let lifeDiv;
-    if (player == player1 && state == "shot") {
-        lifeDiv = document.getElementById("infoLife2")
-    } else if (player == player1 && state == "heal") {
-        lifeDiv = document.getElementById("infoLife1")
-    } else if (player == player2 && state == "shot") {
-        lifeDiv = document.getElementById("infoLife1")
-    } else {
-        lifeDiv = document.getElementById("infoLife2")
-    }
-    lifeDiv.style.width = player["life"] + "%"
+  console.log(player)
+  let lifeDiv;
+  if (player == player1 && state == "shot") {
+      lifeDiv = document.getElementById("infoLife2")
+  } else if (player == player1 && state == "heal") {
+      lifeDiv = document.getElementById("infoLife1")
+  } else if (player == player2 && state == "shot") {
+      lifeDiv = document.getElementById("infoLife1")
+  } else {
+      lifeDiv = document.getElementById("infoLife2")
+  }
+  lifeDiv.style.width = player["life"] + "%"
 }
 
 
 //* ##### Manamanager #####
 function manaManager(player, state) {
-if (state == "gain") {
-  if (player["mana"] + 10 < 100) {
-    player["mana"] += 10
+  if (state == "gain") {
+    if (player["mana"] + 10 < 100) {
+      player["mana"] += 10
+    } else {
+      player["mana"] = 100
+      // Launch event for ulti
+    }
   } else {
-    player["mana"] = 100
-    // Launch event for ulti
+    // Here when ulti is launch
+    player["mana"] = 0
   }
-} else {
-  // Here when ulti is launch
-  player["mana"] = 0
+
+  updateMana(player)
 }
+
+function updateMana(player) {
+  console.log(player)
+  let manaDiv;
+  if (player.name == "player1") {
+      manaDiv = document.getElementById("infoMana1")
+  } else {
+      manaDiv = document.getElementById("infoMana2")
+  }
+  manaDiv.style.width = player["mana"] + "%"
 }
   
 
@@ -201,15 +216,15 @@ socket.on("player2", (spell) => {
 function actionWebsocket(spell, player){
   switch (spell) {
     case "circle_loading":
-      getSpellInformation("circle_loading", player1)
+      getSpellInformation("circle_loading", player)
       break;
 
     case "lineH_loading":
-      getSpellInformation("line_loading", player1)
+      getSpellInformation("lineH_loading", player)
       break;
     
-    case "lineH_loading":
-      getSpellInformation("line_loading", player1)
+    case "lineV_loading":
+      getSpellInformation("lineV_loading", player)
       break;
 
     case "circle":
