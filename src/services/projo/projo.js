@@ -30,6 +30,8 @@ let player2 = {
 
 let player1Loading;
 let player2Loading;
+let player1Hit = false;
+let player2Hit = false;
 
 /* -------------------------------------------------------------------------- */
 /*                          Init interaction with DOM                         */
@@ -88,25 +90,31 @@ function displaySpell(source, player) {
 
   //* ##### Detect witch player catch the spell #####
   if (player.name == "player2") {
-      video.style.transform = "rotate(180deg)"
+    video.style.transform = "rotate(180deg)"
   }
 
   // Detect Loading Spell
   if (!source.name.includes("loading")) {
     
-      //* ##### Check spell loading #####
-      if (player1Loading || player2Loading) {
-        loadingCheck(player)
-      }
+    //* ##### Check spell loading #####
+    if (player1Loading || player2Loading) {
+      loadingCheck(player)
+    }
 
-      //* ##### Update mana bar #####
-      manaManager(player, "gain")
-      player["loading"] = false
-      video.addEventListener("ended", function() {
-          video.parentNode.removeChild(video);
-          lifeManager(player, source)
-      })
+    //* ##### Update mana bar #####
+    manaManager(player, "gain")
+    player["loading"] = false
+    video.addEventListener("ended", function() {
+      video.parentNode.removeChild(video);
+      if (!isHit(player)) {
+        lifeManager(player, source)
+        getSpellInformation("damaged", player) 
+      }
+    })
+    parentVideo.appendChild(video)
   } else {
+    if (player.loading == false) {
+      console.log("add loading")
       video.loop = true
       player["loading"] = true
       if (player.name == "player1") {
@@ -114,14 +122,16 @@ function displaySpell(source, player) {
       } else {
         player2Loading = video
       }
+      parentVideo.appendChild(video)
+    }
   }
 
   //* ##### Catch Spell Video / Audio #####
   audio.addEventListener("ended", function() {
-      audio.parentNode.removeChild(audio);
+    audio.parentNode.removeChild(audio);
   })
   parentAudio.appendChild(audio)
-  parentVideo.appendChild(video)
+  // parentVideo.appendChild(video)
 }
 
 //* ##### Find information of spell in JSON #####
@@ -144,6 +154,26 @@ function loadingCheck(player) {
       player2Loading = ""
     }
     player.loading = false
+  }
+}
+
+function isHit(player) {
+  if (player.name == "player1") {
+    if (player1Hit) {
+      player1Hit = false
+      return true;
+    } else {
+      player1Hit = true
+      return false
+    }
+  } else {
+    if (player2Hit) {
+      player2Hit = false
+      return true;
+    } else {
+      player2Hit = true
+      return false
+    }
   }
 }
 
