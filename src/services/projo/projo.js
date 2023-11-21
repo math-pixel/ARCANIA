@@ -1,40 +1,19 @@
 
+/* -------------------------------------------------------------------------- */
+/*                                Init Variable                               */
+/* -------------------------------------------------------------------------- */
 
 
-document.getElementById("introButton").addEventListener("click", () => {
-  startVideo()
-})
-  
-function startVideo() {
-  let introDiv = document.getElementById("intro")
-  introDiv.parentNode.removeChild(introDiv);
-  let videoIntro = document.getElementById("vidIntro")
-  console.log(videoIntro)
-  videoIntro.play()
-  setTimeout(() => {
-    videoIntro.parentNode.removeChild(videoIntro);
-  }, 2000)
-}
 
+//* ##### Spells #####
+//? Load Json spell information when your application loads
+window.onload = preloadSpells;
 let spells = []; // Declare the variable to hold the preloaded data
 
-function preloadSpells() {
-  fetch('/json/spells.json')
-    .then((response) => response.json())
-    .then((json) => {
-        spells = json["spells"]; // Assign the JSON data to the spells variable
-        // You can perform additional actions here if needed
-    })
-    .catch((error) => {
-        console.error('Error preloading spells:', error);
-    });
-}
-
-// Call the preloadSpells function when your application loads
-window.onload = preloadSpells;
+// ##### Init websocket #####
 const socket = io();
 
-
+// ##### Init Player #####
 let player1 = {
   name: "player1",
   life: 100,
@@ -49,82 +28,134 @@ let player2 = {
   loading: false
 }
 
+/* -------------------------------------------------------------------------- */
+/*                          Init interaction with DOM                         */
+/* -------------------------------------------------------------------------- */
+document.getElementById("introButton").addEventListener("click", () => {
+  playRulesVideo()
+})
+
 let parentVideo = document.getElementById("videoDiv")
 let parentAudio = document.getElementById("audioDiv")
 
+
+function playRulesVideo() {
+  let introDiv = document.getElementById("intro")
+  introDiv.parentNode.removeChild(introDiv);
+  let videoIntro = document.getElementById("vidIntro")
+  console.log(videoIntro)
+  videoIntro.play()
+  setTimeout(() => {
+    videoIntro.parentNode.removeChild(videoIntro);
+  }, 2000)
+}
+
+
+/* -------------------------------------------------------------------------- */
+/*                                 Spell Part                                 */
+/* -------------------------------------------------------------------------- */
+function preloadSpells() {
+  fetch('/json/spells.json')
+    .then((response) => response.json())
+    .then((json) => {
+      spells = json["spells"]; // Assign the JSON data to the spells variable
+      // You can perform additional actions here if needed
+    })
+    .catch((error) => {
+      console.error('Error preloading spells:', error);
+    });
+}
+
+//* Catch Spell
 function displaySpell(source, player) {
+
+  //* ##### Audio PART #####
   let audio = document.createElement('audio')
   audio.src = source.audioSrc
   audio.preload = "auto"
   audio.autoplay = true
 
 
-    let video = document.createElement('video')
-    video.src = source.videoSrc
-    // video.width = 1980; // in px
-    // video.height = 1080; // in px
-    video.autoplay = true
-    video.type = "video/webp"
-    video.preload = "auto"
-    if (player.name == "player2") {
-        video.style.transform = "rotate(180deg)"
+  //* ##### Video PART #####
+  let video = document.createElement('video')
+  video.src = source.videoSrc
+  video.autoplay = true
+  video.type = "video/webp"
+  video.preload = "auto"
+
+  //* ##### Detect witch player catch the spell #####
+  if (player.name == "player2") {
+      video.style.transform = "rotate(180deg)"
+  }
+
+  // Detect Loading Spell
+  if (!source.name.includes("loading")) {
+      player.loading = false
+      video.addEventListener("ended", function() {
+          video.parentNode.removeChild(video);
+          lifeManager(player, source)
+      })
+  } else {
+      video.loop = true
+      player.loading = true
+      setInterval((video, player) => {
+          if (!player.loading) {
+              video.parentNode.removeChild(video);
+          }
+      }, 100)
+  }
+
+  //* ##### Catch Spell Video / Audio #####
+  audio.addEventListener("ended", function() {
+      audio.parentNode.removeChild(audio);
+  })
+  parentAudio.appendChild(audio)
+  parentVideo.appendChild(video)
+}
+
+//* ##### Find information of spell in JSON #####
+function getSpellInformation(name, player) {
+  for (const spell of spells) {
+    if (spell.name == name) {
+      displaySpell(spell, player)
     }
-    if (!source.name.includes("loading")) {
-        player.loading = false
-        video.addEventListener("ended", function() {
-            video.parentNode.removeChild(video);
-            life(player, source)
-        })
+  }
+  return null
+}
+
+
+/* -------------------------------------------------------------------------- */
+/*                                  GUI Part                                  */
+/* -------------------------------------------------------------------------- */
+
+// manage life
+function lifeManager(player, lifeValue) {
+  if (lifeValue["damage"] != 0) {
+    if (player["life"] - lifeValue["damage"] > 0) {
+      player["life"] -= lifeValue["damage"]
+      console.log(player["life"])
     } else {
-        video.loop = true
-        player.loading = true
-        setInterval((video, player) => {
-            if (!player.loading) {
-                video.parentNode.removeChild(video);
-            }
-        }, 100)
+      console.log(player + ": dead !!!")
+      player["life"] = 0
+      console.log(player["life"])
     }
-    audio.addEventListener("ended", function() {
-        audio.parentNode.removeChild(audio);
-    })
-    parentAudio.appendChild(audio)
-    parentVideo.appendChild(video)
-}
 
-function detectSpell(name, player) {
-    for (const spell of spells) {
-        if (spell.name == name) {
-        displaySpell(spell, player)
-        }
-    }
-    return null
-}
+    updateLife(player, "shot")
 
-function life(player, lifeValue) {
-    if (lifeValue["damage"] != 0) {
-        if (player["life"] - lifeValue["damage"] > 0) {
-        player["life"] -= lifeValue["damage"]
-        console.log(player["life"])
-        updateLife(player, "shot")
-        } else {
-        console.log(player + ": dead !!!")
-        player["life"] = 0
-        console.log(player["life"])
-        updateLife(player, "shot")
-        }
+  } else {
+    if (player["life"] + lifeValue["heal"] > 100) {
+      player["life"] = 100
+      console.log(player["life"])
     } else {
-        if (player["life"] + lifeValue["heal"] > 100) {
-        player["life"] = 100
-        console.log(player["life"])
-        updateLife(player, "heal")
-        } else {
-        player["life"] += lifeValue["heal"]
-        console.log(player["life"])
-        updateLife(player, "heal")
-        }
+      player["life"] += lifeValue["heal"]
+      console.log(player["life"])
     }
+
+    updateLife(player, "heal")
+  }
 }
 
+//* ##### Update Visual Life Bar #####
 function updateLife(player, state) {
     console.log(player)
     let lifeDiv;
@@ -140,18 +171,19 @@ function updateLife(player, state) {
     lifeDiv.style.width = player["life"] + "%"
 }
 
-function mana(player, state) {
+
+//* ##### Manamanager #####
+function manaManager(player, state) {
 if (state == "gain") {
-    if (player["mana"] + 10 < 100) {
+  if (player["mana"] + 10 < 100) {
     player["mana"] += 10
-    } else {
+  } else {
     player["mana"] = 100
     // Launch event for ulti
-
-    }
+  }
 } else {
-    // Here when ulti is launch
-    player["mana"] = 0
+  // Here when ulti is launch
+  player["mana"] = 0
 }
 }
   
@@ -169,30 +201,30 @@ socket.on("player2", (spell) => {
 function actionWebsocket(spell, player){
   switch (spell) {
     case "circle_loading":
-            detectSpell("circle_loading", player1)
-            break;
+      getSpellInformation("circle_loading", player1)
+      break;
 
     case "lineH_loading":
-        detectSpell("line_loading", player1)
-        break;
+      getSpellInformation("line_loading", player1)
+      break;
     
     case "lineH_loading":
-      detectSpell("line_loading", player1)
+      getSpellInformation("line_loading", player1)
       break;
 
     case "circle":
-      detectSpell("circle", player)
+      getSpellInformation("circle", player)
       break;
 
     case "lineH":
-      detectSpell("lineH", player)
+      getSpellInformation("lineH", player)
       break;
 
     case "lineV":
-      detectSpell("lineV", player)
+      getSpellInformation("lineV", player)
       break;
 
     default:
-        break;
+      break;
   }
 }
