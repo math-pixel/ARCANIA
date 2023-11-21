@@ -28,6 +28,9 @@ let player2 = {
   loading: false
 }
 
+let player1Loading;
+let player2Loading;
+
 /* -------------------------------------------------------------------------- */
 /*                          Init interaction with DOM                         */
 /* -------------------------------------------------------------------------- */
@@ -90,6 +93,12 @@ function displaySpell(source, player) {
 
   // Detect Loading Spell
   if (!source.name.includes("loading")) {
+    
+      //* ##### Check spell loading #####
+      if (player1Loading || player2Loading) {
+        loadingCheck(player)
+      }
+
       //* ##### Update mana bar #####
       manaManager(player, "gain")
       player["loading"] = false
@@ -100,11 +109,11 @@ function displaySpell(source, player) {
   } else {
       video.loop = true
       player["loading"] = true
-      // setInterval((video, player) => {
-      //     if (!player["loading"]) {
-      //         video.parentNode.removeChild(video);
-      //     }
-      // }, 100)
+      if (player.name == "player1") {
+        player1Loading = video
+      } else {
+        player2Loading = video
+      }
   }
 
   //* ##### Catch Spell Video / Audio #####
@@ -123,6 +132,19 @@ function getSpellInformation(name, player) {
     }
   }
   return null
+}
+
+function loadingCheck(player) {
+  if (player.loading == true) {
+    if (player.name == "player1") {
+      player1Loading.parentNode.removeChild(player1Loading);
+      player1Loading = ""
+    } else {
+      player2Loading.parentNode.removeChild(player2Loading);
+      player2Loading = ""
+    }
+    player.loading = false
+  }
 }
 
 

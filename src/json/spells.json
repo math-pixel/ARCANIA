@@ -30,14 +30,14 @@
             "combo": []
         },{
             "name": "lineV_loading",
-            "videoSrc": "/medias/loading_spells/frozen_spell_loading.webm",
+            "videoSrc": "/medias/loading_spells/fire_spell_loading.webm",
             "audioSrc": "/medias/audio_spells/frozen_spell_loading.mp3",
             "damage": 0,
             "heal": 0,
             "combo": []
         },{
             "name": "lineH_loading",
-            "videoSrc": "/medias/loading_spells/frozen_spell_loading.webm",
+            "videoSrc": "/medias/loading_spells/fire_spell_loading.webm",
             "audioSrc": "/medias/audio_spells/frozen_spell_loading.mp3",
             "damage": 0,
             "heal": 0,
