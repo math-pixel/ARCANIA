@@ -40,7 +40,9 @@ let idRemotes = [0, 0]
 io.on('connection', (socket) => {
   console.log('a user connected in websocket');
 
-
+  socket.on("console" ,(value) => {
+    console.log(value)
+  })
 
   socket.on("phone_name", (value) => {
     managerIDWebsocket(value, socket)

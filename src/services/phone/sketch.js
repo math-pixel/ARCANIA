@@ -187,7 +187,6 @@ function collectData(x, y, z, xOrientation, yOrientation, zOrientation) {
                     if (currentSpell.chargingSpell != "nothing") {
                         sendSpellInWebsocket(currentSpell.chargingSpell + "_loading")
                         // document.getElementById("debug").innerHTML = currentSpell.chargingSpell + "_loading"
-
                     }
                     
                 }
@@ -217,13 +216,14 @@ function getAverageSpell(array){
         //? get biggest element
         if (element[1] > biggest[1]) {
             biggest = element
-        }else if (element[1] < biggest[1] && element [1] > second[1]){
+        }else if (element[1] < biggest[1] && element[1] > second[1]){
             //? get the charging form
             second = element
         }
     });
     
-    document.getElementById("debug").innerHTML = JSON.stringify({ "biggestSpell" : biggest[0], "chargingSpell" : second[0] }) + elementCounts
+    // document.getElementById("debug").innerHTML = JSON.stringify({ "1: " : biggest[0], "2:" : second[0] }) + elementCounts
+    // socket.emit("console", JSON.stringify({ "1: " : biggest[0], "2:" : second[0] }) + elementCounts)
     return { "biggestSpell" : biggest[0], "chargingSpell" : second[0] }
 }
 
@@ -231,6 +231,7 @@ function getAverageSpell(array){
 /*                        Send spell Form in Websocket                        */
 /* -------------------------------------------------------------------------- */
 function sendSpellInWebsocket(label){
+    // socket.emit("console", label)
 
     if (label == "triangle") {
         // triangleSong.play()
