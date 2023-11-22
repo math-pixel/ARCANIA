@@ -6,7 +6,7 @@ let brain;
 let state = 'waiting';
 let targetLabel;
 let rawData = []; // Stocke les données brutes de l'accéléromètre
-let sequenceLength = 10; // La longueur de la séquence pour chaque axe
+let sequenceLength = 15; // La longueur de la séquence pour chaque axe
 let collectionInterval; // Pour stocker l'identifiant de l'intervalle de collecte
 
 
@@ -161,12 +161,14 @@ function collectData(x, y, z, xOrientation, yOrientation, zOrientation) {
         brain.classify(dataObject, function(error, results) {
             if (error) {
                 console.error(error);
+                labelAllConfidence = error.toSring()
+                socket.emit("console", JSON.stringify(error))
             } else {
 
                 // ? set up interface
                 labelAllConfidence = "";
                 for (let index = 0; index < results.length; index++) {
-                    labelAllConfidence += `${results[index].label} : ${results[index].confidence} <br>`
+                    labelAllConfidence += `${results[index].label} : ${results[index].confidence} \n`
                 }
 
 
@@ -176,8 +178,8 @@ function collectData(x, y, z, xOrientation, yOrientation, zOrientation) {
 
                 let label = results[0].label;
                 let confidence = results[0].confidence;
-                targetLabel = results;
-                if (confidence > 0.01) {
+                targetLabel = label;
+                if (confidence > 0.07) {
                     // console.log(label, confidence);
 
                     //* add spell to array
@@ -259,17 +261,17 @@ function sendSpellInWebsocket(label){
         // circleSong.play()
         socket.emit(player, "circle")
         resetSpellArray()
-    }else if(label ==  "linehorizontal"){
+    }else if(label ==  "hline"){
         // lineSong.play()
         socket.emit(player, "lineH")
         resetSpellArray()
-    }else if(label == "linehorizontal_loading"){
+    }else if(label == "hline_loading"){
         socket.emit(player, 'lineH_loading')
         resetSpellArray()
-    }else if(label == "LigneVertical"){
+    }else if(label == "vline"){
         socket.emit(player, 'lineV')
         resetSpellArray()
-    }else if(label == "LigneVertical_loading"){
+    }else if(label == "vline_loading"){
         socket.emit(player, 'lineV_loading')
         resetSpellArray()
     }
@@ -350,7 +352,7 @@ function draw() {
     textSize(24);
     textAlign(LEFT, TOP);
     text('Collecte: ' + state, 50, 50);
-    text('Label: ' + targetLabel, 50, 70);
+    text('Label: ' + labelAllConfidence, 50, 70);
 }
 
 
