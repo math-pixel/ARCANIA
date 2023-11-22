@@ -85,9 +85,9 @@ function setup() {
         inputs.push('x' + i);
         inputs.push('y' + i);
         inputs.push('z' + i);
-        inputs.push('xOrien' + i);
-        inputs.push('yOrien' + i);
-        inputs.push('zOrien' + i);
+        // inputs.push('xOrien' + i);
+        // inputs.push('yOrien' + i);
+        // inputs.push('zOrien' + i);
     }
 
     const options = {
@@ -99,9 +99,9 @@ function setup() {
 
     brain = ml5.neuralNetwork(options);
     const modelInfo = {
-        model: '/model/formeSimple/80epc_036/model.json',
-        metadata: '/model/formeSimple/80epc_036/model_meta.json',
-        weights: '/model/formeSimple/80epc_036/model.weights.bin',
+        model: '/model/bestResult/model.json',
+        metadata: '/model/bestResult/model_meta.json',
+        weights: '/model/bestResult/model.weights.bin',
     };//capteur_orientation/model2_027
     brain.load(modelInfo, brainLoaded);
 
@@ -136,9 +136,9 @@ function collectData(x, y, z, xOrientation, yOrientation, zOrientation) {
             dataObject['x' + i] = rawData[i].x;
             dataObject['y' + i] = rawData[i].y;
             dataObject['z' + i] = rawData[i].z;
-            dataObject['xO' + i] = rawData[i].xO;
-            dataObject['y0' + i] = rawData[i].yO;
-            dataObject['z0' + i] = rawData[i].zO;
+            // dataObject['xO' + i] = rawData[i].xO;
+            // dataObject['y0' + i] = rawData[i].yO;
+            // dataObject['z0' + i] = rawData[i].zO;
         }
 
         // brain.normalizeData();
