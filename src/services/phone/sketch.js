@@ -90,12 +90,28 @@ function setup() {
         // inputs.push('zOrien' + i);
     }
 
-    const options = {
+    let options = {
         inputs: inputs,
-        outputs: 4, // Nombre de labels de classification
+        outputs: 4,
         task: 'classification',
+        layers: [
+            {
+              type: 'dense',
+              units: 16,
+              activation: 'relu'
+            },
+            {
+              type: 'dense',
+              units: 8,
+              activation: 'sigmoid'
+            },
+            {
+              type: 'dense',
+              activation: 'sigmoid'
+            }
+          ],
         debug: true
-    };
+    }
 
     brain = ml5.neuralNetwork(options);
     const modelInfo = {
