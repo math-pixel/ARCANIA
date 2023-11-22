@@ -28,6 +28,11 @@ let player2 = {
   loading: false
 }
 
+let player1Loading;
+let player2Loading;
+let player1Hit = false;
+let player2Hit = false;
+
 /* -------------------------------------------------------------------------- */
 /*                          Init interaction with DOM                         */
 /* -------------------------------------------------------------------------- */
@@ -85,32 +90,48 @@ function displaySpell(source, player) {
 
   //* ##### Detect witch player catch the spell #####
   if (player.name == "player2") {
-      video.style.transform = "rotate(180deg)"
+    video.style.transform = "rotate(180deg)"
   }
 
   // Detect Loading Spell
   if (!source.name.includes("loading")) {
-      player.loading = false
-      video.addEventListener("ended", function() {
-          video.parentNode.removeChild(video);
-          lifeManager(player, source)
-      })
+    
+    //* ##### Check spell loading #####
+    if (player1Loading || player2Loading) {
+      loadingCheck(player)
+    }
+
+    //* ##### Update mana bar #####
+    manaManager(player, "gain")
+    player["loading"] = false
+    video.addEventListener("ended", function() {
+      video.parentNode.removeChild(video);
+      if (!isHit(player)) {
+        lifeManager(player, source)
+        getSpellInformation("damaged", player) 
+      }
+    })
+    parentVideo.appendChild(video)
   } else {
+    if (player.loading == false) {
+      console.log("add loading")
       video.loop = true
-      player.loading = true
-      setInterval((video, player) => {
-          if (!player.loading) {
-              video.parentNode.removeChild(video);
-          }
-      }, 100)
+      player["loading"] = true
+      if (player.name == "player1") {
+        player1Loading = video
+      } else {
+        player2Loading = video
+      }
+      parentVideo.appendChild(video)
+    }
   }
 
   //* ##### Catch Spell Video / Audio #####
   audio.addEventListener("ended", function() {
-      audio.parentNode.removeChild(audio);
+    audio.parentNode.removeChild(audio);
   })
   parentAudio.appendChild(audio)
-  parentVideo.appendChild(video)
+  // parentVideo.appendChild(video)
 }
 
 //* ##### Find information of spell in JSON #####
@@ -121,6 +142,39 @@ function getSpellInformation(name, player) {
     }
   }
   return null
+}
+
+function loadingCheck(player) {
+  if (player.loading == true) {
+    if (player.name == "player1") {
+      player1Loading.parentNode.removeChild(player1Loading);
+      player1Loading = ""
+    } else {
+      player2Loading.parentNode.removeChild(player2Loading);
+      player2Loading = ""
+    }
+    player.loading = false
+  }
+}
+
+function isHit(player) {
+  if (player.name == "player1") {
+    if (player1Hit) {
+      player1Hit = false
+      return true;
+    } else {
+      player1Hit = true
+      return false
+    }
+  } else {
+    if (player2Hit) {
+      player2Hit = false
+      return true;
+    } else {
+      player2Hit = true
+      return false
+    }
+  }
 }
 
 
@@ -157,34 +211,47 @@ function lifeManager(player, lifeValue) {
 
 //* ##### Update Visual Life Bar #####
 function updateLife(player, state) {
-    console.log(player)
-    let lifeDiv;
-    if (player == player1 && state == "shot") {
-        lifeDiv = document.getElementById("infoLife2")
-    } else if (player == player1 && state == "heal") {
-        lifeDiv = document.getElementById("infoLife1")
-    } else if (player == player2 && state == "shot") {
-        lifeDiv = document.getElementById("infoLife1")
-    } else {
-        lifeDiv = document.getElementById("infoLife2")
-    }
-    lifeDiv.style.width = player["life"] + "%"
+  console.log(player)
+  let lifeDiv;
+  if (player == player1 && state == "shot") {
+      lifeDiv = document.getElementById("infoLife2")
+  } else if (player == player1 && state == "heal") {
+      lifeDiv = document.getElementById("infoLife1")
+  } else if (player == player2 && state == "shot") {
+      lifeDiv = document.getElementById("infoLife1")
+  } else {
+      lifeDiv = document.getElementById("infoLife2")
+  }
+  lifeDiv.style.width = player["life"] + "%"
 }
 
 
 //* ##### Manamanager #####
 function manaManager(player, state) {
-if (state == "gain") {
-  if (player["mana"] + 10 < 100) {
-    player["mana"] += 10
+  if (state == "gain") {
+    if (player["mana"] + 10 < 100) {
+      player["mana"] += 10
+    } else {
+      player["mana"] = 100
+      // Launch event for ulti
+    }
   } else {
-    player["mana"] = 100
-    // Launch event for ulti
+    // Here when ulti is launch
+    player["mana"] = 0
   }
-} else {
-  // Here when ulti is launch
-  player["mana"] = 0
+
+  updateMana(player)
 }
+
+function updateMana(player) {
+  console.log(player)
+  let manaDiv;
+  if (player.name == "player1") {
+      manaDiv = document.getElementById("infoMana1")
+  } else {
+      manaDiv = document.getElementById("infoMana2")
+  }
+  manaDiv.style.width = player["mana"] + "%"
 }
   
 
@@ -201,15 +268,15 @@ socket.on("player2", (spell) => {
 function actionWebsocket(spell, player){
   switch (spell) {
     case "circle_loading":
-      getSpellInformation("circle_loading", player1)
+      getSpellInformation("circle_loading", player)
       break;
 
     case "lineH_loading":
-      getSpellInformation("line_loading", player1)
+      getSpellInformation("lineH_loading", player)
       break;
     
-    case "lineH_loading":
-      getSpellInformation("line_loading", player1)
+    case "lineV_loading":
+      getSpellInformation("lineV_loading", player)
       break;
 
     case "circle":

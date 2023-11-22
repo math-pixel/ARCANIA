@@ -8,14 +8,14 @@
             "heal": 0, 
             "combo": ["cercle"]
         },{
-            "name": "lineV",
+            "name": "lineH",
             "videoSrc": "/medias/spells/frozen_spell.webm",
             "audioSrc": "/medias/audio_spells/frozen_spell.mp3",
             "damage": 15,
             "heal": 0,
             "combo": ["ligne"]
         },{
-            "name": "lineH",
+            "name": "lineV",
             "videoSrc": "/medias/spells/poison_spell.webm",
             "audioSrc": "/medias/audio_spells/fire_spell.mp3",
             "damage": 15,
@@ -24,24 +24,31 @@
         },{
             "name": "circle_loading",
             "videoSrc": "/medias/loading_spells/fire_spell_loading.webm",
-            "audioSrc": "/medias/audio_spells/fire_spell.mp3",
+            "audioSrc": "/medias/audio_spells/fire_spell_loading.mp3",
             "damage": 0,
             "heal": 0,
             "combo": []
         },{
             "name": "lineV_loading",
-            "videoSrc": "/medias/loading_spells/frozen_spell_loading.webm",
+            "videoSrc": "/medias/loading_spells/fire_spell_loading.webm",
             "audioSrc": "/medias/audio_spells/frozen_spell_loading.mp3",
             "damage": 0,
             "heal": 0,
             "combo": []
         },{
             "name": "lineH_loading",
-            "videoSrc": "/medias/loading_spells/frozen_spell_loading.webm",
+            "videoSrc": "/medias/loading_spells/fire_spell_loading.webm",
             "audioSrc": "/medias/audio_spells/frozen_spell_loading.mp3",
             "damage": 0,
             "heal": 0,
             "combo": []
+        },{
+            "name": "damaged",
+            "videoSrc": "/medias/loading_spells/fire-spell-loading_reverse.webm",
+            "audioSrc": "/medias/audio_spells/frozen_spell_loading.mp3",
+            "damage": 0,
+            "heal": 0,
+            "combo": [] 
         }
     ]
 }
