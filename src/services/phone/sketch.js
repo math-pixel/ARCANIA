@@ -176,9 +176,9 @@ function collectData(x, y, z, xOrientation, yOrientation, zOrientation) {
 
                 let label = results[0].label;
                 let confidence = results[0].confidence;
-                if (confidence > 0.70) {
+                targetLabel = results;
+                if (confidence > 0.01) {
                     // console.log(label, confidence);
-                    targetLabel = label;
 
                     //* add spell to array
                     //? MAX 5 spells | Average 3 to send it to server

@@ -45,7 +45,7 @@
         },{
             "name": "damaged",
             "videoSrc": "/medias/loading_spells/fire-spell-loading_reverse.webm",
-            "audioSrc": "/medias/audio_spells/frozen_spell_loading.mp3",
+            "audioSrc": "",
             "damage": 0,
             "heal": 0,
             "combo": [] 
