@@ -18,8 +18,7 @@ let player1 = {
   life: 100,
   mana: 0,
   loading: null,
-  hit: null,
-  mana: null
+  hit: null
 }
 
 let player2 = {
@@ -27,8 +26,7 @@ let player2 = {
   life: 100,
   mana: 0,
   loading: null,
-  hit: null,
-  mana: null
+  hit: null
 }
 
 /* -------------------------------------------------------------------------- */

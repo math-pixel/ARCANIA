@@ -40,13 +40,13 @@ function updateLife(player, state) {
 
     //*Get life bar div in function of state
     let lifeDiv;
-    if (player == player1 && state == "shot") {
+    if (player.name == "player1" && state == "shot") {
         lifeDiv = document.getElementById("infoLife2")
-    } else if (player == player1 && state == "heal") {
+    } else if (player.name == "player1" && state == "heal") {
         lifeDiv = document.getElementById("infoLife1")
-    } else if (player == player2 && state == "shot") {
+    } else if (player.name == "player2" && state == "shot") {
         lifeDiv = document.getElementById("infoLife1")
-    } else {
+    } else if (player.name == "player2" && state == "heal"){
         lifeDiv = document.getElementById("infoLife2")
     }
 
