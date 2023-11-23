@@ -46,7 +46,7 @@ function createVideoElement(player, spellData, loop = false, isLoadingSpell = fa
         //* event end => remove spell video
         video.addEventListener("ended", () => {
             // video.parentNode.removeChild(video);
-            // removeSpellFired(video)
+            removeSpellFired(video)
             
             if (spellData.name != "damaged") {
                 //* update life

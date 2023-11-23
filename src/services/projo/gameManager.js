@@ -38,7 +38,7 @@ function newSpellFired(spellData, player){
     addSpellInGameLogic(spellData, player)
 
     //* check if collision
-    collisionManager()
+    // collisionManager()
 
 }
 

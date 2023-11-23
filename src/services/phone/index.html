@@ -5,17 +5,39 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.10.2/p5.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.10.2/addons/p5.sound.min.js"></script>
   <script src="https://unpkg.com/ml5@0.5.0/dist/ml5.min.js"></script>
+  <link rel="stylesheet" href="/phone/style.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta charset="utf-8" />
 
 </head>
 
 <body> 
   <label id="playerNumber">Player undefined => missing player number </label>
-  <label id="debug" style="position: absolute; top: 0; left: 0;"></label>
-  <button onclick="sendSpellInWebsocket('circle')">circle</button>
+  <!-- <label id="debug" style="position: absolute; top: 0; left: 0;"></label> -->
+  <div id="pageChooseName">
+    <div id="logoDiv">
+      <div class="logo">
+
+      </div>
+    </div>
+    <div id="formDiv">
+      <div id="form">
+        <h1>Choose your name</h1>
+        <input type="text" name="name" id="name">
+        <button id="confirmName" onclick="startGame()">Jouer</button>
+      </div>
+    </div>
+  </div>
+  <div id="game">
+    <img src="" alt="" id="baguette">
+  </div>
+  <div id="overlay">
+    <img src="" alt="" id="icon">
+  </div>
+  <!-- <button onclick="sendSpellInWebsocket('circle')">circle</button> -->
   <script src="https://cdn.socket.io/4.5.4/socket.io.min.js"></script>
   <script src="/phone/sketch.js"></script>
-<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/videojs-flash/2.2.1/videojs-flash.js" integrity="sha512-RHr8BHZphYhMhhC08UwuflbBn7v6/VmchTUg4FxzGfFo/KIAj5lDTTF+fj36sjHuY8EbHJC0F7+6FyRBsLkoew==" crossorigin="anonymous" referrerpolicy="no-referrer"></script> -->
+<!-- <script src="https://cdnjs66666666666666666666666666666.cloudflare.com/ajax/libs/videojs-flash/2.2.1/videojs-flash.js" integrity="sha512-RHr8BHZphYhMhhC08UwuflbBn7v6/VmchTUg4FxzGfFo/KIAj5lDTTF+fj36sjHuY8EbHJC0F7+6FyRBsLkoew==" crossorigin="anonymous" referrerpolicy="no-referrer"></script> -->
 <!-- <script>window.FlashMessage.success('This is a successs flash message !');</script> -->
 </body>
 
