@@ -1,3 +1,13 @@
+@keyframes fadeOutAnimation {
+    from {
+        opacity: 100%;
+    }
+  
+    to {
+      opacity: 0%;
+    }
+  }
+
 body {
     margin: 0;
     padding: 0;
@@ -120,4 +130,9 @@ video {
     height: 100vh;
 
     background-color: white;
+}
+
+.fadeOut{
+    /* animation: fadeOutAnimation 0.2s ease; */
+    opacity: 0;
 }

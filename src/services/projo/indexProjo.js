@@ -90,7 +90,7 @@ function actionWebsocket(spell, player){
   
   switch(stateOfGame){
 
-    case "Init":
+    case "Init":  
       break;
 
     case "TrainingPlayer":

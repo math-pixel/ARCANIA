@@ -17,7 +17,7 @@ function manaManager(player, state) {
 
 //* Update visuel of mana
 function updateMana(player) {
-    console.log(player)
+    // console.log(player)
     let manaDiv;
     if (player.name == "player1") {
         manaDiv = document.getElementById("infoMana1")
