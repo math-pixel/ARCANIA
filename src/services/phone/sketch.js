@@ -6,7 +6,7 @@ let brain;
 let state = 'waiting';
 let targetLabel;
 let rawData = []; // Stocke les données brutes de l'accéléromètre
-let sequenceLength = 10; // La longueur de la séquence pour chaque axe
+let sequenceLength = 15; // La longueur de la séquence pour chaque axe
 let collectionInterval; // Pour stocker l'identifiant de l'intervalle de collecte
 
 
@@ -58,6 +58,10 @@ const socket = io();
 //* send name of remote to identify it
 socket.on("connect", () => {
     socket.emit("phone_name", player)
+
+    socket.on("damaged", () => {
+
+    })
 });
 
 /* -------------------------------------------------------------------------- */
@@ -76,9 +80,6 @@ function preload() {
 /*                              Setup p5 project                              */
 /* -------------------------------------------------------------------------- */
 function setup() {
-    createCanvas(640, 480);
-    background(255);
-
     // Configuration du réseau de neurones
     let inputs = [];
     for (let i = 0; i < sequenceLength; i++) {
@@ -122,7 +123,7 @@ function setup() {
     brain.load(modelInfo, brainLoaded);
 
     // Boutons pour la collecte de données
-    createCollectButton('Start Detection Spell');
+    // createCollectButton('Start Detection Spell');
 }
 
 /* -------------------------------------------------------------------------- */
@@ -160,7 +161,10 @@ function collectData(x, y, z, xOrientation, yOrientation, zOrientation) {
         // brain.normalizeData();
         brain.classify(dataObject, function(error, results) {
             if (error) {
-                console.error(error);
+                console.log("error")
+                labelAllConfidence = "error";
+
+                // console.error(error);
             } else {
 
                 // ? set up interface
@@ -176,9 +180,9 @@ function collectData(x, y, z, xOrientation, yOrientation, zOrientation) {
 
                 let label = results[0].label;
                 let confidence = results[0].confidence;
-                if (confidence > 0.70) {
+                targetLabel = label;
+                if (confidence > 0.07) {
                     // console.log(label, confidence);
-                    targetLabel = label;
 
                     //* add spell to array
                     //? MAX 5 spells | Average 3 to send it to server
@@ -344,13 +348,101 @@ if (window.DeviceMotionEvent) {
 /* -------------------------------------------------------------------------- */
 /*                             Draw Function p5js                             */
 /* -------------------------------------------------------------------------- */
-function draw() {
-    background(255);
-    fill(0);
-    textSize(24);
-    textAlign(LEFT, TOP);
-    text('Collecte: ' + state, 50, 50);
-    text('Label: ' + targetLabel, 50, 70);
+
+
+/* -------------------------------------------------------------------------- */
+/*                                 Player info                                */
+/* -------------------------------------------------------------------------- */
+
+let videoDiv = document.getElementById("game")
+
+
+displayPage("name")
+
+function startGame() {
+    let playerName = document.getElementById("name").value;
+
+    sendName(playerName);
+
+    prepareToCollect()
+
+    displayPage("game")
+
+    displayBaguette()
+}
+
+function sendName(playerName) {
+    socket.emit(`username`, playerName);
+}
+
+function displayPage(page) {
+    let namePage = document.getElementById("pageChooseName")
+    let gamePage = document.getElementById("game")
+
+    switch (page) {
+        case "name":
+            namePage.style.display = "initial"
+            gamePage.style.display = "none"
+            break;
+        case "game":
+            namePage.style.display = "none"
+            gamePage.style.display = "flex"
+            break;
+    
+        default:
+            break;
+    }
+}
+
+function selectDamage(spellName) {
+    switch (spellName) {
+        case "circle":
+            displayVideo("/medias/phone_media/Impact_phone_rouge.webm")
+            break;
+        case "lineH":  
+            displayVideo("/medias/phone_media/Impact_phone_bleu.webm")
+            break;
+        case "lineV":
+            displayVideo("/medias/phone_media/Impact_phone_violet.webm")
+            break;
+    }
+}
+
+function displayVideo(src) {
+    let video = document.createElement("video")
+    video.src = src;
+    video.autoplay = true;
+    video.addEventListener("ended", () => {
+        video.parentNode.removeChild(video)
+    })
+    videoDiv.appendChild(video)
 }
 
 
+function displayBaguette() {
+    let src = ""
+    if (player == 'player1') {
+        src = "/medias/phone_media/baguette/baguette_bleue.png";
+    } else {
+        src = "/medias/phone_media/baguette/baguette_rouge.png";
+    }
+
+    document.getElementById("baguette").src = src
+}
+
+function displayOverlay(icon) {
+    let overlay = document.getElementById("overlay")
+    let iconImg = document.getElementById("icon")
+
+     switch (icon) {
+        case "check":
+            overlay.style.display = 'grid'
+            iconImg.src = "/medias/phone_media/icons/check.svg"
+            break;
+     
+        default:
+            overlay.style.display = 'none'
+            iconImg.src = ""
+            break;
+     }
+}

@@ -2,7 +2,8 @@ const express = require('express');
 const { createServer } = require('node:http');
 const { join } = require('node:path');
 const { Server } = require('socket.io');
-const path = require('path')
+const path = require('path');
+const { Socket } = require('node:dgram');
 
 /* -------------------------------------------------------------------------- */
 /*                         Config/Init Express server                         */
@@ -36,6 +37,7 @@ app.get('/projo', (req, res) => {
 /* -------------------------------------------------------------------------- */
 /*                              Websocket Server                              */
 /* -------------------------------------------------------------------------- */
+let usernameRemote = ["", ""]
 let idRemotes = [0, 0]
 io.on('connection', (socket) => {
   console.log('a user connected in websocket');
@@ -60,14 +62,36 @@ io.on('connection', (socket) => {
     }
   });
 
+  socket.on('username', (value) => {
+    console.log(socket.id + " username : " + value)
+    if (idRemotes[0] == socket.id) {
+      usernameRemote[0] = value 
+    } else {
+      usernameRemote[1] = value
+    }
+    console.log(usernameRemote)
+  })
+
+  socket.on('takeDamage', (value) => {
+    let socketId = "";
+    if (value == 'player1') {
+      socketId = idRemotes[1]
+    } else {
+      socketId = idRemotes[0]
+    }
+    socket.to(socketId).emit('damaged', spellName)
+  })
+
   //* ##### when save's remote is disconnected remove id #####
   socket.on("disconnect", () => {
 
     for (indexRemote in idRemotes) {
       if (idRemotes[indexRemote] == socket.id) {
         idRemotes[indexRemote] = 0
+        usernameRemote[indexRemote] = ""
       }
     }
+    console.log(usernameRemote)
 
     // console.log(idRemotes)
   });

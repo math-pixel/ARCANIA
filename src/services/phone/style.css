@@ -1,0 +1,87 @@
+* {
+  overflow: hidden;
+}
+
+body {
+  width: 100vw;
+  height: 100vh;
+  background-color: black;
+}
+
+#game {
+  height: 100vh;
+  width: 100vw;
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+#videoDiv {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 100vw;
+  z-index: -1;
+}
+
+video {
+  height: 100vh; /* 100% de la hauteur de la fenêtre */
+  object-fit: cover; /* pour couvrir tout l'espace de la balise video */
+}
+
+#baguette {
+  margin-top: 5%;
+  margin-bottom: 5%;
+  position: absolute;
+  height: 90%;
+  z-index: 1;
+}
+
+#pageChooseName {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+#logoDiv {
+  height: 40%;
+}
+
+#formDiv {
+  height: 60%;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+#form {
+  width: 60%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 60vw;
+  height: 100vh;
+  padding-left: 20vw;
+  padding-right: 20vw;
+  z-index: 2;
+  background-color: rgba(0, 0, 0, 50%);
+  display: none;
+  justify-content: center;
+  align-content: center;
+}
+
+#icon {
+  width: 100%;
+}
