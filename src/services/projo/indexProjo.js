@@ -1,12 +1,14 @@
 /* -------------------------------------------------------------------------- */
 /*                                Init Variable                               */
 /* -------------------------------------------------------------------------- */
-
+// get / set information of the advencement of the game 
+let stateOfGame = "Init" //? Init | Training | InGame | End
 
 
 //* ##### Spells #####
 let spells ;
-
+//? Load Json spell information at start
+preloadSpells()
 
 
 // ##### Init websocket #####
@@ -32,8 +34,6 @@ let player2 = {
 /* -------------------------------------------------------------------------- */
 /*                          Init interaction with DOM                         */
 /* -------------------------------------------------------------------------- */
-//? Load Json spell information at start
-preloadSpells()
 
 
 document.getElementById("introButton").addEventListener("click", () => {
@@ -68,41 +68,56 @@ socket.on("player2", (spell) => {
   actionWebsocket(spell, player2)
 })
 
-//TODO set displaySpell() after getSpellInformation()
+
 function actionWebsocket(spell, player){
   let spellData;
-  switch (spell) {
-    case "circle_loading":
-      spellData = getSpellInformation("circle_loading")
-      displaySpell(spellData, player)
+  
+  switch(stateOfGame){
+
+    case "Init":
       break;
 
-    case "lineH_loading":
-      spellData = getSpellInformation("lineH_loading")
-      displaySpell(spellData, player)
-      break;
+    case "TrainingPlayer":
+
+      break; 
+
+    case "InGame":
+
+      switch (spell) {
+        case "circle_loading":
+          spellData = getSpellInformation("circle_loading")
+          newSpellFired(spellData, player)
+          break;
     
-    case "lineV_loading":
-      spellData = getSpellInformation("lineV_loading")
-      displaySpell(spellData, player)
-      break;
-
-    case "circle":
-      spellData = getSpellInformation("circle")
-      displaySpell(spellData, player)
-      break;
-
-    case "lineH":
-      spellData = getSpellInformation("lineH")
-      displaySpell(spellData, player)
-      break;
-
-    case "lineV":
-      spellData = getSpellInformation("lineV")
-      displaySpell(spellData, player)
-      break;
-
-    default:
-      break;
+        case "lineH_loading":
+          spellData = getSpellInformation("lineH_loading")
+          newSpellFired(spellData, player)
+          break;
+        
+        case "lineV_loading":
+          spellData = getSpellInformation("lineV_loading")
+          newSpellFired(spellData, player)
+          break;
+    
+        case "circle":
+          spellData = getSpellInformation("circle")
+          newSpellFired(spellData, player)
+          break;
+    
+        case "lineH":
+          spellData = getSpellInformation("lineH")
+          newSpellFired(spellData, player)
+          break;
+    
+        case "lineV":
+          spellData = getSpellInformation("lineV")
+          newSpellFired(spellData, player)
+          break;
+    
+        default:
+          break;
+        }
+      break
   }
+
 }

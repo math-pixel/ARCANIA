@@ -25,34 +25,6 @@ function getSpellInformation(name) {
     return null
 }
 
-  
-  function displaySpell(spellData, player) {
-
-    createAudioElement(spellData)
-
-    /* -------------------------------------------------------------------------- */
-    /*                                Game Manager                                */
-    /* -------------------------------------------------------------------------- */
-    //TODO set it on another file ' gameManager.js '
-
-    //* Set up video add-on information
-    // check if its a loading video
-    if (spellData.name.includes("loading")) {
-        if (player.loading == null) {
-            console.log(player.loading)
-            createVideoElement(player, spellData, loop = true, isLoadingSpell = true)
-            
-        }
-    }else if(!spellData.name.includes("loading")){
-        //? normal spell
-        createVideoElement(player, spellData, loop = false, isLoadingSpell = false)
-
-
-
-    }
-    
-}
-
 
 /* -------------------------------------------------------------------------- */
 /*                            Create Video ELEMENT                            */
@@ -106,6 +78,8 @@ function createVideoElement(player, spellData, loop = false, isLoadingSpell = fa
 
 
     parentVideo.appendChild(video)
+
+    return video
 }
 
 function removeLoadingElement(player) {
