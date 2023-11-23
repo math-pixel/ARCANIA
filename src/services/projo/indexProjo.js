@@ -10,6 +10,21 @@ let spells ;
 //? Load Json spell information at start
 preloadSpells()
 
+async function preloadSpells(){
+  const data = await fetch('/json/spells.json')
+  .then((response) => response.json())
+  .then((json) => {
+      spellJson = json["spells"]
+      return spellJson
+  })
+  .catch((error) => {
+      console.error('Error preloading spells:', error);
+  });
+
+  spells = data;
+  console.log('Variable globale définie :', spells);
+}
+
 
 // ##### Init websocket #####
 const socket = io();
@@ -71,6 +86,7 @@ socket.on("player2", (spell) => {
 
 function actionWebsocket(spell, player){
   let spellData;
+  console.log("state of the game : ", stateOfGame)
   
   switch(stateOfGame){
 

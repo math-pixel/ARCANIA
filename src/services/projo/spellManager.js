@@ -1,18 +1,3 @@
-async function preloadSpells(){
-    const data = await fetch('/json/spells.json')
-    .then((response) => response.json())
-    .then((json) => {
-        spellJson = json["spells"]
-        return spellJson
-    })
-    .catch((error) => {
-        console.error('Error preloading spells:', error);
-    });
-
-    spells = data;
-    console.log('Variable globale définie :', spells);
-}
-
 //* ##### Find information of spell in JSON #####
 function getSpellInformation(name) {
     // console.log(spells)
@@ -29,6 +14,7 @@ function getSpellInformation(name) {
 /* -------------------------------------------------------------------------- */
 /*                            Create Video ELEMENT                            */
 /* -------------------------------------------------------------------------- */
+let idIncrement = 500
 /**
  * 
  * @param {Object} player 
@@ -44,6 +30,8 @@ function createVideoElement(player, spellData, loop = false, isLoadingSpell = fa
     video.type = "video/webp"
     video.preload = "auto"
     video.loop = loop
+    video.id = parseInt(idIncrement)
+    idIncrement += 1
 
 
     //* if is a loadind spell
@@ -57,8 +45,9 @@ function createVideoElement(player, spellData, loop = false, isLoadingSpell = fa
 
         //* event end => remove spell video
         video.addEventListener("ended", () => {
-            video.parentNode.removeChild(video);
-
+            // video.parentNode.removeChild(video);
+            removeSpellFired(video)
+            
             if (spellData.name != "damaged") {
                 //* update life
                 lifeManager(player, spellData)
