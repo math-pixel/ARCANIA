@@ -1,11 +1,14 @@
 * {
   overflow: hidden;
+  padding: 0;
+  margin: 0;
 }
 
 body {
   width: 100vw;
   height: 100vh;
-  background-color: black;
+  /* background-color: black; */
+  color: white;
 }
 
 #game {
@@ -17,6 +20,7 @@ body {
   display: flex;
   flex-direction: row;
   justify-content: center;
+  background-color: #110116;
 }
 
 #videoDiv {
@@ -46,14 +50,35 @@ video {
   height: 100vh;
   display: flex;
   flex-direction: column;
+  background-color: #110116;
 }
 
 #logoDiv {
-  height: 40%;
+  height: 16%;
+  display: grid;
+  justify-content: center;
+  align-content: center;
+  padding-left: 20%;
+  padding-right: 20%;
+}
+
+#logo {
+  width: 100%;
+}
+
+.sorcier {
+  height: 35%;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.imgSorcier {
+  height: 100%;
 }
 
 #formDiv {
-  height: 60%;
+  height: 30%;
   width: 100%;
   display: flex;
   flex-direction: row;
@@ -61,10 +86,58 @@ video {
 }
 
 #form {
-  width: 60%;
+  margin-top: 20px;
+  width: 75%;
   display: flex;
   flex-direction: column;
   align-items: center;
+}
+
+.inputName {
+  border-radius: 71px;
+  padding: 12px 20px;
+  margin: 8px 0;
+  box-sizing: border-box;
+  height: 45px;
+  width: 100%;
+  border: none;
+}
+
+.inputName::placeholder {
+  font-size: 16px;
+}
+
+.inputName:focus {
+  outline: none;
+}
+
+.confirmName {
+  border-radius: 71px;
+  padding: 0px 20px;
+  margin: 8px 0;
+  box-sizing: border-box;
+  height: 45px;
+  border: none;
+  font-size: 24px;
+  display: inline-block
+}
+
+.player1 {
+  background-color: #FF2E50;
+  color: #FFCCDC;
+}
+
+.player1::placeholder {
+  color: #FFCCDC;
+}
+
+.player2 {
+  background-color: #645CE6;
+  color: #E3E1FB;
+}
+
+.player2::placeholder {
+  color: #E3E1FB;
 }
 
 #overlay {
@@ -78,10 +151,15 @@ video {
   z-index: 2;
   background-color: rgba(0, 0, 0, 50%);
   display: none;
+  flex-direction: column;
   justify-content: center;
   align-content: center;
 }
 
 #icon {
   width: 100%;
+}
+
+#win_loose {
+  text-align: center;
 }

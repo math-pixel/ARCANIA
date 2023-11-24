@@ -84,7 +84,7 @@ io.on('connection', (socket) => {
 
   //* ##### when save's remote is disconnected remove id #####
   socket.on("disconnect", () => {
-
+ 
     for (indexRemote in idRemotes) {
       if (idRemotes[indexRemote] == socket.id) {
         idRemotes[indexRemote] = 0

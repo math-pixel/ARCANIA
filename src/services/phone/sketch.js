@@ -9,6 +9,35 @@ let rawData = []; // Stocke les données brutes de l'accéléromètre
 let sequenceLength = 15; // La longueur de la séquence pour chaque axe
 let collectionInterval; // Pour stocker l'identifiant de l'intervalle de collecte
 
+function lockOrientation() {
+    // Check if the Fullscreen API is supported
+    if (document.documentElement.requestFullscreen) {
+      // Request fullscreen
+      document.documentElement.requestFullscreen()
+        .then(() => {
+          // Check if the screen.orientation property is supported
+          if (screen.orientation) {
+            // Lock the screen orientation to landscape
+            screen.orientation.lock('portrait')
+              .then(() => {
+                console.log('Orientation locked');
+              })
+              .catch((err) => {
+                console.error('Unable to lock orientation: ', err);
+              });
+          } else {
+            console.warn('Screen orientation API not supported');
+          }
+        })
+        .catch((err) => {
+          console.error('Unable to enter fullscreen mode: ', err);
+        });
+    } else {
+      console.warn('Fullscreen API not supported');
+    }
+  }
+  
+
 
 // ##### Song #####
 // let bipSound;
@@ -58,9 +87,9 @@ const socket = io();
 //* send name of remote to identify it
 socket.on("connect", () => {
     socket.emit("phone_name", player)
-
-    socket.on("damaged", () => {
-
+    displaySorcer(player)
+    socket.on("damaged", (spell) => {
+        selectDamage(spell)
     })
 });
 
@@ -362,6 +391,8 @@ displayPage("name")
 function startGame() {
     let playerName = document.getElementById("name").value;
 
+    lockOrientation()
+
     sendName(playerName);
 
     prepareToCollect()
@@ -381,7 +412,7 @@ function displayPage(page) {
 
     switch (page) {
         case "name":
-            namePage.style.display = "initial"
+            namePage.style.display = "flex"
             gamePage.style.display = "none"
             break;
         case "game":
@@ -395,6 +426,7 @@ function displayPage(page) {
 }
 
 function selectDamage(spellName) {
+    navigator.vibrate([150,0,150]);
     switch (spellName) {
         case "circle":
             displayVideo("/medias/phone_media/Impact_phone_rouge.webm")
@@ -422,9 +454,9 @@ function displayVideo(src) {
 function displayBaguette() {
     let src = ""
     if (player == 'player1') {
-        src = "/medias/phone_media/baguette/baguette_bleue.png";
-    } else {
         src = "/medias/phone_media/baguette/baguette_rouge.png";
+    } else {
+        src = "/medias/phone_media/baguette/baguette_bleu.png";
     }
 
     document.getElementById("baguette").src = src
@@ -433,16 +465,48 @@ function displayBaguette() {
 function displayOverlay(icon) {
     let overlay = document.getElementById("overlay")
     let iconImg = document.getElementById("icon")
+    let win_loose = document.getElementById("win_loose")
 
      switch (icon) {
         case "check":
             overlay.style.display = 'grid'
             iconImg.src = "/medias/phone_media/icons/check.svg"
             break;
+
+        case "loose":
+            overlay.style.display = 'grid'
+            iconImg.src = "/medias/phone_media/icons/loose.svg"
+            win_loose.innerText = 'You loose'
+            break;
+
+        case "win":
+            overlay.style.display = 'grid'
+            iconImg.src = "/medias/phone_media/icons/win.svg"
+            win_loose.innerText = 'You win'
+            break;
      
         default:
             overlay.style.display = 'none'
             iconImg.src = ""
+            win_loose.innerText = ''
             break;
      }
+}
+
+function displaySorcer(player) {
+    let logo = document.getElementById("logo")
+    let sorcer = document.querySelector(".imgSorcier")
+    let input = document.getElementById("name")
+    let button = document.querySelector(".confirmName")
+    if (player == "player1") {
+        logo.src = "/medias/phone_media/icons/Arcania_rouge.svg"
+        sorcer.src = "/medias/phone_media/icons/sorcier_rouge.png"
+        input.classList.add("player1")
+        button.classList.add("player1")
+    } else {
+        logo.src = "/medias/phone_media/icons/Arcania_bleu.svg"
+        sorcer.src = "/medias/phone_media/icons/sorcier_bleu.png"
+        input.classList.add("player2")
+        button.classList.add("player2")
+    }
 }
