@@ -1,7 +1,5 @@
-let timeClock = 10000 //in ms
-let currentTimer = 10
+let currentTimer = 60 // in sec
 let timer
-
 /* -------------------------------------------------------------------------- */
 /*                                 Start Game                                 */
 /* -------------------------------------------------------------------------- */
@@ -16,12 +14,12 @@ function startTimer(){
     let timerSec = setInterval(() => {
         document.getElementById("timer").innerHTML = currentTimer
         currentTimer -= 1
+
+        if (currentTimer == 0) {
+            endGame("timeout")
+        }
     }, 1000)
 
-    timer = setTimeout(() => {
-        clearInterval(timerSec)
-        endGame("Timout")
-    }, timeClock)
 }
 
 
@@ -31,6 +29,9 @@ function startTimer(){
 /* -------------------------------------------------------------------------- */
 function endGame(reason){
     console.warn("End Game")
+
+    // clear timer
+    clearInterval(timerSec)
     stateOfGame = "End"
 
     let a = document.getElementById("endVideoWin")
