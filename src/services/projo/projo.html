@@ -4,64 +4,87 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="projo.css">
-    <title>Document</title>
+    <title>Projector</title>
 </head>
 <body>  
-  <div id="intro">
-    <button id="introButton">
+  <!-- Start button Required for video play auto  -->
+  <div id="intro" class="intro">
+    <button id="introButton" class="introButton">
       Lancer
     </button>
   </div>
-  <video src="/medias/rules_video.mp4" id="vidIntro" width="1920" height="1080" muted></video>
-  <div id="videoDiv"></div>
-  <div id="audioDiv"></div>
-  <div id="playerInfo">   
-    <div id="player1">
-      <div id="life1">
-        <div id="infoLife1"></div>
+
+  <!-- Waiting Connection -->
+  <div class="waiting_connection_container">
+    <img src="/medias/background/background_waiting.png" class="background_waiting">
+
+    <img src="" class="qrCode1" id="qrCode1" alt="qrCode1">
+    <img src="" class="qrCode2" id="qrCode2" alt="qrCode2">
+
+    <img src="/medias/wizard/red_wizard.png" class="wizard1" id="wizard1">
+    <img src="/medias/wizard/blue_wizard.png" class="wizard2" id="wizard2">
+
+    <p class="User1" id="User1"></p>
+    <p class="User2" id="User2"></p>
+
+  </div>
+
+  <!-- Rules Video -->
+  <video src="/medias/rules_video.mp4" id="vidIntro" class="vidIntro" width="1920" height="1080"></video>
+
+  <!-- Training Part -->
+  <div class="training_container">
+    <h1>Initiation</h1>
+    <h2>Reproduisez les sorts afficher devant vous</h2>
+
+    <div class="Container_Spell">
+
+      <div class="spell_reproduction">
+        <img src="" alt="" class="current_Spell" id="current_Spell1">
+        <p class="spell_step" id="spell_step1"></p>
       </div>
-      <div id="mana1">
-        <div id="infoMana1"></div>
+
+      <div class="spell_reproduction">
+        <img src="" alt="" class="current_Spell" id="current_Spell2">
+        <p class="spell_step" id="spell_step2"></p>
       </div>
     </div>
-    <div id="player2">
-      <div id="life2">
-        <div id="infoLife2"></div>
+
+  </div>
+
+  <!-- In Game -->
+  <div id="videoDiv" class="videoDiv"></div>
+  <div id="audioDiv" class="audioDiv"></div>
+  <div id="playerInfo" class="playerInfo">   
+    <div id="player1" class="player1">
+      <div id="life1" class="life1">
+        <div id="infoLife1" class="infoLife1"></div>
       </div>
-      <div id="mana2">
-        <div id="infoMana2"></div>
+      <div id="mana1" class="mana1">
+        <div id="infoMana1" class="infoMana1"></div>
+      </div>
+    </div>
+    <div id="player2" class="player2">
+      <div id="life2" class="life2">
+        <div id="infoLife2" class="infoLife2"></div>
+      </div>
+      <div id="mana2" class="mana2">
+        <div id="infoMana2" class="infoMana2"></div>
       </div>
     </div>
   </div>
 </body>
+
+
+<!-- Logic -->
 <script src="/socket.io/socket.io.js"></script>
 <script src="indexProjo.js"></script>
 <script src="lifeManager.js"></script>
 <script src="gameManager.js"></script>
 <script src="manaManager.js"></script>
 <script src="spellManager.js"></script>
-<!-- <script src="https://cdn.socket.io/4.4.1/socket.io.min.js" integrity="sha384-fKnu0iswBIqkjxrhQCTZ7qlLHOFEgNkRmK2vaO/LbTZSXdJfAu6ewRBdwHPhBo/H" crossorigin="anonymous"></script> -->
-<script>
-    // Shape Classifier (Mouse)
-// Coding Challenge
-// The Coding Train / Daniel Shiffman
-// https://thecodingtrain.com/CodingChallenges/158-shape-classifier.html
-// https://youtu.be/3MqJzMvHE3E
-
-// Mouse: https://editor.p5js.org/codingtrain/sketches/JgLVfCS4E
-// Webcam: https://editor.p5js.org/codingtrain/sketches/2hZGBkqqq
+<script src="training.js"></script>
 
 
 
-
-
-
-
-
-</script>
-<!-- <style>
-    body{
-        background-color: #cec0c0;
-    }
-</style> -->
 </html>

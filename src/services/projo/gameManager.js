@@ -1,4 +1,5 @@
-let timeClock = 100000000000 //in ms
+let timeClock = 10000 //in ms
+let currentTimer = 10
 let timer
 
 /* -------------------------------------------------------------------------- */
@@ -11,12 +12,19 @@ function startGame(){
 }
 
 function startTimer(){
+
+    let timerSec = setInterval(() => {
+        document.getElementById("timer").innerHTML = currentTimer
+        currentTimer -= 1
+    }, 1000)
+
     timer = setTimeout(() => {
+        clearInterval(timerSec)
         endGame("Timout")
     }, timeClock)
 }
 
-startGame()
+
 
 /* -------------------------------------------------------------------------- */
 /*                                  End Game                                  */
@@ -24,6 +32,14 @@ startGame()
 function endGame(reason){
     console.warn("End Game")
     stateOfGame = "End"
+
+    let a = document.getElementById("endVideoWin")
+    a.play()
+    a.addEventListener("ended", () => {
+        a.style.display = "none"
+        document.getElementById("stat").style.display = "block"
+    })
+
 }
 
 /* -------------------------------------------------------------------------- */

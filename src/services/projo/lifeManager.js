@@ -1,16 +1,20 @@
 // manage life
 function lifeManager(player, spellData) {
 
+    //TODO verify if heal and dammage work togheter
+
     //* Set Damage
     if (spellData.damage != 0) {
       
         // Add dommage to player
         if (player.life - spellData.damage > 0) {
             player.life -= spellData.damage
+            socket.emit("takeDamage", JSON.stringify( { playerName : player.name, spellName : spellData.name} ))
             // console.log(player.life)
         } else {
             console.log(player + ": dead !!!")
             player.life = 0
+            socket.emit("takeDamage", JSON.stringify( { playerName : player.name, spellName : "dead"} ))
             // console.log(player.life)
         }
   

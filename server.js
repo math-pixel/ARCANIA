@@ -50,7 +50,8 @@ io.on('connection', (socket) => {
     managerIDWebsocket(value, socket)
   });
 
-  // * Remote Connected
+
+  // * remote send a spell
   socket.on('player1', (value, callback) => {
     if (idRemotes[0] == socket.id) {
       actionWebsocket(value, "player1")
@@ -62,24 +63,34 @@ io.on('connection', (socket) => {
     }
   });
 
+
+  //* remote send the username of the player
   socket.on('username', (value) => {
-    console.log(socket.id + " username : " + value)
+    // console.log(socket.id + " username : " + value)
     if (idRemotes[0] == socket.id) {
       usernameRemote[0] = value 
+      io.emit("playerName1", value)
     } else {
       usernameRemote[1] = value
+      io.emit("playerName2", value)
     }
-    console.log(usernameRemote)
+    // console.log(usernameRemote)
+
+    // When 2 remote are connected
+    if (usernameRemote[0] != 0 && usernameRemote[1] != 0) {
+      io.emit("allplayerConnected", "toto")
+    }
   })
 
-  socket.on('takeDamage', (value) => {
+  socket.on('takeDamage', (information) => {
+    let dataSocket = JSON.parse(information)
     let socketId = "";
-    if (value == 'player1') {
+    if (dataSocket.playerName == 'player1') {
       socketId = idRemotes[1]
     } else {
       socketId = idRemotes[0]
     }
-    socket.to(socketId).emit('damaged', spellName)
+    socket.to(socketId).emit('damaged', dataSocket.spellName)
   })
 
   //* ##### when save's remote is disconnected remove id #####
