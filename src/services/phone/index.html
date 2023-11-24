@@ -16,15 +16,15 @@
   <!-- <label id="debug" style="position: absolute; top: 0; left: 0;"></label> -->
   <div id="pageChooseName">
     <div id="logoDiv">
-      <div class="logo">
-
-      </div>
+      <img src="" alt="" id="logo">
+    </div>
+    <div class="sorcier">
+      <img src="" alt="" class="imgSorcier">
     </div>
     <div id="formDiv">
       <div id="form">
-        <h1>Choose your name</h1>
-        <input type="text" name="name" id="name">
-        <button id="confirmName" onclick="startGame()">Jouer</button>
+        <input type="text" name="name" id="name" class="inputName" placeholder="Nom d'utilisateur">
+        <button class="confirmName" onclick="startGame()">Jouer</button>
       </div>
     </div>
   </div>
@@ -33,6 +33,7 @@
   </div>
   <div id="overlay">
     <img src="" alt="" id="icon">
+    <h2 id="win_loose"></h2>
   </div>
   <!-- <button onclick="sendSpellInWebsocket('circle')">circle</button> -->
   <script src="https://cdn.socket.io/4.5.4/socket.io.min.js"></script>
