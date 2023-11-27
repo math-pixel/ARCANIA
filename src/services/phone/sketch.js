@@ -229,7 +229,6 @@ function collectData(x, y, z, xOrientation, yOrientation, zOrientation) {
 
                     currentSpell = getAverageSpell(arrayAverageSpell)
                     // socket.emit("console" ,currentSpell)
-                    // TODO Fix issues #10 
                     if (currentSpell.biggestSpell != "nothing") {
 
                         if (canSendSpell == true) {
