@@ -121,23 +121,25 @@ let percentOfAdvenceSpellPlayer2
 function collisionManager(){
     if(isSpellFiredFromTwoPlayer()){
         // set all %
-        setAllPercentageOfSpellsVideo()
+        // setAllPercentageOfSpellsVideo()
 
-        if (areCloseValues(percentOfAdvenceSpellPlayer1,percentOfAdvenceSpellPlayer2, 10)) {
+        // if (areCloseValues(percentOfAdvenceSpellPlayer1,percentOfAdvenceSpellPlayer2, 10)) {
 
-            document.getElementById(spellsInFired[indexSpellPlayer1Collision].spellVideoElement.id).classList.add("fadeOut");
-            document.getElementById(spellsInFired[indexSpellPlayer2Collision].spellVideoElement.id).classList.add("fadeOut");
+        //     document.getElementById(spellsInFired[indexSpellPlayer1Collision].spellVideoElement.id).classList.add("fadeOut");
+        //     document.getElementById(spellsInFired[indexSpellPlayer2Collision].spellVideoElement.id).classList.add("fadeOut");
 
-            console.log("spell touch", indexSpellPlayer2Collision)
-        }else{
-            console.log("spell not touch")
-            setTimeout(() => {
+        //     console.log("spell touch", indexSpellPlayer2Collision)
+        // }else{
+        //     console.log("spell not touch")
+        //     setTimeout(() => {
                 
-                collisionManager()
-            },200)
-        }
+        //         collisionManager()
+        //     },200)
+        // }
         // same range ? => boucvle
             // do action dissipation
+
+        
     }
 }
 
