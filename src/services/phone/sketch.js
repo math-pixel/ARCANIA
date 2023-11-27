@@ -1,6 +1,9 @@
 /* -------------------------------------------------------------------------- */
 /*                               Set up varible                               */
 /* -------------------------------------------------------------------------- */
+
+let canSendSpell = true
+
 // ##### ml5 #####
 let brain;
 let state = 'waiting';
@@ -192,7 +195,7 @@ function collectData(x, y, z, xOrientation, yOrientation, zOrientation) {
             if (error) {
                 console.error(error);
                 labelAllConfidence = error.toSring()
-                socket.emit("console", JSON.stringify(error))
+                // socket.emit("console", JSON.stringify(error))
             } else {
 
                 // ? set up interface
@@ -214,7 +217,7 @@ function collectData(x, y, z, xOrientation, yOrientation, zOrientation) {
 
                     //* add spell to array
                     //? MAX 5 spells | Average 3 to send it to server
-                    if (arrayAverageSpell.length > 4) {
+                    if (arrayAverageSpell.length > 3) {
 
                         // remove first element and add new
                         arrayAverageSpell.shift()
@@ -225,15 +228,22 @@ function collectData(x, y, z, xOrientation, yOrientation, zOrientation) {
                     }
 
                     currentSpell = getAverageSpell(arrayAverageSpell)
-
+                    // socket.emit("console" ,currentSpell)
                     // TODO Fix issues #10 
                     if (currentSpell.biggestSpell != "nothing") {
-                        sendSpellInWebsocket(currentSpell.biggestSpell)
+
+                        if (canSendSpell == true) {
+                            sendSpellInWebsocket(currentSpell.biggestSpell)
+                            delaySendSpell()
+                        }
                         // document.getElementById("debug").innerHTML = currentSpell.biggestSpell
                     }
 
                     if (currentSpell.chargingSpell != "nothing") {
-                        sendSpellInWebsocket(currentSpell.chargingSpell + "_loading")
+
+                        if (canSendSpell == true) {
+                            sendSpellInWebsocket(currentSpell.chargingSpell + "_loading")
+                        }
                         // document.getElementById("debug").innerHTML = currentSpell.chargingSpell + "_loading"
                     }
                     
@@ -246,28 +256,50 @@ function collectData(x, y, z, xOrientation, yOrientation, zOrientation) {
     }
 }
 
+function delaySendSpell(){
+    // socket.emit("console" , "delay")
+
+    canSendSpell = false
+    resetSpellArray()
+    setTimeout(() => {
+        canSendSpell = true
+    }, 3000)
+}
+
 /* -------------------------------------------------------------------------- */
 /*         Get an array and return the biggest and second most average        */
 /* -------------------------------------------------------------------------- */
+let biggest = ["nothing", 2]
+let second = ["nothing", 0]
 function getAverageSpell(array){
+    // socket.emit("console" ,array)
 
     let uniqueElements = [...new Set(array)];
 
     const elementCounts = uniqueElements.map(value => [value, array.filter(str => str === value).length]);
+    // socket.emit("console" , elementCounts)
 
     //? example
-    let biggest = ["nothing", 2]
-    let second = ["nothing", 0]
+
     elementCounts.forEach(element => {
     // document.getElementById("debug").innerHTML = elementCounts
 
         //? get biggest element
-        if (element[1] > biggest[1]) {
+        if (element[1] > 3 && element[0] !== biggest[0]) {
+            // socket.emit("console" , "big ")
+
             biggest = element
-        }else if (element[1] < biggest[1] && element[1] > second[1]){
+
+        }else if (element[1] > 1){
             //? get the charging form
             second = element
+            // socket.emit("console" , "new charging spell")
+
+        }else{
+            // socket.emit("console", "rien du tout")
         }
+
+
     });
     
     // document.getElementById("debug").innerHTML = JSON.stringify({ "1: " : biggest[0], "2:" : second[0] }) + elementCounts
