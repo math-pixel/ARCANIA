@@ -15,14 +15,14 @@
   </div>
 
   <!-- Waiting Connection -->
-  <div class="waiting_connection_container">
+  <div class="waiting_connection_container" id="waiting_connection_container">
     <img src="/medias/background/background_waiting.png" class="background_waiting">
 
-    <img src="" class="qrCode1" id="qrCode1" alt="qrCode1">
+    <!-- <img src="" class="qrCode1" id="qrCode1" alt="qrCode1">
     <img src="" class="qrCode2" id="qrCode2" alt="qrCode2">
 
     <img src="/medias/wizard/red_wizard.png" class="wizard1" id="wizard1">
-    <img src="/medias/wizard/blue_wizard.png" class="wizard2" id="wizard2">
+    <img src="/medias/wizard/blue_wizard.png" class="wizard2" id="wizard2"> -->
 
     <p class="User1" id="User1"></p>
     <p class="User2" id="User2"></p>
@@ -33,44 +33,53 @@
   <video src="/medias/rules_video.mp4" id="vidIntro" class="vidIntro" width="1920" height="1080"></video>
 
   <!-- Training Part -->
-  <div class="training_container">
+  <div class="training_container" id="training_container">
     <h1>Initiation</h1>
     <h2>Reproduisez les sorts afficher devant vous</h2>
 
     <div class="Container_Spell">
 
       <div class="spell_reproduction">
-        <img src="" alt="" class="current_Spell" id="current_Spell1">
-        <p class="spell_step" id="spell_step1"></p>
+        <img src="\medias\trainingPart\horizontal.gif" alt="" class="current_Spell" id="current_Spell1">
+        <p class="spell_step" id="spell_step1">En cour</p>
       </div>
 
       <div class="spell_reproduction">
-        <img src="" alt="" class="current_Spell" id="current_Spell2">
-        <p class="spell_step" id="spell_step2"></p>
+        <img src="\medias\trainingPart\horizontal.gif" alt="" class="current_Spell" id="current_Spell2">
+        <p class="spell_step" id="spell_step2">En cours</p>
       </div>
     </div>
 
   </div>
 
   <!-- In Game -->
-  <p id="timer"></p>
+
+  <p class="timer" id="timer" style="text-align: center; position: absolute; top: 0;"></p>
   <div id="videoDiv" class="videoDiv"></div>
   <div id="audioDiv" class="audioDiv"></div>
   <div id="playerInfo" class="playerInfo">   
     <div id="player1" class="player1">
       <div id="life1" class="life1">
-        <div id="infoLife1" class="infoLife1"></div>
+        <!-- <div id="infoLife1" class="infoLife1"></div> -->
+        <img src="/medias/ui_projo/life_bar.png" alt="" class="bar">
+        <img src="/medias/ui_projo/heart.png" alt="" class="bar">
       </div>
       <div id="mana1" class="mana1">
-        <div id="infoMana1" class="infoMana1"></div>
+        <!-- <div id="infoMana1" class="infoMana1"></div> -->
+        <img src="/medias/ui_projo/mana_bar.png" alt="" class="bar">
+        <img src="/medias/ui_projo/eye.png" alt="" class="bar">
       </div>
     </div>
     <div id="player2" class="player2">
       <div id="life2" class="life2">
-        <div id="infoLife2" class="infoLife2"></div>
+        <!-- <div id="infoLife2" class="infoLife2"></div> -->
+        <img src="/medias/ui_projo/life_bar.png" alt="" class="bar" style="transform: scaleX(-1);">
+        <img src="/medias/ui_projo/heart.png" alt="" class="bar" style="transform: scaleX(-1);">
       </div>
       <div id="mana2" class="mana2">
-        <div id="infoMana2" class="infoMana2"></div>
+        <!-- <div id="infoMana2" class="infoMana2"></div> -->
+        <img src="/medias/ui_projo/mana_bar.png" alt="" class="bar" style="transform: scaleX(-1);">
+        <img src="/medias/ui_projo/eye.png" alt="" class="bar" style="transform: scaleX(-1);">
       </div>
     </div>
   </div>

@@ -1,5 +1,6 @@
 function startTraining(){
     // display first spell
+    
 }
 
 function trainingSpellDetected(spellData, player){
