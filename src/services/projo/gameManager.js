@@ -55,7 +55,7 @@ function newSpellFired(spellData, player){
     addSpellInGameLogic(spellData, player)
 
     //* check if collision
-    // collisionManager()
+    collisionManager()
 
 }
 
@@ -68,12 +68,13 @@ function addSpellInGameLogic(spellData, player){
     if (!spellData.name.includes("loading") && !spellData.name.includes("damaged")) {
         let spellFiredInformation = {
             playerObject : player,
-            spellVideoElement : currentFiredSpell
+            spellVideoElement : currentFiredSpell,
+            dataSpell : spellData
         }
         spellsInFired.push(spellFiredInformation)
     }
 
-    console.log("new spell added" ,currentFiredSpell,spellsInFired)
+    // console.log("new spell added" ,currentFiredSpell,spellsInFired)
 }
 
 //* #####Display spell in DOM #####
@@ -115,15 +116,21 @@ function removeSpellFired(videoElement){
 /* -------------------------------------------------------------------------- */
 let indexSpellPlayer1Collision = 0
 let indexSpellPlayer2Collision = 0
-let percentOfAdvenceSpellPlayer1
-let percentOfAdvenceSpellPlayer2
+let allSpellFiredInformation_P1
+let allSpellFiredInformation_P2
+
+let spellWickness = {
+    circle : "hline",
+    hline : "vline",
+    vline : "circle"
+}
 
 function collisionManager(){
     if(isSpellFiredFromTwoPlayer()){
         // set all %
         // setAllPercentageOfSpellsVideo()
 
-        // if (areCloseValues(percentOfAdvenceSpellPlayer1,percentOfAdvenceSpellPlayer2, 10)) {
+        // if (areCloseValues(allSpellFiredInformation_P1,allSpellFiredInformation_P2, 10)) {
 
         //     document.getElementById(spellsInFired[indexSpellPlayer1Collision].spellVideoElement.id).classList.add("fadeOut");
         //     document.getElementById(spellsInFired[indexSpellPlayer2Collision].spellVideoElement.id).classList.add("fadeOut");
@@ -139,21 +146,35 @@ function collisionManager(){
         // same range ? => boucvle
             // do action dissipation
 
-        
+        //TODO compare it and remove 
+
+        for (let spellPlayer1 = 0; spellPlayer1 < allSpellFiredInformation_P1.length; spellPlayer1++) {
+            for (let spellPlayer2 = 0; spellPlayer2 < allSpellFiredInformation_P2.length; spellPlayer2++) {
+                
+                // get the spell name in weakness and compare it to current spell player 2
+                if (spellWickness[spellPlayer1.dataSpell.name] == spellPlayer2.dataSpell.name ) {
+                    //? spell p1 < p2
+                    //TODO remove p1 spell
+                    removeSpellFired(spellPlayer1.spellVideoElement)
+                }
+
+                if (spellWickness[spellPlayer2.dataSpell.name] == spellPlayer1.dataSpell.name ) {
+                    //? spell p1 > p2
+                    //TODO remove p2 spell
+                    removeSpellFired(spellPlayer2.spellVideoElement)
+
+                }
+            }      
+        }
     }
 }
 
 function isSpellFiredFromTwoPlayer(){
 
-    //TODO can rewrite the code properly  ?
-    const arrayPlayer1 = spellsInFired.filter(Element => Element.playerObject.name == "player1")
-    const arrayPlayer2 = spellsInFired.filter(Element => Element.playerObject.name == "player2")
+    const allSpellFiredInformation_P1 = spellsInFired.filter(Element => Element.playerObject.name == "player1")
+    const allSpellFiredInformation_P2 = spellsInFired.filter(Element => Element.playerObject.name == "player2")
     
     if (arrayPlayer1.length > 0 && arrayPlayer2.length > 0) {
-
-        percentOfAdvenceSpellPlayer1 = arrayPlayer1
-        percentOfAdvenceSpellPlayer2 = arrayPlayer2
-
         return true
     }else{
         return false
@@ -162,23 +183,23 @@ function isSpellFiredFromTwoPlayer(){
 
 function setAllPercentageOfSpellsVideo(){
 
-    percentOfAdvenceSpellPlayer1.forEach((element, index) => {
+    allSpellFiredInformation_P1.forEach((element, index) => {
 
         const vidElement = element.spellVideoElement
         const currentTime = vidElement.currentTime
         const maxTime = vidElement.duration
-        percentOfAdvenceSpellPlayer1[index] = (100 * currentTime) / maxTime
+        allSpellFiredInformation_P1[index] = (100 * currentTime) / maxTime
     });
     
-    percentOfAdvenceSpellPlayer2.forEach((element, index) => {
+    allSpellFiredInformation_P2.forEach((element, index) => {
         const vidElement = element.spellVideoElement
         const currentTime = vidElement.currentTime
         const maxTime = vidElement.duration
         // (maxTime - currentTime) invert for get the collision 
-        percentOfAdvenceSpellPlayer2[index] = (100 * (maxTime - currentTime)) / maxTime
+        allSpellFiredInformation_P2[index] = (100 * (maxTime - currentTime)) / maxTime
     });
 
-    console.log(percentOfAdvenceSpellPlayer1, "%")
+    console.log(allSpellFiredInformation_P1, "%")
 }
 
 function areCloseValues(array1, array2, deviationValue) {
