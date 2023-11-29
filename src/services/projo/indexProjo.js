@@ -70,9 +70,11 @@ function playRulesVideo() {
   
   let videoIntro = document.getElementById("vidIntro")
   // console.log(videoIntro)
+  videoIntro.style.display = "block"
   videoIntro.play()
 
   videoIntro.addEventListener("ended", () => {
+    console.log("finish vid")
     stateOfGame = "TrainingPlayer"
     updateStateExperience()
   })
@@ -119,6 +121,7 @@ function playRulesVideo() {
 /*                        Change Visuelle Of Experience                       */
 /* -------------------------------------------------------------------------- */
 function updateStateExperience(){
+  console.log(stateOfGame)
   switch(stateOfGame){
     case "Init":
       //? waiting connection of the two remote
@@ -136,13 +139,16 @@ function updateStateExperience(){
     case "TrainingPlayer":
 
       document.getElementById("vidIntro").style.display = "none"
-      document.getElementById("trainingContainer").style.opacity = 1 //TODO display block
+      document.getElementById("training_container").style.display = "flex" //TODO display block
 
       //TODO call the trust fonction
       startTraining()
       // videoIntro.parentNode.removeChild(videoIntro);
       break;
     case "InGame":
+
+      document.getElementById("training_container").style.display = 'none'
+
       startGame()
       break;
     case "End":
@@ -169,12 +175,12 @@ socket.on("allplayerConnected", (player) => {
 socket.on("playerName1", (name) => {
   //TODO play wizard Animation ( call function )
   playerName1 = name
-  document.getElementById("username1").innerHTML = name
+  document.getElementById("User1").innerHTML = name
 })
 socket.on("playerName2", (name) => {
   //TODO play wizard Animation ( call function )
   playerName2 = name
-  document.getElementById("username2").innerHTML = name
+  document.getElementById("User2").innerHTML = name
 })
 
 

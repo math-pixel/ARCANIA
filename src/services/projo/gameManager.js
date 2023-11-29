@@ -1,5 +1,5 @@
-let timeClock = 10000 //in ms
-let currentTimer = 10
+let timeClock = 50000 //in ms
+let currentTimer = 50
 let timer
 
 /* -------------------------------------------------------------------------- */

@@ -9,10 +9,14 @@
   }
 
 body {
+    width: 100vw;
+    height: 100vh;
     margin: 0;
     padding: 0;
     background-color: black;
     overflow: hidden;
+    top: 0;
+    left: 0;
 }
 
 .intro {
@@ -24,6 +28,8 @@ body {
     align-items: center;
     position: absolute;
     z-index: 1000;
+    top: 0;
+    left: 0;
 }
 
 .introButton {
@@ -36,9 +42,66 @@ body {
     text-align: center;
 }
 
+.waiting_connection_container {
+    width: 100vw;
+    height: 100vh;
+    top: 0;
+    left: 0;
+    position: absolute;
+    z-index: 988;
+}
+
+.vidIntro{
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 980;
+
+    width: 100vw;   
+    height: 100vh;
+
+    background-color: white;
+
+    display: none;
+}
+
+.training_container {
+    width: 100vw;
+    height: 100vh;
+    top: 0;
+    left: 0;
+    position: absolute;
+    z-index: 800;
+    background-color: white;
+    display: none;
+    flex-direction: column;
+    align-items: center;
+}
+
+.Container_Spell {
+    height: 80vh;
+    width: 100vw;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.spell_reproduction {
+    width: 50%;
+    height: 50%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.current_Spell {
+    height: 90%;
+}
+
 .playerInfo {
     width: 100vw;
-    height: 150px;
+    height: 200px;
     display: flex;
     flex-direction: row;
     position: absolute;
@@ -65,12 +128,12 @@ body {
 
 .life1 {
     width: 50%;
-    height: 25%;
+    height: 100%;
 }
 
 .life2 {
     width: 50%;
-    height: 25%;
+    height: 100%;
     display: flex;
     justify-content: flex-end;
 }
@@ -89,12 +152,12 @@ body {
 
 .mana1 {
     width: 40%;
-    height: 25%;
+    height: 100%;
 }
 
 .mana2 {
     width: 40%;
-    height: 25%;
+    height: 100%;
     display: flex;
     justify-content: flex-end;
 }
@@ -111,6 +174,11 @@ body {
     background-color: rgb(59, 174, 212);;
 }
 
+.bar {
+    position: absolute;
+    height: 100px;
+}
+
 video {
     position: absolute;
     top: 0px;
@@ -118,18 +186,6 @@ video {
     margin: 0;
     padding: 0;
     mix-blend-mode: screen;
-}
-
-.vidIntro{
-    position: absolute;
-    top: 0;
-    left: 0;
-    z-index: 99;
-
-    width: 100vw;   
-    height: 100vh;
-
-    background-color: white;
 }
 
 .fadeOut{
