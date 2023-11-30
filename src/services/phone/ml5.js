@@ -312,25 +312,33 @@ function getAverageSpell(array){
 function sendSpellInWebsocket(label){
     // socket.emit("console", label)
 
-    if (label == "triangle") {
-        // triangleSong.play()
-    }else if(label == "square"){
-        // squareSong.play()
-    }else if(label == "circle"){
-        // circleSong.play()
-        socket.emit(player, "circle")
-    }else if(label == "circle_loading"){
-        // circleSong.play()
-        socket.emit(player, "circle_loading")
-    }else if(label ==  "hline"){
-        // lineSong.play()
-        socket.emit(player, "lineH")
-    }else if(label == "hline_loading"){
-        socket.emit(player, 'lineH_loading')
-    }else if(label == "vline"){
-        socket.emit(player, 'lineV')
-    }else if(label == "vline_loading"){
-        socket.emit(player, 'lineV_loading')
+    switch(label){
+        case "triangle":
+            // triangleSong.play()
+            break;
+        case "square":
+            // squareSong.play()
+            break;
+        case "circle":
+            // circleSong.play()
+            socket.emit(player, "circle")
+            break;
+        case "circle_loading":
+            socket.emit(player, "circle_loading")    
+            break;
+        case "hline":
+            // lineSong.play()
+            socket.emit(player, "lineH")
+            break;
+        case "hline_loading":
+            socket.emit(player, 'lineH_loading')
+            break;
+        case "vline":
+            socket.emit(player, 'lineV')
+            break;
+        case "vline_loading":
+            socket.emit(player, 'lineV_loading')
+            break;
     }
 }
 
