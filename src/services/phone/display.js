@@ -77,6 +77,19 @@ function displayBaguette() {
     document.getElementById("baguette").src = src
 }
 
+socket.on("validation", (state) => {
+    switch (state) {
+        case "validate":
+            displayOverlay("check")
+            break;
+        case "nothing":
+            displayOverlay()
+            break
+        default:
+            break;
+    }
+})
+
 function displayOverlay(icon) {
     let overlay = document.getElementById("overlay")
     let iconImg = document.getElementById("icon")

@@ -93,6 +93,18 @@ io.on('connection', (socket) => {
     socket.to(socketId).emit('damaged', dataSocket.spellName)
   })
 
+  socket.on('validation', (information) => {
+    let dataSocket = JSON.parse(information)
+    let socketId = "";
+    if (dataSocket.playerName == 'player1') {
+      socketId = idRemotes[0]
+    } else {
+      socketId = idRemotes[1]
+    }
+
+    socket.to(socketId).emit('validation', dataSocket.state)
+  })
+  
   //* ##### when save's remote is disconnected remove id #####
   socket.on("disconnect", () => {
  
