@@ -101,15 +101,21 @@ function displaySpell(spellData, player) {
 /* -------------------------------------------------------------------------- */
 /*                   remove spell from logic and DOM element                  */
 /* -------------------------------------------------------------------------- */
-function removeSpellFired(videoElement){
+function removeSpellFired(videoElement, fadeOutSpell = false){
 
     //* remove video from gamemanager with id
     spellsInFired = spellsInFired.filter(currentSpellFired => currentSpellFired.spellVideoElement.id == videoElement.id)
 
-    //* remove video from DOM in fade out and cut it after 1 sec
-    let tempVid = document.getElementById(videoElement.id)
-    tempVid.classList.add("fadeOut")
-    setTimeout(() => { tempVid.parentNode.removeChild(videoElement) },1000)
+    if (fadeOutSpell) {
+        //* remove video from DOM in fade out and cut it after 1 sec
+        let tempVid = document.getElementById(videoElement.id)
+        tempVid.classList.add("fadeOut")
+        setTimeout(() => { tempVid.parentNode.removeChild(videoElement) },1000)
+    }else{
+        //* remove video from DOM
+        let tempVid = document.getElementById(videoElement.id)
+        tempVid.parentNode.removeChild(videoElement)
+    }
 }
   
 
@@ -145,7 +151,7 @@ function collisionManager(){
                         console.log(w)
                         toto.style.left = w + "vw"
                     }, 100)
-                    removeSpellFired(spellPlayer1.spellVideoElement)
+                    removeSpellFired(spellPlayer1.spellVideoElement, true)
                 }
 
                 //* get the spell weakness player 2 and compare it to current spell name player 1
@@ -157,7 +163,7 @@ function collisionManager(){
                         console.log(w)
                         toto.style.left = w + "vw"
                     }, 100)
-                    removeSpellFired(spellPlayer2.spellVideoElement)
+                    removeSpellFired(spellPlayer2.spellVideoElement, true)
                 }
             }      
         }
