@@ -120,9 +120,9 @@ let allSpellFiredInformation_P1
 let allSpellFiredInformation_P2
 
 let spellWickness = {
-    circle : "hline",
-    hline : "vline",
-    vline : "circle"
+    circle : "lineH",
+    lineH : "lineV",
+    lineV : "circle"
 }
 
 function collisionManager(){
@@ -148,20 +148,29 @@ function collisionManager(){
 
         //TODO compare it and remove 
 
-        for (let spellPlayer1 = 0; spellPlayer1 < allSpellFiredInformation_P1.length; spellPlayer1++) {
-            for (let spellPlayer2 = 0; spellPlayer2 < allSpellFiredInformation_P2.length; spellPlayer2++) {
+        for (let spellPlayer1 of allSpellFiredInformation_P1) {
+            for (let spellPlayer2 of allSpellFiredInformation_P2) {
                 
                 // get the spell name in weakness and compare it to current spell player 2
+                console.log("spell player 1 name", spellPlayer1.dataSpell.name)
+                console.log("his weakness : ", spellWickness[spellPlayer1.dataSpell.name])
+                console.log("spell player 2 name", spellPlayer2.dataSpell.name)
+                console.log("his weakness : ", spellWickness[spellPlayer2.dataSpell.name])
                 if (spellWickness[spellPlayer1.dataSpell.name] == spellPlayer2.dataSpell.name ) {
                     //? spell p1 < p2
                     //TODO remove p1 spell
+                    console.log("remove spell player : 1")
                     removeSpellFired(spellPlayer1.spellVideoElement)
                 }
 
+                console.log("result", spellWickness[spellPlayer2.dataSpell.name], spellPlayer1.dataSpell.name, spellWickness[spellPlayer2.dataSpell.name] == spellPlayer1.dataSpell.name)
+
                 if (spellWickness[spellPlayer2.dataSpell.name] == spellPlayer1.dataSpell.name ) {
                     //? spell p1 > p2
+                    console.log("remove spell player : 2")
                     //TODO remove p2 spell
                     removeSpellFired(spellPlayer2.spellVideoElement)
+                    console.log(spellPlayer2.spellVideoElement)
 
                 }
             }      
@@ -171,10 +180,10 @@ function collisionManager(){
 
 function isSpellFiredFromTwoPlayer(){
 
-    const allSpellFiredInformation_P1 = spellsInFired.filter(Element => Element.playerObject.name == "player1")
-    const allSpellFiredInformation_P2 = spellsInFired.filter(Element => Element.playerObject.name == "player2")
+    allSpellFiredInformation_P1 = spellsInFired.filter(Element => Element.playerObject.name == "player1")
+    allSpellFiredInformation_P2 = spellsInFired.filter(Element => Element.playerObject.name == "player2")
     
-    if (arrayPlayer1.length > 0 && arrayPlayer2.length > 0) {
+    if (allSpellFiredInformation_P1.length > 0 && allSpellFiredInformation_P2.length > 0) {
         return true
     }else{
         return false
