@@ -189,6 +189,7 @@ video {
 }
 
 .fadeOut{
-    /* animation: fadeOutAnimation 0.2s ease; */
-    opacity: 0;
+    animation: .7s fadeOutAnimation;
+    animation-fill-mode: forwards;
+    /* opacity: 0; */
 }
