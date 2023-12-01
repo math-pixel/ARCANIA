@@ -74,19 +74,20 @@ function addSpellInGameLogic(spellData, player){
         spellsInFired.push(spellFiredInformation)
     }
 
-    // console.log("new spell added" ,currentFiredSpell,spellsInFired)
 }
 
-//* #####Display spell in DOM #####
+/* -------------------------------------------------------------------------- */
+/*                            Display spell in DOM                            */
+/* -------------------------------------------------------------------------- */
 function displaySpell(spellData, player) {
 
     createAudioElement(spellData)
 
     //* Set up video add-on information
     // check if its a loading video
+    //* create video element
     if (spellData.name.includes("loading")) {
         if (player.loading == null) {
-            console.log(player.loading)
             return createVideoElement(player, spellData, loop = true, isLoadingSpell = true)
             
         }
@@ -97,17 +98,17 @@ function displaySpell(spellData, player) {
     
 }
 
-//* ##### remove spell from logic and DOM element #####
+/* -------------------------------------------------------------------------- */
+/*                   remove spell from logic and DOM element                  */
+/* -------------------------------------------------------------------------- */
 function removeSpellFired(videoElement){
 
     //* remove video from gamemanager with id
     spellsInFired = spellsInFired.filter(currentSpellFired => currentSpellFired.spellVideoElement.id == videoElement.id)
 
     //* remove video from DOM
-    // console.log(`"${videoElement.id}"`)
     let tempVid = document.getElementById(videoElement.id)
     tempVid.parentNode.removeChild(videoElement)
-    // console.log("new array",spellsInFired)
 }
   
 
@@ -125,57 +126,71 @@ let spellWickness = {
     lineV : "circle"
 }
 
+let toto = document.getElementById("toto")
 function collisionManager(){
+    
     if(isSpellFiredFromTwoPlayer()){
-        // set all %
-        // setAllPercentageOfSpellsVideo()
 
-        // if (areCloseValues(allSpellFiredInformation_P1,allSpellFiredInformation_P2, 10)) {
-
-        //     document.getElementById(spellsInFired[indexSpellPlayer1Collision].spellVideoElement.id).classList.add("fadeOut");
-        //     document.getElementById(spellsInFired[indexSpellPlayer2Collision].spellVideoElement.id).classList.add("fadeOut");
-
-        //     console.log("spell touch", indexSpellPlayer2Collision)
-        // }else{
-        //     console.log("spell not touch")
-        //     setTimeout(() => {
-                
-        //         collisionManager()
-        //     },200)
-        // }
-        // same range ? => boucvle
-            // do action dissipation
-
-        //TODO compare it and remove 
-
+        // * for all spell fired check his weakness
         for (let spellPlayer1 of allSpellFiredInformation_P1) {
             for (let spellPlayer2 of allSpellFiredInformation_P2) {
                 
-                // get the spell name in weakness and compare it to current spell player 2
-                console.log("spell player 1 name", spellPlayer1.dataSpell.name)
-                console.log("his weakness : ", spellWickness[spellPlayer1.dataSpell.name])
-                console.log("spell player 2 name", spellPlayer2.dataSpell.name)
-                console.log("his weakness : ", spellWickness[spellPlayer2.dataSpell.name])
+                //* get the spell weakness player 1 and compare it to current spell name player 2
                 if (spellWickness[spellPlayer1.dataSpell.name] == spellPlayer2.dataSpell.name ) {
                     //? spell p1 < p2
-                    //TODO remove p1 spell
-                    console.log("remove spell player : 1")
-                    removeSpellFired(spellPlayer1.spellVideoElement)
+                    //? timeout for wait the loading meta data
+                    setTimeout(() => {
+                        let w = getCollisionCenterPoint(spellPlayer1.spellVideoElement, spellPlayer2.spellVideoElement)
+                        console.log(w)
+                        toto.style.left = w + "vw"
+                    }, 100)
+                    // removeSpellFired(spellPlayer1.spellVideoElement)
                 }
 
-                console.log("result", spellWickness[spellPlayer2.dataSpell.name], spellPlayer1.dataSpell.name, spellWickness[spellPlayer2.dataSpell.name] == spellPlayer1.dataSpell.name)
-
+                //* get the spell weakness player 2 and compare it to current spell name player 1
                 if (spellWickness[spellPlayer2.dataSpell.name] == spellPlayer1.dataSpell.name ) {
                     //? spell p1 > p2
-                    console.log("remove spell player : 2")
-                    //TODO remove p2 spell
-                    removeSpellFired(spellPlayer2.spellVideoElement)
-                    console.log(spellPlayer2.spellVideoElement)
-
+                    //? timeout for wait the loading meta data
+                    setTimeout(() => {
+                        let w = getCollisionCenterPoint(spellPlayer1.spellVideoElement, spellPlayer2.spellVideoElement)
+                        console.log(w)
+                        toto.style.left = w + "vw"
+                    }, 100)
+                    // removeSpellFired(spellPlayer2.spellVideoElement)
                 }
             }      
         }
     }
+}
+
+
+/* -------------------------------------------------------------------------- */
+/*                               Tools Function                               */
+/* -------------------------------------------------------------------------- */
+
+function getCollisionCenterPoint(videoElement1, videoElement2){
+    //* get current % advencement each video
+    let percentAdvencementVideo1 = getAdvencementPercentageOfVideo(videoElement1)
+    let percentAdvencementVideo2 = getAdvencementPercentageOfVideo(videoElement2)
+
+    //* totalPercent = add 2 %
+    let totalPercent = percentAdvencementVideo1 + percentAdvencementVideo2
+    //* middle = cross product of percentage
+    let middle = ( 100 - totalPercent ) / 2
+    //* currentPercent = advencement percentage vid1 + gap / 2
+     currentPercent = percentAdvencementVideo1 + middle
+
+     return currentPercent
+}
+
+function getAdvencementPercentageOfVideo(video){
+    let timeVideo = video.currentTime
+    let maxTimeVideo = video.duration
+
+    let percent = ( 100 * timeVideo ) / maxTimeVideo
+    console.log(video, timeVideo, maxTimeVideo, percent)
+
+    return parseInt(percent)
 }
 
 function isSpellFiredFromTwoPlayer(){
@@ -188,43 +203,4 @@ function isSpellFiredFromTwoPlayer(){
     }else{
         return false
     }
-}
-
-function setAllPercentageOfSpellsVideo(){
-
-    allSpellFiredInformation_P1.forEach((element, index) => {
-
-        const vidElement = element.spellVideoElement
-        const currentTime = vidElement.currentTime
-        const maxTime = vidElement.duration
-        allSpellFiredInformation_P1[index] = (100 * currentTime) / maxTime
-    });
-    
-    allSpellFiredInformation_P2.forEach((element, index) => {
-        const vidElement = element.spellVideoElement
-        const currentTime = vidElement.currentTime
-        const maxTime = vidElement.duration
-        // (maxTime - currentTime) invert for get the collision 
-        allSpellFiredInformation_P2[index] = (100 * (maxTime - currentTime)) / maxTime
-    });
-
-    console.log(allSpellFiredInformation_P1, "%")
-}
-
-function areCloseValues(array1, array2, deviationValue) {
-    let indexValue1 = 0
-    let indexValue2 = 0
-    for (let value1 of array1) {
-        for (let value2 of array2) {
-            if (Math.abs(value1 - value2) <= deviationValue) {
-                console.log(`The values ${value1} and ${value2} are close.`);
-                indexSpellPlayer1Collision = indexValue1
-                indexSpellPlayer2Collision = indexValue2
-                return true
-            }
-            indexValue2 += 1
-        }
-        indexValue1 += 1
-    }
-    return false
 }
