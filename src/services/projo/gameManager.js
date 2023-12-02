@@ -133,7 +133,6 @@ let spellWickness = {
     lineV : "circle"
 }
 
-let toto = document.getElementById("toto")
 function collisionManager(){
     
     if(isSpellFiredFromTwoPlayer()){
@@ -147,9 +146,8 @@ function collisionManager(){
                     //? spell p1 < p2
                     //? timeout for wait the loading meta data
                     setTimeout(() => {
-                        let w = getCollisionCenterPoint(spellPlayer1.spellVideoElement, spellPlayer2.spellVideoElement)
-                        console.log(w)
-                        toto.style.left = w + "vw"
+                        let percentAdvencement = getCollisionCenterPoint(spellPlayer1.spellVideoElement, spellPlayer2.spellVideoElement)
+                        drawExplosion(percentAdvencement)
                     }, 100)
                     removeSpellFired(spellPlayer1.spellVideoElement, true)
                 }
@@ -159,9 +157,8 @@ function collisionManager(){
                     //? spell p1 > p2
                     //? timeout for wait the loading meta data
                     setTimeout(() => {
-                        let w = getCollisionCenterPoint(spellPlayer1.spellVideoElement, spellPlayer2.spellVideoElement)
-                        console.log(w)
-                        toto.style.left = w + "vw"
+                        let percentAdvencement = getCollisionCenterPoint(spellPlayer1.spellVideoElement, spellPlayer2.spellVideoElement)
+                        drawExplosion(percentAdvencement)
                     }, 100)
                     removeSpellFired(spellPlayer2.spellVideoElement, true)
                 }
@@ -210,4 +207,24 @@ function isSpellFiredFromTwoPlayer(){
     }else{
         return false
     }
+}
+
+function drawExplosion(x, y = 0){
+    let video = document.createElement('video')
+    video.src = "/medias/spell_effect/explosion.webm"
+    video.autoplay = true
+    video.type = "video/webp"
+    video.preload = "auto"
+    video.style.position = "absolute"
+    video.style.top = y.toString() + "vh"
+    video.style.left = (x - 33).toString() + "vw"
+    
+    video.addEventListener("ended", () => {
+
+        video.parentNode.removeChild(video)
+
+    })
+    
+    parentVideo.appendChild(video)
+
 }
