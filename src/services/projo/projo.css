@@ -51,6 +51,70 @@ body {
     z-index: 988;
 }
 
+.wizardDiv1 {
+    width: 50%;
+    height: 100%;
+    z-index: 990;
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    
+}
+
+.wizardDiv2 {
+    width: 50%;
+    height: 100%;
+    z-index: 990;
+    position: absolute;
+    top: 0;
+    right: 0;
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-end;
+    
+}
+
+.User1 {
+    z-index: 111;
+    font-size: 50px;
+    color: white;
+    position: relative;
+    text-align: center;
+}
+
+.User2 {
+    z-index: 111;
+    font-size: 50px;
+    color: white;
+    position: relative;
+    text-align: center;
+}
+
+.wizard1 {
+    z-index: 990;
+    position: relative;
+    width: max-content;
+    height: 55vh;
+    /* top: 20vh;
+    left: 1vw; */
+    /* display: none; */
+}
+
+.wizard2 {
+    z-index: 990;
+    position: relative;
+    width: max-content;
+    height: 55vh;
+    /* top: 20vh;
+    right: 1vw; */
+    /* display: none; */
+}
+
 .vidIntro{
     position: absolute;
     top: 0;
@@ -78,13 +142,17 @@ body {
     align-items: center;
 }
 
+.training_vid {
+    z-index: -1;
+}
+
 .Container_Spell {
-    height: 80vh;
+    height: 90vh;
     width: 100vw;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    align-items: center;
+    align-items: flex-end;
 }
 
 .spell_reproduction {
@@ -185,7 +253,7 @@ video {
     left: 0px;
     margin: 0;
     padding: 0;
-    mix-blend-mode: screen;
+    /* mix-blend-mode: screen; */
 }
 
 .fadeOut{

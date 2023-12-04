@@ -82,7 +82,7 @@ socket.on("validation", (state) => {
         case "validate":
             displayOverlay("check")
             break;
-        case "nothing":
+        case "resetOverlay":
             displayOverlay()
             break
         default:

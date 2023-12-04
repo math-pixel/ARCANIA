@@ -112,6 +112,11 @@ io.on('connection', (socket) => {
       if (idRemotes[indexRemote] == socket.id) {
         idRemotes[indexRemote] = 0
         usernameRemote[indexRemote] = ""
+        if (indexRemote == 0) {
+          io.emit("playerName1", "")
+        } else {
+          io.emit("playerName2", "")
+        }
       }
     }
     console.log(usernameRemote)
