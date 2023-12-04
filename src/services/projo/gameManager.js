@@ -1,5 +1,5 @@
-let currentTimer = 60 // in sec
-let timer
+let currentTimer = 5000 // in sec
+let timerSec
 /* -------------------------------------------------------------------------- */
 /*                                 Start Game                                 */
 /* -------------------------------------------------------------------------- */
@@ -11,7 +11,7 @@ function startGame(){
 
 function startTimer(){
 
-    let timerSec = setInterval(() => {
+    timerSec = setInterval(() => {
         document.getElementById("timer").innerHTML = currentTimer
         currentTimer -= 1
 

@@ -164,7 +164,7 @@ function setup() {
 function brainLoaded() {
     console.log('Classification ready!');
 }
-
+let toto = [1,2,3,4]
 /* -------------------------------------------------------------------------- */
 /*           Defined whitch spell is catch and send it in websocket           */
 /* -------------------------------------------------------------------------- */
@@ -219,23 +219,29 @@ function collectData(x, y, z, xOrientation, yOrientation, zOrientation) {
                     //? MAX 5 spells | Average 3 to send it to server
                     if (arrayAverageSpell.length > 3) {
 
-                        // remove first element and add new
-                        arrayAverageSpell.shift()
-                        arrayAverageSpell.push(label)
+
+                        //? create temp array ( because can't pass throught reference )
+                        let temp = [...arrayAverageSpell]
+                        
+                        //* remove first element and add new
+                        temp.shift()
+                        temp.push(label)
+
+
+                        arrayAverageSpell = [...temp]
+
                         
                     }else{
                         arrayAverageSpell.push(label)
                     }
 
                     currentSpell = getAverageSpell(arrayAverageSpell)
-                    // socket.emit("console" ,currentSpell)
                     if (currentSpell.biggestSpell != "nothing") {
 
                         if (canSendSpell == true) {
                             sendSpellInWebsocket(currentSpell.biggestSpell)
                             delaySendSpell()
                         }
-                        // document.getElementById("debug").innerHTML = currentSpell.biggestSpell
                     }
 
                     if (currentSpell.chargingSpell != "nothing") {
@@ -243,7 +249,6 @@ function collectData(x, y, z, xOrientation, yOrientation, zOrientation) {
                         if (canSendSpell == true) {
                             sendSpellInWebsocket(currentSpell.chargingSpell + "_loading")
                         }
-                        // document.getElementById("debug").innerHTML = currentSpell.chargingSpell + "_loading"
                     }
                     
                 }
@@ -256,11 +261,10 @@ function collectData(x, y, z, xOrientation, yOrientation, zOrientation) {
 }
 
 function delaySendSpell(){
-    // socket.emit("console" , "delay")
 
     canSendSpell = false
-    resetSpellArray()
     setTimeout(() => {
+        resetSpellArray()
         canSendSpell = true
     }, 3000)
 }
@@ -271,12 +275,10 @@ function delaySendSpell(){
 let biggest = ["nothing", 2]
 let second = ["nothing", 0]
 function getAverageSpell(array){
-    // socket.emit("console" ,array)
 
     let uniqueElements = [...new Set(array)];
 
     const elementCounts = uniqueElements.map(value => [value, array.filter(str => str === value).length]);
-    // socket.emit("console" , elementCounts)
 
     //? example
 
@@ -285,24 +287,22 @@ function getAverageSpell(array){
 
         //? get biggest element
         if (element[1] > 3 && element[0] !== biggest[0]) {
-            // socket.emit("console" , "big ")
 
             biggest = element
 
-        }else if (element[1] > 1){
+        }else if (second[0] !== "nothing" && element[1] > second[1] ){
             //? get the charging form
             second = element
-            // socket.emit("console" , "new charging spell")
 
         }else{
-            // socket.emit("console", "rien du tout")
+            //? add "nothing" spell
+            second = element
         }
 
 
     });
     
     // document.getElementById("debug").innerHTML = JSON.stringify({ "1: " : biggest[0], "2:" : second[0] }) + elementCounts
-    // socket.emit("console", JSON.stringify({ "1: " : biggest[0], "2:" : second[0] }) + elementCounts)
     return { "biggestSpell" : biggest[0], "chargingSpell" : second[0] }
 }
 
@@ -312,34 +312,40 @@ function getAverageSpell(array){
 function sendSpellInWebsocket(label){
     // socket.emit("console", label)
 
-    if (label == "triangle") {
-        // triangleSong.play()
-        resetSpellArray()
-    }else if(label == "square"){
-        // squareSong.play()
-        resetSpellArray()
-    }else if(label == "circle"){
-        // circleSong.play()
-        socket.emit(player, "circle")
-        resetSpellArray()
-    }else if(label ==  "hline"){
-        // lineSong.play()
-        socket.emit(player, "lineH")
-        resetSpellArray()
-    }else if(label == "hline_loading"){
-        socket.emit(player, 'lineH_loading')
-        resetSpellArray()
-    }else if(label == "vline"){
-        socket.emit(player, 'lineV')
-        resetSpellArray()
-    }else if(label == "vline_loading"){
-        socket.emit(player, 'lineV_loading')
-        resetSpellArray()
+    switch(label){
+        case "triangle":
+            // triangleSong.play()
+            break;
+        case "square":
+            // squareSong.play()
+            break;
+        case "circle":
+            // circleSong.play()
+            socket.emit(player, "circle")
+            break;
+        case "circle_loading":
+            socket.emit(player, "circle_loading")    
+            break;
+        case "hline":
+            // lineSong.play()
+            socket.emit(player, "lineH")
+            break;
+        case "hline_loading":
+            socket.emit(player, 'lineH_loading')
+            break;
+        case "vline":
+            socket.emit(player, 'lineV')
+            break;
+        case "vline_loading":
+            socket.emit(player, 'lineV_loading')
+            break;
     }
 }
 
 function resetSpellArray(){
     arrayAverageSpell = ["nothing","nothing","nothing","nothing"]
+    biggest = ["nothing", 2]
+    second = ["nothing", 0]
 }
 
 // create start button
