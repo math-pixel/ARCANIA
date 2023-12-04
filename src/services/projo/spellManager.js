@@ -48,7 +48,7 @@ function createVideoElement(player, spellData, loop = false, isLoadingSpell = fa
             // video.parentNode.removeChild(video);
             removeSpellFired(video)
             
-            if (spellData.name != "damaged") {
+            if (spellData.damage != 0 || spellData.heal != 0) {
                 //* update life
                 lifeManager(player, spellData)
                 //* ##### Update mana bar #####
