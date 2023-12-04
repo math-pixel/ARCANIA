@@ -147,7 +147,7 @@ function updateStateExperience(){
       // videoIntro.parentNode.removeChild(videoIntro);
       break;
     case "InGame":
-
+      document.getElementById("backgroundBattle").play()
       document.getElementById("waiting_connection_container").style.display = "none";
       document.getElementById("vidIntro").style.display = "none"
       document.getElementById("training_container").style.display = 'none'
