@@ -155,6 +155,24 @@ function updateStateExperience(){
       startGame()
       break;
     case "End":
+      document.getElementById("timer").style.display = "none"
+      document.getElementById("videoDiv").style.display = "none"
+      document.getElementById("audioDiv").style.display = "none"
+      document.getElementById("playerInfo").style.display = "none"
+      document.getElementById("backgroundBattle").style.display = "none"
+      document.getElementById("waiting_connection_container").style.display = "none";
+      document.getElementById("vidIntro").style.display = "none"
+      document.getElementById("training_container").style.display = 'none'
+      break;
+    case "dataviz":
+      document.getElementById("timer").style.display = "none"
+      document.getElementById("videoDiv").style.display = "none"
+      document.getElementById("audioDiv").style.display = "none"
+      document.getElementById("playerInfo").style.display = "none"
+      document.getElementById("backgroundBattle").style.display = "none"
+      document.getElementById("waiting_connection_container").style.display = "none";
+      document.getElementById("vidIntro").style.display = "none"
+      document.getElementById("training_container").style.display = 'none'
       break;
   }
 }

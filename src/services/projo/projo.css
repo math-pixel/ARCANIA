@@ -221,3 +221,12 @@ video {
     animation-fill-mode: forwards;
     /* opacity: 0; */
 }
+
+.endGameVideo{
+    width: 100vw;
+    height: 100vh;
+
+    position: absolute;
+    top: 0;
+    left: 0;
+}

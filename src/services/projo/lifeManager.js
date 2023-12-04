@@ -9,13 +9,23 @@ function lifeManager(player, spellData) {
         // Add dommage to player
         if (player.life - spellData.damage > 0) {
             player.life -= spellData.damage
+
+            //* send phone feed back
             socket.emit("takeDamage", JSON.stringify( { playerName : player.name, spellName : spellData.name} ))
-            // console.log(player.life)
+
         } else {
             console.log(player + ": dead !!!")
             player.life = 0
+
+            //* send phone feed back
             socket.emit("takeDamage", JSON.stringify( { playerName : player.name, spellName : "dead"} ))
-            // console.log(player.life)
+
+            // *End Game
+            if (player.name == "player1") {
+              endGame("loseP1")
+            }else{
+              endGame("loseP2")
+            }
         }
   
       updateLife(player, "shot")

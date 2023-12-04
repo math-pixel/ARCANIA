@@ -32,16 +32,45 @@ function endGame(reason){
 
     // clear timer
     clearInterval(timerSec)
-    stateOfGame = "End"
 
-    let a = document.getElementById("endVideoWin")
-    a.play()
-    a.addEventListener("ended", () => {
-        a.style.display = "none"
-        document.getElementById("stat").style.display = "block"
-    })
+    // * set state "end" for there is not enought spell 
+    stateOfGame = "End"
+    updateStateExperience()
+    // let a = document.getElementById("endVideoWin")
+    // a.play()
+    // a.addEventListener("ended", () => {
+    //     a.style.display = "none"
+    //     document.getElementById("stat").style.display = "block"
+    // })
+
+    // * do action in function of win
+    switch(reason){
+        case "timeout":
+            break;
+        case "loseP1":
+            startEndVideo("/medias/end/winner_red.webm")
+            break;
+        case "loseP2":
+            startEndVideo("/medias/end/winner_blue.webm")
+            break;
+    }
 
 }
+
+function startEndVideo(src){
+    let video = document.getElementById("endGameVideo")
+  
+    video.src = src
+    video.style.display = "block"
+  
+    video.play()
+  
+    video.addEventListener("ended", () => {
+        video.parentNode.removeChild(video)
+        stateOfGame = "dataviz"
+        updateStateExperience()
+    })
+  }
 
 /* -------------------------------------------------------------------------- */
 /*                             Spell Logic Manager                            */
