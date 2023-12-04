@@ -157,6 +157,16 @@ body {
     background-color: red;
 }
 
+.timer{
+
+    position: absolute;
+    top: 15%;
+    left: 48%;
+    color: white;
+    text-align: center;
+
+}
+
 .mana1 {
     width: 40%;
     height: 100%;
@@ -185,6 +195,7 @@ body {
 
 .opacity{
     opacity: 20%;
+    filter: grayscale(0.7);
 }
 
 .bar {
