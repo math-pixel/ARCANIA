@@ -95,6 +95,7 @@ function trainingSpellDetected(spellData, player){
             }, 2000)
         } else {
             stateOfGame = "InGame"
+            updateStateExperience()
         }
     } else {
         console.log("no")

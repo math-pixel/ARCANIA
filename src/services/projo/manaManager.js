@@ -24,5 +24,5 @@ function updateMana(player) {
     } else {
         manaDiv = document.getElementById("infoMana2")
     }
-    manaDiv.style.width = player["mana"] + "%"
+    manaDiv.style.clipPath  = `polygon(0px 0px, ${player.mana + 15}% 0%, ${player.mana + 10}% 100%, 0% 100%)`
 }

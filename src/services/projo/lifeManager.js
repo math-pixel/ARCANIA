@@ -53,6 +53,8 @@ function updateLife(player, state) {
     } else if (player.name == "player2" && state == "heal"){
         lifeDiv = document.getElementById("infoLife2")
     }
+    // console.log(lifeDiv)
+    lifeDiv.style.clipPath  = `polygon(0px 0px, ${player.life}% 0%, ${player.life - 4}% 100%, 0% 100%)`
 
-    lifeDiv.style.width = player.life + "%"
+    // clip-path: polygon(0px 0px, {100.43}% 0%, {96.92}% 100%, 0% 100%);
 }

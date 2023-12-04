@@ -34,7 +34,7 @@ const socket = io();
 // ##### Init Player #####
 let player1 = {
   name: "player1",
-  life: 100,
+  life: 100, 
   mana: 0,
   loading: null,
   hit: null
@@ -138,6 +138,7 @@ function updateStateExperience(){
       break;
     case "TrainingPlayer":
 
+      document.getElementById("waiting_connection_container").style.display = "none";
       document.getElementById("vidIntro").style.display = "none"
       document.getElementById("training_container").style.display = "flex" //TODO display block
 
@@ -147,6 +148,8 @@ function updateStateExperience(){
       break;
     case "InGame":
 
+      document.getElementById("waiting_connection_container").style.display = "none";
+      document.getElementById("vidIntro").style.display = "none"
       document.getElementById("training_container").style.display = 'none'
 
       startGame()
