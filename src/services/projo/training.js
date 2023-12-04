@@ -9,7 +9,7 @@ function startTraining(){
     // display first spell
     updateTraining(states[indexState])
 }
-
+ 
 function updateTraining(state) {
     switch (state) {
         case "horizontal":
