@@ -44,7 +44,7 @@
             "combo": []
         },{
             "name": "damaged",
-            "videoSrc": "/medias/loading_spells/fire-spell-loading_reverse.webm",
+            "videoSrc": "/medias/loading_spells/dammaged.webm",
             "audioSrc": "",
             "damage": 0,
             "heal": 0,
