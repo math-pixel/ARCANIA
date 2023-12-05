@@ -4,7 +4,7 @@
             "name": "circle",
             "videoSrc": "/medias/spells/fire_spell.webm",
             "audioSrc": "/medias/audio_spells/fire_spell.mp3",
-            "damage": 50,
+            "damage": 3,
             "heal": 0, 
             "combo": ["cercle"]
         },{
