@@ -94,7 +94,7 @@ function displayOverlay(icon) {
      switch (icon) {
         case "check":
             overlay.style.display = 'grid'
-            iconImg.src = "/medias/phone_media/icons/check.svg"
+            iconImg.src = "/medias/phone_media/icons/check.png"
             break;
 
         case "loose":
