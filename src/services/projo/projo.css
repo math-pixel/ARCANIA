@@ -106,7 +106,7 @@ body {
 .playerName {
     position: absolute;
     top: 30%;
-    width: 100%;
+    width: 80%;
     text-align: center;
     /* color: red; */
 }
