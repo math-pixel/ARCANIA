@@ -164,7 +164,7 @@ function setup() {
 function brainLoaded() {
     console.log('Classification ready!');
 }
-let toto = [1,2,3,4]
+let maxCountOfSpell = 1
 /* -------------------------------------------------------------------------- */
 /*           Defined whitch spell is catch and send it in websocket           */
 /* -------------------------------------------------------------------------- */
@@ -217,7 +217,7 @@ function collectData(x, y, z, xOrientation, yOrientation, zOrientation) {
 
                     //* add spell to array
                     //? MAX 5 spells | Average 3 to send it to server
-                    if (arrayAverageSpell.length > 3) {
+                    if (arrayAverageSpell.length > maxCountOfSpell) {
 
 
                         //? create temp array ( because can't pass throught reference )
@@ -236,6 +236,10 @@ function collectData(x, y, z, xOrientation, yOrientation, zOrientation) {
                     }
 
                     currentSpell = getAverageSpell(arrayAverageSpell)
+
+                    if (canSendSpell) {
+                        socket.emit("console", currentSpell)
+                    }
                     if (currentSpell.biggestSpell != "nothing") {
 
                         if (canSendSpell == true) {
@@ -272,7 +276,7 @@ function delaySendSpell(){
 /* -------------------------------------------------------------------------- */
 /*         Get an array and return the biggest and second most average        */
 /* -------------------------------------------------------------------------- */
-let biggest = ["nothing", 2]
+let biggest = ["nothing", maxCountOfSpell]
 let second = ["nothing", 0]
 function getAverageSpell(array){
 
@@ -286,7 +290,7 @@ function getAverageSpell(array){
     // document.getElementById("debug").innerHTML = elementCounts
 
         //? get biggest element
-        if (element[1] > 3 && element[0] !== biggest[0]) {
+        if (element[1] > maxCountOfSpell && element[0] !== biggest[0]) {
 
             biggest = element
 
@@ -344,7 +348,7 @@ function sendSpellInWebsocket(label){
 
 function resetSpellArray(){
     arrayAverageSpell = ["nothing","nothing","nothing","nothing"]
-    biggest = ["nothing", 2]
+    biggest = ["nothing", maxCountOfSpell]
     second = ["nothing", 0]
 }
 
