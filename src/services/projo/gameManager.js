@@ -248,6 +248,7 @@ function drawExplosion(x, y = 0){
     video.style.top = y.toString() + "vh"
     video.style.left = (x - 33).toString() + "vw"
     
+    displayFlash()
     video.addEventListener("ended", () => {
 
         video.parentNode.removeChild(video)
@@ -255,5 +256,16 @@ function drawExplosion(x, y = 0){
     })
     
     parentVideo.appendChild(video)
+
+}
+
+function displayFlash(){
+
+    let flash = document.getElementById("flash")
+
+    flash.style.display = "block"
+    setTimeout(() => {
+        flash.style.display = "none"
+    }, 200) 
 
 }

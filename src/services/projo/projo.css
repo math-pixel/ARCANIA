@@ -222,6 +222,18 @@ video {
     /* opacity: 0; */
 }
 
+.flash{
+    width: 100vw;
+    height: 100vh;
+
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    background-color: white;
+    display: none;
+}
+
 .endGameVideo{
     width: 100vw;
     height: 100vh;
