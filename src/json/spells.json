@@ -23,28 +23,28 @@
             "combo": ["ligne"]
         },{
             "name": "circle_loading",
-            "videoSrc": "/medias/loading_spells/fire_spell_loading.webm",
+            "videoSrc": "/medias/loading_spells/loading_fire.webm",
             "audioSrc": "/medias/audio_spells/fire_spell_loading.mp3",
             "damage": 0,
             "heal": 0,
             "combo": []
         },{
             "name": "lineV_loading",
-            "videoSrc": "/medias/loading_spells/fire_spell_loading.webm",
+            "videoSrc": "/medias/loading_spells/loading_nature.webm",
             "audioSrc": "/medias/audio_spells/frozen_spell_loading.mp3",
             "damage": 0,
             "heal": 0,
             "combo": []
         },{
             "name": "lineH_loading",
-            "videoSrc": "/medias/loading_spells/fire_spell_loading.webm",
+            "videoSrc": "/medias/loading_spells/loading_water.webm",
             "audioSrc": "/medias/audio_spells/frozen_spell_loading.mp3",
             "damage": 0,
             "heal": 0,
             "combo": []
         },{
             "name": "damaged",
-            "videoSrc": "/medias/loading_spells/fire-spell-loading_reverse.webm",
+            "videoSrc": "/medias/spell_effect/impact_spell.webm",
             "audioSrc": "",
             "damage": 0,
             "heal": 0,

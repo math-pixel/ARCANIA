@@ -51,6 +51,10 @@ body {
     z-index: 988;
 }
 
+.videoVersus {
+    z-index: 989;
+}
+
 .wizardDiv1 {
     width: 50%;
     height: 100%;
@@ -60,9 +64,38 @@ body {
     left: 0;
     display: none;
     flex-direction: column;
-    justify-content: center;
+    justify-content: flex-end;
     align-items: flex-start;
     
+}
+
+.nameGaucheDiv {
+    position: absolute;
+    top: 35px;
+    left: 669px;
+}
+
+.nameGauche {
+    height: 50px;
+    width: max-content;
+}
+
+.nameDroiteDiv {
+    position: absolute;
+    bottom: 35px;
+    right: 810px;
+}
+
+.nameDroite {
+    height: 50px;
+    width: max-content;
+}
+
+.playerName {
+    position: absolute;
+    top: 0;
+    width: 100%;
+    text-align: center;
 }
 
 .wizardDiv2 {
@@ -74,7 +107,7 @@ body {
     right: 0;
     display: none;
     flex-direction: column;
-    justify-content: center;
+    justify-content: flex-end;
     align-items: flex-end;
     
 }
@@ -99,27 +132,31 @@ body {
     z-index: 990;
     position: relative;
     width: max-content;
-    height: 55vh;
+    height: 80vh;
     /* top: 20vh;
     left: 1vw; */
     /* display: none; */
+    bottom: 0;
+    left: 0;
 }
 
 .wizard2 {
     z-index: 990;
     position: relative;
     width: max-content;
-    height: 55vh;
+    height: 80vh;
     /* top: 20vh;
     right: 1vw; */
     /* display: none; */
+    bottom: 0;
+    left: 0;
 }
 
 .vidIntro{
     position: absolute;
     top: 0;
     left: 0;
-    z-index: 980;
+    z-index: 999;
 
     width: 100vw;   
     height: 100vh;

@@ -56,6 +56,9 @@ let player2 = {
 document.getElementById("introButton").addEventListener("click", () => {
   let introDiv = document.getElementById("intro")
   let trainingVideo = document.getElementById("training_vid")
+  let videoVersus = document.getElementById("videoVersus")
+  videoVersus.play()
+  videoVersus.loop = true
   trainingVideo.play()
   trainingVideo.loop = true
   introDiv.parentNode.removeChild(introDiv);
@@ -91,7 +94,7 @@ function playRulesVideo() {
 
   videoIntro.addEventListener("ended", () => {
     console.log("finish vid")
-    stateOfGame = "Rules"
+    stateOfGame = "TrainingPlayer"
     updateStateExperience()
   })
 
@@ -191,9 +194,9 @@ socket.on("allplayerConnected", (player) => {
 
   setTimeout(() => {
     // console.log("toto")
-    stateOfGame = "TrainingPlayer"
+    stateOfGame = "Rules"
     updateStateExperience()
-  }, 2000)
+  }, 5000)
 
 
 })
