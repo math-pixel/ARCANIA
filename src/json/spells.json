@@ -9,42 +9,42 @@
             "combo": ["cercle"]
         },{
             "name": "lineH",
-            "videoSrc": "/medias/spells/frozen_spell.webm",
+            "videoSrc": "/medias/spells/water_spell.webm",
             "audioSrc": "/medias/audio_spells/frozen_spell.mp3",
             "damage": 3,
             "heal": 0,
             "combo": ["ligne"]
         },{
             "name": "lineV",
-            "videoSrc": "/medias/spells/poison_spell.webm",
+            "videoSrc": "/medias/spells/nature_spell.webm",
             "audioSrc": "/medias/audio_spells/fire_spell.mp3",
             "damage": 3,
             "heal": 0,
             "combo": ["ligne"]
         },{
             "name": "circle_loading",
-            "videoSrc": "/medias/loading_spells/fire_spell_loading.webm",
+            "videoSrc": "/medias/loading_spells/loading_fire.webm",
             "audioSrc": "",
             "damage": 0,
             "heal": 0,
             "combo": []
         },{
             "name": "lineV_loading",
-            "videoSrc": "/medias/loading_spells/fire_spell_loading.webm",
+            "videoSrc": "/medias/loading_spells/loading_nature.webm",
             "audioSrc": "",
             "damage": 0,
             "heal": 0,
             "combo": []
         },{
             "name": "lineH_loading",
-            "videoSrc": "/medias/loading_spells/fire_spell_loading.webm",
+            "videoSrc": "/medias/loading_spells/loading_water.webm",
             "audioSrc": "",
             "damage": 0,
             "heal": 0,
             "combo": []
         },{
             "name": "damaged",
-            "videoSrc": "/medias/loading_spells/dammaged.webm",
+            "videoSrc": "/medias/spell_effect/impact_spell.webm",
             "audioSrc": "",
             "damage": 0,
             "heal": 0,

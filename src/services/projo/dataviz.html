@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <div class="datavizDiv">
+    <div class="upStat">
+      <div class="playerStat">
+        <div class="innerPlayer">
+          <div class="playerWizard"></div>
+          <div class="playerCollect"></div>
+        </div>
+      </div>
+      <div class="innerStat"></div>
+      <div class="playerStat"></div>
+    </div>
+    <div class="downStat"></div>
+  </div>
+</body>
+<style>
+  * {
+    margin: 0;
+    padding: 0;
+  }
+
+  .datavizDiv {
+    position: absolute;
+    z-index: -11;
+    background: linear-gradient(180deg, #301A34 0%, #130A15 100%);
+    width: 100vw;
+    height: 100vh;
+  }
+
+  .upStat {
+    height: 80%;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+  }
+
+  .downStat {
+    height: 20%;
+    width: 100%;
+  }
+
+  .playerStat {
+    width: 25%;
+    height: 100%;
+    background-color: antiquewhite;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .innerStat {
+    width: 50%;
+    height: 100%;
+    background-color: #301A34;
+  }
+
+  .innerPlayer {
+    width: 100%;
+    height: 60%;
+    background-color: aquamarine;
+  }
+
+</style>
+</html>

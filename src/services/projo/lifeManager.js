@@ -5,8 +5,7 @@ function lifeManager(player, spellData) {
 
     //* Set Damage
     if (spellData.damage != 0) {
-      
-        // Add dommage to player
+        //* Add dommage to player
         if (player.life - spellData.damage > 0) {
             player.life -= spellData.damage
 
@@ -14,17 +13,29 @@ function lifeManager(player, spellData) {
             socket.emit("takeDamage", JSON.stringify( { playerName : player.name, spellName : spellData.name} ))
 
         } else {
+
+          //? DEATH 
             console.log(player + ": dead !!!")
             player.life = 0
 
+
             //* send phone feed back
             socket.emit("takeDamage", JSON.stringify( { playerName : player.name, spellName : "dead"} ))
-
+            
             // *End Game
             if (player.name == "player1") {
-              endGame("loseP1")
+              endGame("winnerP1")
+
+              //* set up phone overlay
+              websocketValidation("player1", "win")
+              websocketValidation("player2", "loose")
+              
             }else{
-              endGame("loseP2")
+              endGame("winnerP2")
+              
+              //* set up phone overlay
+              websocketValidation("player2", "win")
+              websocketValidation("player1", "loose")
             }
         }
   
@@ -45,6 +56,7 @@ function lifeManager(player, spellData) {
       updateLife(player, "heal")
     }
 
+    // Display dammage
     let spellDamageData = getSpellInformation("damaged", player) 
     displaySpell(spellDamageData, player)
   }

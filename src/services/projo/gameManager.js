@@ -47,10 +47,10 @@ function endGame(reason){
     switch(reason){
         case "timeout":
             break;
-        case "loseP1":
+        case "winnerP1":
             startEndVideo("/medias/end/winner_red.webm")
             break;
-        case "loseP2":
+        case "winnerP2":
             startEndVideo("/medias/end/winner_blue.webm")
             break;
     }

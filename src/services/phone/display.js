@@ -78,15 +78,11 @@ function displayBaguette() {
 }
 
 socket.on("validation", (state) => {
-    switch (state) {
-        case "validate":
-            displayOverlay("check")
-            break;
-        case "nothing":
-            displayOverlay()
-            break
-        default:
-            break;
+
+    if (state != "resetOverlay") {
+        displayOverlay(state)
+    }else{
+        displayOverlay()
     }
 })
 

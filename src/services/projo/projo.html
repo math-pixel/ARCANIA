@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="projo.css">
     <title>Projector</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 </head>
 <body>  
   Start button Required for video play auto 
@@ -16,37 +17,43 @@
 
   <!-- Waiting Connection -->
   <div class="waiting_connection_container" id="waiting_connection_container">
-    <img src="/medias/background/bg_1.png" class="background_waiting">
+    <video src="/medias/background/versus_background.mp4" loop class="videoVersus" id="videoVersus"></video>
 
-    <!-- <img src="" class="qrCode1" id="qrCode1" alt="qrCode1">
-    <img src="" class="qrCode2" id="qrCode2" alt="qrCode2">
 
-    <img src="/medias/wizard/red_wizard.png" class="wizard1" id="wizard1">
-    <img src="/medias/wizard/blue_wizard.png" class="wizard2" id="wizard2"> -->
-
-    <p class="User1" id="User1"></p>
-    <p class="User2" id="User2"></p>
+    <div class="wizardDiv1" id="wizardDiv1">
+      <img src="/medias/wizard/red_wizard_waiting.png" class="wizard1" id="wizard1">
+      <div class="nameGaucheDiv">
+        <img src="/medias/ui_projo/name_gauche.svg" alt="" class="nameGauche">
+        <p class="playerName" id="User1">TEST</p>
+      </div>
+    </div>
+    
+    <div class="wizardDiv2" id="wizardDiv2">
+      <img src="/medias/wizard/blue_wizard_waiting.png" class="wizard2" id="wizard2">
+      <div class="nameDroiteDiv">
+        <img src="/medias/ui_projo/name_droite.svg" alt="" class="nameDroite">
+        <p class="playerName" id="User2">TEST</p>
+      </div>
+    </div>
 
   </div>
 
   <!-- Rules Video -->
-  <video src="/medias/rules_video.mp4" id="vidIntro" class="vidIntro"></video>
-
+  <video src="/medias/rules_video2.mp4" id="vidIntro" class="vidIntro" width="1920" height="1080"></video>
   <!-- Training Part -->
   <div class="training_container" id="training_container">
-    <h1>Initiation</h1>
-    <h2>Reproduisez les sorts afficher devant vous</h2>
+    <video src="/medias/background/training.mp4" id="training_vid" class="training_vid" width="1920" height="1080" type="video/mp4"></video>
 
     <div class="Container_Spell">
 
       <div class="spell_reproduction">
         <img src="\medias\trainingPart\horizontal.gif" alt="" class="current_Spell" id="current_Spell1">
-        <p class="spell_step" id="spell_step1">En cour</p>
+        <!-- <p class="spell_step" id="spell_step1">En cour</p> -->
       </div>
 
       <div class="spell_reproduction">
         <img src="\medias\trainingPart\horizontal.gif" alt="" class="current_Spell" id="current_Spell2">
-        <p class="spell_step" id="spell_step2">En cours</p>
+        <!-- <p class="spell_step" id="spell_step2">En cours</p> -->
       </div>
     </div>
 

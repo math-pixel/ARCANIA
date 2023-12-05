@@ -2,7 +2,7 @@
 /*                                Init Variable                               */
 /* -------------------------------------------------------------------------- */
 // get / set information of the advencement of the game 
-let stateOfGame = "InGame" //? Init | Rules | TrainingPlayer | InGame | End
+let stateOfGame = "Init" //? Init | Rules | TrainingPlayer | InGame | End
 
 let playerName1 = "";
 let playerName2 = "";
@@ -55,12 +55,31 @@ let player2 = {
 // when button start is pressed
 document.getElementById("introButton").addEventListener("click", () => {
   let introDiv = document.getElementById("intro")
+  let trainingVideo = document.getElementById("training_vid")
+  let videoVersus = document.getElementById("videoVersus")
+  videoVersus.play()
+  videoVersus.loop = true
+  trainingVideo.play()
+  trainingVideo.loop = true
   introDiv.parentNode.removeChild(introDiv);
   updateStateExperience() //? its Init State
 })
 
 let parentVideo = document.getElementById("videoDiv")
 let parentAudio = document.getElementById("audioDiv")
+
+function generateQRCode(place, url) {
+  new QRCode(place, {
+    text: url,
+    width: 288,
+    height: 288,
+    colorDark: "white",
+    colorLight: "black",
+    correctLevel: QRCode.CorrectLevel.H
+  });
+}
+
+
 
 
 /* -------------------------------------------------------------------------- */
@@ -165,6 +184,12 @@ function updateStateExperience(){
       document.getElementById("training_container").style.display = 'none'
       break;
     case "dataviz":
+
+      // reset phone overlay
+      websocketValidation("player1", "resetOverlay")
+      websocketValidation("player2", "resetOverlay")
+
+      
       document.getElementById("timer").style.display = "none"
       document.getElementById("videoDiv").style.display = "none"
       document.getElementById("audioDiv").style.display = "none"
@@ -187,7 +212,7 @@ socket.on("allplayerConnected", (player) => {
     // console.log("toto")
     stateOfGame = "Rules"
     updateStateExperience()
-  }, 2000)
+  }, 5000)
 
 
 })
@@ -196,12 +221,22 @@ socket.on("allplayerConnected", (player) => {
 socket.on("playerName1", (name) => {
   //TODO play wizard Animation ( call function )
   playerName1 = name
-  document.getElementById("User1").innerHTML = name
+  if (name !== "") {
+    document.getElementById("wizardDiv1").style.display = 'flex'
+    document.getElementById("User1").innerHTML = name
+  } else {
+    document.getElementById("wizardDiv1").style.display = 'none'
+  }
 })
 socket.on("playerName2", (name) => {
   //TODO play wizard Animation ( call function )
   playerName2 = name
-  document.getElementById("User2").innerHTML = name
+  if (name !== "") {
+    document.getElementById("wizardDiv2").style.display = 'flex'
+    document.getElementById("User2").innerHTML = name
+  } else {
+    document.getElementById("wizardDiv2").style.display = 'none'
+  }
 })
 
 
