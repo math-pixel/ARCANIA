@@ -225,12 +225,12 @@ body {
     display: flex;
     flex-direction: row;
     position: absolute;
-    justify-content: center;
+    justify-content: space-around;
     margin-top: 3%;
 }
 
 .player1 {
-    width: 37%;
+    width: 30%;
     padding: 1em;
     display: flex;
     flex-direction: column;
@@ -239,7 +239,7 @@ body {
 }
 
 .player2 {
-    width: 50%;
+    width: 30%;
     padding: 1em;
     display: flex;
     flex-direction: column;
@@ -274,11 +274,19 @@ body {
 
 .timer{
 
-    position: absolute;
-    top: 15%;
-    left: 48%;
     color: white;
     text-align: center;
+
+    width: 150px;
+    height: 150px;
+
+    background-image: url("/medias/chrono/chrono.png");
+    background-position: center;
+    background-size: contain;
+    background-repeat: no-repeat;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 
 }
 
