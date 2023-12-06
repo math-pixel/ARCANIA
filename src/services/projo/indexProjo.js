@@ -92,18 +92,18 @@ function playRulesVideo() {
   videoIntro.style.display = "block"
   videoIntro.play()
 
-  videoIntro.addEventListener("ended", () => {
-    console.log("finish vid")
-    stateOfGame = "TrainingPlayer"
-    updateStateExperience()
-  })
+  // videoIntro.addEventListener("ended", () => {
+  //   console.log("finish vid")
+  //   stateOfGame = "TrainingPlayer"
+  //   updateStateExperience()
+  // })
 
   //! for debug comment the line above ( event listener ) and un-comment the line below
-  // setTimeout(() => {
-  //     stateOfGame = "TrainingPlayer"
-  //     updateStateExperience()
+  setTimeout(() => {
+      stateOfGame = "TrainingPlayer"
+      updateStateExperience()
 
-  // }, 500)
+  }, 500)
 
 }
 

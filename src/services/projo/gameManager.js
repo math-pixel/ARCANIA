@@ -1,4 +1,4 @@
-let currentTimer = 5000 // in sec
+let currentTimer = 120 // in sec
 let timerSec
 /* -------------------------------------------------------------------------- */
 /*                                 Start Game                                 */
