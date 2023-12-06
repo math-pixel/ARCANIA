@@ -27,13 +27,15 @@ let waterDiv2 = document.getElementById("water2")
 let natureDiv1 = document.getElementById("nature1")
 let natureDiv2 = document.getElementById("nature2")
 
-function updateData(winner) {
+let winner
+
+function updateData(player) {
   if (winner == "player1") {
     winnerPlayer1.innerText = "WINNER"
-    winnerPlayer2.innerText = "LOOSER"
+    winnerPlayer2.innerText = "LOSER"
   } else {
     winnerPlayer2.innerText = "WINNER"
-    winnerPlayer1.innerText = "LOOSER"
+    winnerPlayer1.innerText = "LOSER"
   }
   namePlayer1.innerText = playerName1
   namePlayer2.innerText = playerName2

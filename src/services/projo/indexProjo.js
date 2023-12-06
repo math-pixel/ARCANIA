@@ -198,6 +198,8 @@ function updateStateExperience(){
       document.getElementById("waiting_connection_container").style.display = "none";
       document.getElementById("vidIntro").style.display = "none"
       document.getElementById("training_container").style.display = 'none'
+
+      updateData(winner)
       break;
   }
 }
@@ -210,7 +212,8 @@ socket.on("allplayerConnected", (player) => {
 
   setTimeout(() => {
     // console.log("toto")
-    stateOfGame = "dataviz"
+    // stateOfGame = "Rules"
+    stateOfGame = "InGame"
     updateStateExperience()
   }, 5000)
 

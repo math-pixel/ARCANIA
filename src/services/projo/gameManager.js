@@ -49,9 +49,11 @@ function endGame(reason){
             break;
         case "winnerP1":
             startEndVideo("/medias/end/winner_red.webm")
+            winner = 'player1'
             break;
         case "winnerP2":
             startEndVideo("/medias/end/winner_blue.webm")
+            winner = 'player2'
             break;
     }
 
@@ -277,22 +279,22 @@ function displayFlash(){
 /* -------------------------------------------------------------------------- */
 let playersStat = {
    "player1": {
-        fireSpell: 5,
-        waterSpell: 10,
-        natureSpell: 3,
-        ultimeSpell: 1,
-        sortTotal: 18,
-        manaTotal: 256,
-        degatTotal: 115,
+        fireSpell: 0,
+        waterSpell: 0,
+        natureSpell: 0,
+        ultimeSpell: 0,
+        sortTotal: 0,
+        manaTotal: 0,
+        degatTotal: 0,
     },
     "player2": {
-        fireSpell: 3,
-        waterSpell: 7,
-        natureSpell: 10,
-        ultimeSpell: 2,
-        sortTotal: 20,
-        manaTotal: 156,
-        degatTotal: 785,
+        fireSpell: 0,
+        waterSpell: 0,
+        natureSpell: 0,
+        ultimeSpell: 0,
+        sortTotal: 0,
+        manaTotal: 0,
+        degatTotal: 0,
     }
 }
 
