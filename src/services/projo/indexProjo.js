@@ -205,14 +205,17 @@ function updateStateExperience(){
 /* -------------------------------------------------------------------------- */
 /*                                  Websocket                                 */
 /* -------------------------------------------------------------------------- */
-
+let rulesAlreadyPassed = false
 socket.on("allplayerConnected", (player) => {
 
-  setTimeout(() => {
-    // console.log("toto")
-    stateOfGame = "Rules"
-    updateStateExperience()
-  }, 5000)
+  if (rulesAlreadyPassed == false) {
+    setTimeout(() => {
+      // console.log("toto")
+      stateOfGame = "Rules"
+      updateStateExperience()
+      rulesAlreadyPassed = true
+    }, 5000)
+  }
 
 
 })
