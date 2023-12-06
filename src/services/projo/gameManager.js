@@ -139,7 +139,7 @@ function removeSpellFired(videoElement, fadeOutSpell = false){
         //* remove video from DOM in fade out and cut it after 1 sec
         let tempVid = document.getElementById(videoElement.id)
         tempVid.classList.add("fadeOut")
-        setTimeout(() => { tempVid.parentNode.removeChild(videoElement) },1000)
+        setTimeout(() => { tempVid.parentNode.removeChild(videoElement) }, 500)
     }else{
         //* remove video from DOM
         let tempVid = document.getElementById(videoElement.id)
@@ -189,6 +189,17 @@ function collisionManager(){
                         let percentAdvencement = getCollisionCenterPoint(spellPlayer1.spellVideoElement, spellPlayer2.spellVideoElement)
                         drawExplosion(percentAdvencement)
                     }, 100)
+                    removeSpellFired(spellPlayer2.spellVideoElement, true)
+                }
+
+                if (spellPlayer1.dataSpell.name == spellPlayer2.dataSpell.name) {
+                    //? spell p1 == p2 => same spell
+                    //? timeout for wait the loading meta data
+                    setTimeout(() => {
+                        let percentAdvencement = getCollisionCenterPoint(spellPlayer1.spellVideoElement, spellPlayer2.spellVideoElement)
+                        drawExplosion(percentAdvencement)
+                    }, 100)
+                    removeSpellFired(spellPlayer1.spellVideoElement, true)
                     removeSpellFired(spellPlayer2.spellVideoElement, true)
                 }
             }      
