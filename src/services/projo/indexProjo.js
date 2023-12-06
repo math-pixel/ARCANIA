@@ -210,7 +210,7 @@ socket.on("allplayerConnected", (player) => {
 
   setTimeout(() => {
     // console.log("toto")
-    stateOfGame = "Rules"
+    stateOfGame = "dataviz"
     updateStateExperience()
   }, 5000)
 
