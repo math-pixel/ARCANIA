@@ -263,8 +263,18 @@ function actionWebsocket(spell, player){
       break; 
 
     case "InGame":
-      spellData = getSpellInformation(spell)
-      newSpellFired(spellData, player)
+
+    // Catch special spell in function of mana
+      if(player.mana != 100){
+        console.log("normal")
+        spellData = getSpellInformation(spell)
+        newSpellFired(spellData, player)
+      }else{
+        console.log("ulti")
+
+        spellData = getSpellInformation("ultime")
+        newSpellFired(spellData, player)
+      }
       break;
       
   }

@@ -49,6 +49,13 @@
             "damage": 0,
             "heal": 0,
             "combo": [] 
+        },{
+            "name": "ultime",
+            "videoSrc": "/medias/spells/ultime_spell.webm",
+            "audioSrc": "",
+            "damage": 30,
+            "heal": 0,
+            "combo": [] 
         }
     ]
 }

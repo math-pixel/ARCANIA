@@ -7,7 +7,6 @@ function manaManager(player, state) {
             player.mana += manaWins
         } else {
             player.mana = 100
-        //TODO Launch event for ulti
         }
     } else if(state == "reset") {
         //TODO Here when ulti is launch

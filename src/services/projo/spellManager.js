@@ -52,7 +52,11 @@ function createVideoElement(player, spellData, loop = false, isLoadingSpell = fa
                 //* update life
                 lifeManager(player, spellData)
                 //* ##### Update mana bar #####
-                manaManager(player, "gain")
+                if (player.mana != 100) {
+                    manaManager(player, "gain")
+                }else{
+                    manaManager(player, "reset")
+                }
             }
 
         })
