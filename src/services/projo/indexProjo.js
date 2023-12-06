@@ -56,11 +56,32 @@ let player2 = {
 document.getElementById("introButton").addEventListener("click", () => {
   let introDiv = document.getElementById("intro")
   let trainingVideo = document.getElementById("training_vid")
+  let videoIntro = document.getElementById("videoIntro")
+
+  trainingVideo.play()
+  trainingVideo.loop = true
+
+
+  // Play animation qrCode
+  document.getElementById("qrCode1").classList.remove("screenOut")
+  document.getElementById("qrCode2").classList.remove("screenOut")
+
+
+
   let videoVersus = document.getElementById("videoVersus")
   videoVersus.play()
   videoVersus.loop = true
-  trainingVideo.play()
-  trainingVideo.loop = true
+
+  videoIntro.play()
+  videoIntro.addEventListener("ended", () => {
+    
+    // remove video intro eclair
+    videoIntro.parentNode.removeChild(videoIntro)
+
+  })
+
+
+
   introDiv.parentNode.removeChild(introDiv);
   updateStateExperience() //? its Init State
 })
@@ -148,7 +169,7 @@ function updateStateExperience(){
     case "End":
       //? end game
 
-      document.getElementById("timer").style.display = "none"
+      document.getElementById("timerContainer").style.display = "none"
       document.getElementById("videoDiv").style.display = "none"
       document.getElementById("audioDiv").style.display = "none"
       document.getElementById("playerInfo").style.display = "none"
@@ -165,7 +186,7 @@ function updateStateExperience(){
       websocketValidation("player2", "resetOverlay")
 
       
-      document.getElementById("timer").style.display = "none"
+      document.getElementById("timerContainer").style.display = "none"
       document.getElementById("videoDiv").style.display = "none"
       document.getElementById("audioDiv").style.display = "none"
       document.getElementById("playerInfo").style.display = "none"

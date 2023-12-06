@@ -48,6 +48,11 @@
     src: url("/src/fonts/LexendExa-Medium.ttf");
 }
 
+@font-face {
+    font-family: "LexendExaExtraBold";
+    src: url("/src/fonts/LexendExa-ExtraBold.ttf");
+}
+
 *{
     margin: 0;
     padding: 0;
@@ -95,6 +100,14 @@ body {
     left: 0;
     position: absolute;
     z-index: 988;
+}
+
+.videoIntro {
+    z-index: 991;
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
 }
 
 .videoVersus {
@@ -220,7 +233,7 @@ body {
     left: 10%;
 
     animation: screenInAnimationLeft 2s ease forwards;
-
+    animation-delay: 7s;
 }
 
 .qrCode2{
@@ -229,7 +242,7 @@ body {
     width: 15%;
     top: 38%;
     right: 10%;
-
+    animation-delay: 7s;
     animation: screenInAnimationRight 2s ease forwards;
 }
 
@@ -348,7 +361,7 @@ body {
     background-color: red;
 }
 
-.timer{
+.timerContainer{
 
     color: white;
     text-align: center;
@@ -356,7 +369,7 @@ body {
     width: 150px;
     height: 150px;
 
-    background-image: url("/medias/chrono/chrono.png");
+    background-image: url("/medias/chrono/timer.svg");
     background-position: center;
     background-size: contain;
     background-repeat: no-repeat;
@@ -364,6 +377,13 @@ body {
     justify-content: center;
     align-items: center;
 
+}
+
+.timer{
+    font-size: 3vw;
+    margin-top: 13%;
+    font-family: "LexendExaExtraBold";
+    font-weight: 900;
 }
 
 .mana1 {
