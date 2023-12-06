@@ -316,6 +316,7 @@ body {
 .bar {
     position: absolute;
     height: 73px;
+    transition: all 2s ease 0s;
 }
 
 .barMana{
