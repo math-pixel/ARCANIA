@@ -4,21 +4,21 @@
             "name": "circle",
             "videoSrc": "/medias/spells/fire_spell.webm",
             "audioSrc": "/medias/audio_spells/fire_spell.mp3",
-            "damage": 3,
+            "damage": 10,
             "heal": 0, 
             "combo": ["cercle"]
         },{
             "name": "lineH",
             "videoSrc": "/medias/spells/water_spell.webm",
             "audioSrc": "/medias/audio_spells/frozen_spell.mp3",
-            "damage": 3,
+            "damage": 10,
             "heal": 0,
             "combo": ["ligne"]
         },{
             "name": "lineV",
             "videoSrc": "/medias/spells/nature_spell.webm",
             "audioSrc": "/medias/audio_spells/fire_spell.mp3",
-            "damage": 3,
+            "damage": 10,
             "heal": 0,
             "combo": ["ligne"]
         },{
