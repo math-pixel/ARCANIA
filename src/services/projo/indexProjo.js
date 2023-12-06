@@ -2,7 +2,7 @@
 /*                                Init Variable                               */
 /* -------------------------------------------------------------------------- */
 // get / set information of the advencement of the game 
-let stateOfGame = "InGame" //? Init | Rules | TrainingPlayer | InGame | End
+let stateOfGame = "Init" //? Init | Rules | TrainingPlayer | InGame | End
 
 let playerName1 = "";
 let playerName2 = "";
@@ -106,36 +106,7 @@ function playRulesVideo() {
   // }, 500)
 
 }
-  
 
-// function fakeWireframeTraining(){
-//   console.log("yey")
-
-//   setTimeout(() => {
-//     document.getElementById("l1").style.display = "none"
-//     document.getElementById("r1").style.display = "none"
-
-//     setTimeout(() => {
-//       document.getElementById("l2").style.display = "none"
-//       document.getElementById("r2").style.display = "none"
-  
-    
-//       setTimeout(() => {
-//         document.getElementById("l3").style.display = "none"
-//         document.getElementById("r3").style.display = "none"
-    
-    
-//         setTimeout(() => {
-//           document.getElementById("trainingContainer").style.display = "none"
-//           stateOfGame = "InGame"
-//           updateStateExperience()
-
-    
-//         }, 10000)
-//       }, 10000)
-//     }, 10000)
-//   }, 10000)
-// }
 /* -------------------------------------------------------------------------- */
 /*                        Change Visuelle Of Experience                       */
 /* -------------------------------------------------------------------------- */
@@ -156,6 +127,7 @@ function updateStateExperience(){
       playRulesVideo()
       break;
     case "TrainingPlayer":
+      //? training part
 
       document.getElementById("waiting_connection_container").style.display = "none";
       document.getElementById("vidIntro").style.display = "none"
@@ -174,6 +146,8 @@ function updateStateExperience(){
       startGame()
       break;
     case "End":
+      //? end game
+
       document.getElementById("timer").style.display = "none"
       document.getElementById("videoDiv").style.display = "none"
       document.getElementById("audioDiv").style.display = "none"
@@ -184,6 +158,7 @@ function updateStateExperience(){
       document.getElementById("training_container").style.display = 'none'
       break;
     case "dataviz":
+      //? end screen
 
       // reset phone overlay
       websocketValidation("player1", "resetOverlay")
@@ -227,8 +202,10 @@ socket.on("playerName1", (name) => {
   if (name !== "") {
     document.getElementById("wizardDiv1").style.display = 'flex'
     document.getElementById("User1").innerHTML = name
+    document.getElementById("qrCode1").classList.add("screenOut")
   } else {
     document.getElementById("wizardDiv1").style.display = 'none'
+    document.getElementById("qrCode1").classList.remove("screenOut")
   }
 })
 socket.on("playerName2", (name) => {
@@ -237,8 +214,10 @@ socket.on("playerName2", (name) => {
   if (name !== "") {
     document.getElementById("wizardDiv2").style.display = 'flex'
     document.getElementById("User2").innerHTML = name
+    document.getElementById("qrCode2").classList.add("screenOut")
   } else {
     document.getElementById("wizardDiv2").style.display = 'none'
+    document.getElementById("qrCode2").classList.remove("screenOut")
   }
 })
 

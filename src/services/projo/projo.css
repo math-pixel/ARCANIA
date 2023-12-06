@@ -8,6 +8,41 @@
     }
   }
 
+@keyframes screenInAnimationLeft {
+    from {
+        opacity: 0;
+        transform: translateX(-500%);
+    }
+  
+    to {
+        opacity: 1;
+        transform: translateX(0%);
+    }
+}
+@keyframes screenInAnimationRight {
+    from {
+        opacity: 0;
+        transform: translateX(500%);
+    }
+  
+    to {
+        opacity: 1;
+        transform: translateX(0%);
+    }
+}
+
+@keyframes screenOutAnimation{
+    from {
+        opacity: 100%;
+        transform: scale(100%);
+    }
+  
+    to {
+        opacity: 0%;
+        transform: scale(0%);
+    }
+}
+
 *{
     margin: 0;
     padding: 0;
@@ -142,7 +177,7 @@ body {
 }
 
 .wizard1 {
-    z-index: 990;
+    z-index: 991;
     position: relative;
     width: max-content;
     height: 80vh;
@@ -151,10 +186,13 @@ body {
     /* display: none; */
     bottom: 0;
     left: 0;
+
+    animation: screenInAnimationLeft 2s ease forwards;
+
 }
 
 .wizard2 {
-    z-index: 990;
+    z-index: 991;
     position: relative;
     width: max-content;
     height: 80vh;
@@ -163,6 +201,34 @@ body {
     /* display: none; */
     bottom: 0;
     left: 0;
+
+    animation: screenInAnimationRight 2s ease forwards;
+
+}
+
+.qrCode1{
+    position: absolute;
+    z-index: 990;
+    width: 15%;
+    top: 38%;
+    left: 10%;
+
+    animation: screenInAnimationLeft 2s ease forwards;
+
+}
+
+.qrCode2{
+    position: absolute;
+    z-index: 990;
+    width: 15%;
+    top: 38%;
+    right: 10%;
+
+    animation: screenInAnimationRight 2s ease forwards;
+}
+
+.screenOut{
+    animation: screenOutAnimation 2s ease forwards;
 }
 
 .vidIntro{
