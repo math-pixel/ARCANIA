@@ -1,3 +1,5 @@
+let tresholdLifeBar = 15 //? for adjust UI and life logic 
+
 // manage life
 function lifeManager(player, spellData) {
 
@@ -6,7 +8,7 @@ function lifeManager(player, spellData) {
     //* Set Damage
     if (spellData.damage != 0) {
         //* Add dommage to player
-        if (player.life - spellData.damage > 0) {
+        if (player.life - spellData.damage > tresholdLifeBar) {
             player.life -= spellData.damage
 
             //* send phone feed back

@@ -1,8 +1,10 @@
+let manaWins = 20
+
 //* ##### Manamanager #####
 function manaManager(player, state) {
     if (state == "gain") {
-        if (player.mana + 10 < 100) {
-            player.mana += 10
+        if (player.mana + manaWins < 100) {
+            player.mana += manaWins
         } else {
             player.mana = 100
         //TODO Launch event for ulti
