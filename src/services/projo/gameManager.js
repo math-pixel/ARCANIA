@@ -277,22 +277,22 @@ function displayFlash(){
 /* -------------------------------------------------------------------------- */
 let playersStat = {
    "player1": {
-        fireSpell: 0,
-        waterSpell: 0,
-        natureSpell: 0,
-        ultimeSpell: 0,
-        sortTotal: 0,
-        manaTotal: 0,
-        degatTotal: 0,
+        fireSpell: 5,
+        waterSpell: 10,
+        natureSpell: 3,
+        ultimeSpell: 1,
+        sortTotal: 18,
+        manaTotal: 256,
+        degatTotal: 115,
     },
     "player2": {
-        fireSpell: 0,
-        waterSpell: 0,
-        natureSpell: 0,
-        ultimeSpell: 0,
-        sortTotal: 0,
-        manaTotal: 0,
-        degatTotal: 0,
+        fireSpell: 3,
+        waterSpell: 7,
+        natureSpell: 10,
+        ultimeSpell: 2,
+        sortTotal: 20,
+        manaTotal: 156,
+        degatTotal: 785,
     }
 }
 
