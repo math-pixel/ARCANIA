@@ -3,8 +3,18 @@ let videoDiv = document.getElementById("game")
 
 displayPage("name")
 
-function startGame() {
+async function startGame() {
     let playerName = document.getElementById("name").value;
+
+    if (is_iOS()) {
+        try {
+            const orientationGranted = await request(DeviceOrientationEvent);
+            if (!orientationGranted) return;
+        } catch (error) {
+            console.error(error);
+            return;
+        }
+    }
 
     lockOrientation()
 

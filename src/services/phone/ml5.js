@@ -426,3 +426,37 @@ if (window.DeviceMotionEvent) {
 //     text('Collecte: ' + state, 50, 50);
 //     text('Label: ' + labelAllConfidence, 50, 70);
 // }
+
+/* -------------------------------------------------------------------------- */
+/*                           IOS REQUEST PERMISSION                           */
+/* -------------------------------------------------------------------------- */
+
+function is_iOS() {
+    return [
+            'iPad Simulator',
+            'iPhone Simulator',
+            'iPod Simulator',
+            'iPad',
+            'iPhone',
+            'iPod'
+        ].includes(navigator.platform)
+        // iPad on iOS 13 detection
+        || (navigator.userAgent.includes("Mac") && "ontouchend" in document)
+}
+
+async function request(eventConstructor) {
+    const type = eventConstructor.name;
+    if (typeof eventConstructor.requestPermission === "function") {
+        const permissionState = await eventConstructor.requestPermission();
+        if (permissionState === "granted") {
+            return true;
+        } else {
+            errorElement.innerHTML = `${type} permission denied`;
+            reject(new Error(`${type} permission denied`));
+            return false;
+        }
+    } else {
+        reject(new Error(`${type}.requestPermission is not a function`));
+        return false;
+    }
+}
