@@ -2,7 +2,7 @@
 /*                                Init Variable                               */
 /* -------------------------------------------------------------------------- */
 // get / set information of the advencement of the game 
-let stateOfGame = "Init" //? Init | Rules | TrainingPlayer | InGame | End | dataviz
+let stateOfGame = "InGame" //? Init | Rules | TrainingPlayer | InGame | End | dataviz
 
 let playerName1 = "";
 let playerName2 = "";

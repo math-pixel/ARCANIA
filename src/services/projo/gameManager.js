@@ -7,7 +7,7 @@ let ambianceSound
 function startGame(){
     stateOfGame = "InGame"
     startTimer()
-    // startAmbianceAudio()
+    startAmbianceAudio()
     console.warn(stateOfGame)
 }
 
@@ -44,6 +44,8 @@ function endGame(reason){
 
     // clear timer
     clearInterval(timerSec)
+
+    ambianceSound.parentNode.removeChild(ambianceSound)
 
     // * set state "end" for there is not enought spell 
     stateOfGame = "End"
