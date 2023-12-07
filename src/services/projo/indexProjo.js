@@ -232,11 +232,10 @@ function updateStateExperience(){
       break;
     case "InGame":
       // document.getElementById("videoIntro").pause()
-      // document.getElementById("backgroundBattle").play()
       // document.getElementById("waiting_connection_container").style.display = "none";
       // document.getElementById("rulesVideo").style.display = "none"
       // document.getElementById("training_container").style.display = 'none'
-
+      
       pagewaitingConnection.style.display = "none"
       pageRules.style.display = "none"
       pageTraining.style.display = "none"
@@ -244,6 +243,9 @@ function updateStateExperience(){
       videoBackgroundGame.style.display = "block"
       videoWinner.style.display = "none"
       datavizPage.style.display = "none"
+
+      // play background video
+      document.getElementById("backgroundBattle").play()
       
       // Play video preparation
       fightPositionIndication.style.display = "block"

@@ -1,6 +1,6 @@
 @font-face {
   font-family: "Lexend";
-  src: url('../../fonts/Lexend-Regular.ttf');
+  src: url('../../fonts/LexendExa-ExtraBold.ttf');
 }
 
 * {
@@ -69,7 +69,7 @@ video {
 }
 
 #logo {
-  width: 90vw;
+  width: 75vw;
 }
 
 .sorcier {
