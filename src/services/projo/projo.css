@@ -111,16 +111,27 @@ body {
     width: 100%;
     height: 100%;
     object-fit: cover;
+
+    position: absolute;
+    top: 0;
+    left: 0;
 }
 
 .buttonStartGame{
   position: absolute;
-  top: 45%;
-  left: 45%;
 
   z-index: 100;
   width: 20%;
   height: auto;
+  margin-top: 20%;
+}
+
+.logoArcania{
+  width: 60%;
+  mix-blend-mode: lighten;
+  position: relative;
+  margin-bottom: 10%;
+  pointer-events: none;
 }
 
 .skipButton{
