@@ -16,14 +16,20 @@ function updateTraining(state) {
         case "horizontal":
             current_Spell1.src = "/medias/trainingPart/horizontal.gif"
             current_Spell2.src = "/medias/trainingPart/horizontal.gif"
+            current_Spell1.style.mixBlendMode = "luminosity"
+            current_Spell2.style.mixBlendMode = "luminosity"
             break;
         case "vertical":
             current_Spell1.src = "/medias/trainingPart/vertical.gif"
             current_Spell2.src = "/medias/trainingPart/vertical.gif"
+            current_Spell1.style.mixBlendMode = "luminosity"
+            current_Spell2.style.mixBlendMode = "luminosity"
             break;
         case "circle":
             current_Spell1.src = "/medias/trainingPart/rond.gif"
             current_Spell2.src = "/medias/trainingPart/rond.gif"
+            current_Spell1.style.mixBlendMode = "luminosity"
+            current_Spell2.style.mixBlendMode = "luminosity"
             break;
     
         default:
@@ -41,10 +47,12 @@ function trainingSpellDetected(spellData, player){
                 if (spellData.name == "lineH_loading") {
                     if (player.name == "player1") {
                         current_Spell1.src = "/medias/phone_media/icons/check_small.png"
+                        current_Spell1.style.mixBlendMode = "normal"
                         player1State = true
                         websocketValidation("player1", "validate")
                     } else {
                         current_Spell2.src = "/medias/phone_media/icons/check_small.png"
+                        current_Spell2.style.mixBlendMode = "normal"
                         websocketValidation("player2", "validate")
                         player2State = true
                     }
@@ -54,10 +62,12 @@ function trainingSpellDetected(spellData, player){
                 if (spellData.name == "lineV_loading") {
                     if (player.name == "player1") {
                         current_Spell1.src = "/medias/phone_media/icons/check_small.png"
+                        current_Spell1.style.mixBlendMode = "normal"
                         player1State = true
                         websocketValidation("player1", "validate")
                     } else {
                         current_Spell2.src = "/medias/phone_media/icons/check_small.png"
+                        current_Spell2.style.mixBlendMode = "normal"
                         player2State = true
                         websocketValidation("player2", "validate")
                     }
@@ -67,10 +77,12 @@ function trainingSpellDetected(spellData, player){
                 if (spellData.name == "circle_loading") {
                     if (player.name == "player1") {
                         current_Spell1.src = "/medias/phone_media/icons/check_small.png"
+                        current_Spell1.style.mixBlendMode = "normal"
                         player1State = true
                         websocketValidation("player1", "validate")
                     } else {
                         current_Spell2.src = "/medias/phone_media/icons/check_small.png"
+                        current_Spell2.style.mixBlendMode = "normal"
                         player2State = true
                         websocketValidation("player2", "validate")
                     }

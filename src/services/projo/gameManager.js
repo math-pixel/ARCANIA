@@ -1,12 +1,24 @@
 let currentTimer = 120 // in sec
 let timerSec
+let ambianceSound
 /* -------------------------------------------------------------------------- */
 /*                                 Start Game                                 */
 /* -------------------------------------------------------------------------- */
 function startGame(){
     stateOfGame = "InGame"
     startTimer()
+    // startAmbianceAudio()
     console.warn(stateOfGame)
+}
+
+function startAmbianceAudio() {
+    ambianceSound = document.createElement('audio')
+    ambianceSound.src = "/medias/ambiance_sound.mp3"
+    ambianceSound.preload = "auto"
+    ambianceSound.autoplay = true
+    ambianceSound.volume = 0.2
+
+    parentAudio.appendChild(ambianceSound)
 }
 
 function startTimer(){
@@ -76,6 +88,7 @@ function startEndVideo(src){
   
     video.addEventListener("ended", () => {
         video.parentNode.removeChild(video)
+        ambianceSound.parentNode.removeChild(ambianceSound)
         stateOfGame = "dataviz"
         updateStateExperience()
     })

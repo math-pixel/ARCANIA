@@ -207,6 +207,7 @@ body {
     width: 80%;
     text-align: center;
     /* color: red; */
+    font-family: 'LexendExaMedium';
 }
 
 .wizardDiv2 {
@@ -432,6 +433,8 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
+
+    font-family: 'LexendExaMedium';
 
 }
 
@@ -769,6 +772,7 @@ video {
     align-items: center;
     font-size: 120px;
     gap: 12%;
+    width: 20%;
   }
 
   .ultimeCounter img {

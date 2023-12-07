@@ -10,14 +10,14 @@
         },{
             "name": "lineH",
             "videoSrc": "/medias/spells/water_spell.webm",
-            "audioSrc": "/medias/audio_spells/frozen_spell.mp3",
+            "audioSrc": "/medias/audio_spells/water_spell.mp3",
             "damage": 10,
             "heal": 0,
             "combo": ["ligne"]
         },{
             "name": "lineV",
             "videoSrc": "/medias/spells/nature_spell.webm",
-            "audioSrc": "/medias/audio_spells/fire_spell.mp3",
+            "audioSrc": "/medias/audio_spells/nature_spell.mp3",
             "damage": 10,
             "heal": 0,
             "combo": ["ligne"]
@@ -52,7 +52,7 @@
         },{
             "name": "ultime",
             "videoSrc": "/medias/spells/ultime_spell.webm",
-            "audioSrc": "",
+            "audioSrc": "/medias/audio_spells/ulti_spell.mp3",
             "damage": 30,
             "heal": 0,
             "combo": [] 
