@@ -2,7 +2,7 @@
 /*                                Init Variable                               */
 /* -------------------------------------------------------------------------- */
 // get / set information of the advencement of the game 
-let stateOfGame = "Init" //? Init | Rules | TrainingPlayer | InGame | End | dataviz
+let stateOfGame = "TrainingPlayer" //? Init | Rules | TrainingPlayer | InGame | End | dataviz
 
 let playerName1 = "";
 let playerName2 = "";
@@ -156,6 +156,7 @@ let pageTraining = document.getElementById("training_container")
 //? In game
 let gui = document.getElementById("playerInfo")
 let videoBackgroundGame = document.getElementById("backgroundBattle")
+let fightPositionIndication = document.getElementById("fightPositionIndication")
 
 //? video winner 
 let videoWinner = document.getElementById("endGameVideo")
@@ -244,7 +245,15 @@ function updateStateExperience(){
       videoWinner.style.display = "none"
       datavizPage.style.display = "none"
       
-      startGame()
+      // Play video preparation
+      fightPositionIndication.style.display = "block"
+      fightPositionIndication.play()
+      // event when position indication is end
+      fightPositionIndication.addEventListener("ended", () => {
+        fightPositionIndication.style.display = "none"
+        startGame()
+      }) 
+
       break;
     case "End":
       //? end game
