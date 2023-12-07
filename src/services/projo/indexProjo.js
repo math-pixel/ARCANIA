@@ -2,10 +2,12 @@
 /*                                Init Variable                               */
 /* -------------------------------------------------------------------------- */
 // get / set information of the advencement of the game 
-let stateOfGame = "Rules" //? Init | Rules | TrainingPlayer | InGame | End | dataviz
+let stateOfGame = "Init" //? Init | Rules | TrainingPlayer | InGame | End | dataviz
 
 let playerName1 = "";
 let playerName2 = "";
+
+let crowdSoundPlayed = false
 
 //* ##### Spells #####
 let spells ;
@@ -170,6 +172,14 @@ function updateStateExperience(){
       // Intro arcania thunder
       let videoIntro = document.getElementById("videoIntro")
       videoIntro.play()
+
+      //* wait 10 sec 
+      setTimeout(() => {
+        //* play crowd sound
+        createAudioElement({audioSrc : "../medias/audio_ambiant/crowd_loop.mp3"}, true)
+      }, 200)
+
+      // When video thunder is end
       videoIntro.addEventListener("ended", () => {
         
         // remove video intro thunder

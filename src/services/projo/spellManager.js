@@ -85,7 +85,7 @@ function removeLoadingElement(player) {
 /*                            Create Audio ELement                            */
 /* -------------------------------------------------------------------------- */
 
-function createAudioElement(spellData){
+function createAudioElement(spellData, loop = false){
     //* ##### Create Audio ELEMENT #####
     let audio = document.createElement('audio')
     audio.src = spellData.audioSrc
@@ -93,10 +93,15 @@ function createAudioElement(spellData){
     audio.autoplay = true
 
     //* ##### Catch Spell Video / Audio #####
-    audio.addEventListener("ended", () => {
-        audio.parentNode.removeChild(audio);
-    })
+    if (!loop) {
+        audio.addEventListener("ended", () => {
+            audio.parentNode.removeChild(audio);
+        })
+    }else{
+        audio.loop = true
+    }
 
 
     parentAudio.appendChild(audio)
 }
+
