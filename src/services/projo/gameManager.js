@@ -46,6 +46,13 @@ function endGame(reason){
     // * do action in function of win
     switch(reason){
         case "timeout":
+
+            if (player1.life > player2.life) {
+                startEndVideo("/medias/end/winner_red.webm")
+            }else{
+                startEndVideo("/medias/end/winner_blue.webm")
+            }
+
             break;
         case "winnerP1":
             startEndVideo("/medias/end/winner_red.webm")
