@@ -1,6 +1,11 @@
 @font-face {
-  font-family: "Lexend";
-  src: url('../../fonts/LexendExa-ExtraBold.ttf');
+  font-family: "Lexend-regular";
+  src: url('../fonts/Lexend-Regular.ttf');
+}
+
+@font-face {
+  font-family: "Lexend-semibold";
+  src: url('../fonts/Lexend-SemiBold.ttf');
 }
 
 * {
@@ -129,6 +134,8 @@ video {
   font-size: 24px;
   display: inline-block;
   width: 100%;
+  font-family: "Lexend-semibold";
+  font-weight: 600;
 }
 
 .player1 {
@@ -143,7 +150,7 @@ video {
 .player1input::placeholder {
   color: #370911;
   font-size: 14px;
-  font-family: "Lexend";
+  font-family: "Lexend-regular";
   font-weight: 400;
 }
 
@@ -155,7 +162,7 @@ video {
 .player2input {
   background-color: #FFEAED;
   font-size: 14px;
-  font-family: "Lexend";
+  font-family: "Lexend-regular";
   font-weight: 400;
 }
 
