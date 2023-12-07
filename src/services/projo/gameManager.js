@@ -1,4 +1,4 @@
-let currentTimer = 120 // in sec
+let currentTimer = 5 // in sec
 let timerSec
 let ambianceSound
 /* -------------------------------------------------------------------------- */
@@ -45,7 +45,6 @@ function endGame(reason){
     // clear timer
     clearInterval(timerSec)
 
-    ambianceSound.parentNode.removeChild(ambianceSound)
 
     // * set state "end" for there is not enought spell 
     stateOfGame = "End"
