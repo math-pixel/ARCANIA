@@ -196,12 +196,12 @@ video {
 }
 
 .buttonHide {
-  height: 40px; 
-  width: 40px; 
+  height: 60px; 
+  width: 60px; 
   position: absolute;
   opacity: 0;
   top: 0px;
-  left: 0px;
+  left: 45%;
   z-index: 10;
 }
 
