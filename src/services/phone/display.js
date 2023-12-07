@@ -137,3 +137,12 @@ function displaySorcer(player) {
         ellipse.src = "/medias/phone_media/ellipses/blue_ellipse.png"
     }
 }
+
+function displayButtons() {
+    let buttons = document.getElementById("buttons")
+    if (buttons.style.display == "none") {
+        buttons.style.display = "block"
+    } else {
+        buttons.style.display = "none"
+    }
+}

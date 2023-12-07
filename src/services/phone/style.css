@@ -194,3 +194,17 @@ video {
 #win_loose {
   text-align: center;
 }
+
+.buttonHide {
+  height: 40px; 
+  width: 40px; 
+  position: absolute;
+  opacity: 0;
+  top: 0px;
+  left: 0px;
+  z-index: 10;
+}
+
+.buttons {
+  display: none;
+}
