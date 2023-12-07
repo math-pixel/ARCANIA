@@ -39,7 +39,11 @@
   </div>
 
   <!-- Rules Video -->
-  <video src="/medias/rules_video.mp4" id="rulesVideo" class="rulesVideo" width="1920" height="1080"></video>
+  <div id="containerRules" style="display: none;">
+    <video src="/medias/rules_video.mp4" id="rulesVideo" class="rulesVideo" width="1920" height="1080">
+    </video>
+    <img src="/medias/skip_button.png" class="skipButton" id="skipButton" alt="">
+  </div>
   <!-- Training Part -->
   <div class="training_container" id="training_container">
     <video src="/medias/background/training.mp4" id="training_vid" class="training_vid" width="1920" height="1080" type="video/mp4"></video>
@@ -61,6 +65,8 @@
 
   <!-- In Game -->
   <video src="/medias/background/background_battle.webm" id="backgroundBattle" class="background" loop width="1920" height="1080"></video>
+  
+  <!-- GUI -->
   <div class="flash" id="flash"></div>
   <div id="videoDiv" class="videoDiv"></div>
   <div id="audioDiv" class="audioDiv"></div>
@@ -96,104 +102,108 @@
       </div>
     </div>
   </div>
-  <video src="" id="endGameVideo" class="endGameVideo"></video>
-</body>
 
-<!-- End -->
-<div class="datavizDiv">
-  <div class="upStat">
-    <img src="../../medias/phone_media/icons/Arcania_rouge.svg" alt="">
+  <!-- Video Winner -->
+  <video src="" id="endGameVideo" class="endGameVideo"></video>
+
+
+  <!-- End Dataviz -->
+  <div class="datavizDiv" id="datavizDiv">
+    <div class="upStat">
+      <img src="../../medias/phone_media/icons/Arcania_rouge.svg" alt="">
+    </div>
+    <div class="middleStat">
+      <div class="playerStat">
+        <div class="innerPlayer1">
+          <div class="playerWizard">
+            <img src="../../medias/wizard/red_wizard.png" alt="">
+            <div class="playerNameDiv" id="namePlayer1">
+              <p>test</p>
+            </div>
+          </div>
+          <div class="playerCollect">
+            <h1 id="winnerPlayer1">WINNER</h1>
+            <div class="manaCollect">
+              <p>Mana collecté</p>
+              <p id="manaCounter1">1289</p>
+            </div>
+            <div class="damageSend">
+              <p>Dégats infligés</p>
+              <p id="damageCounter1">2500</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="innerStat">
+        <div class="spellStatDiv">
+          <p class="numberStat" id="fireCounter1">40</p>
+          <div class="barSpellStatDiv">
+            <div class="previewBarSpellStatDiv red" id="fire1"></div>
+          </div>
+          <div class="barSpellStatDiv reverseBarSpell">
+            <div class="previewBarSpellStatDiv blue" id="fire2"></div>
+          </div>
+          <p class="numberStat numberStatReverse" id="fireCounter2">40</p>
+        </div>
+        <div class="spellStatDiv">
+          <p class="numberStat" id="waterCounter1">40</p>
+          <div class="barSpellStatDiv">
+            <div class="previewBarSpellStatDiv red" id="water1"></div>
+          </div>
+          <div class="barSpellStatDiv reverseBarSpell">
+            <div class="previewBarSpellStatDiv blue" id="water2"></div>
+          </div>
+          <p class="numberStat numberStatReverse" id="waterCounter2">40</p>
+        </div>
+        <div class="spellStatDiv">
+          <p class="numberStat" id="natureCounter1">40</p>
+          <div class="barSpellStatDiv">
+            <div class="previewBarSpellStatDiv red" id="nature1"></div>
+          </div>
+          <div class="barSpellStatDiv reverseBarSpell">
+            <div class="previewBarSpellStatDiv blue" id="nature2"></div>
+          </div>
+          <p class="numberStat numberStatReverse" id="natureCounter2">40</p>
+        </div>
+      </div>
+      <div class="playerStat">
+        <div class="innerPlayer2">
+          <div class="playerWizard">
+            <img src="../../medias/wizard/blue_wizard.png" alt="">
+            <div class="playerNameDiv">
+              <p id="namePlayer2">test</p>
+            </div>
+          </div>
+          <div class="playerCollect">
+            <h1 id="winnerPlayer2">WINNER</h1>
+            <div class="manaCollect">
+              <p>Mana collecté</p>
+              <p id="manaCounter2">1289</p>
+            </div>
+            <div class="damageSend">
+              <p>Dégats infligés</p>
+              <p id="damageCounter2">2500</p>
+            </div>
+          </div>
+        </div>  
+      </div>
+      <div class="datavizIcon">
+        <img src="../../medias/icons/feu.png" alt="">
+        <img src="../../medias/icons/eau.png" alt="">
+        <img src="../../medias/icons/nature.png" alt="">
+      </div>
+    </div>
+    <div class="downStat">
+      <p>Ultime lancés</p>
+      <div class="ultimeCounter">
+        <p class="ultimeCounter1" id="ultimeCounter1">3</p>
+        <img src="../../medias/icons/ultime.png" alt="">
+        <p class="ultimeCounter2" id="ultimeCounter2">4</p>
+      </div>
+    </div>
   </div>
-  <div class="middleStat">
-    <div class="playerStat">
-      <div class="innerPlayer1">
-        <div class="playerWizard">
-          <img src="../../medias/wizard/red_wizard.png" alt="">
-          <div class="playerNameDiv" id="namePlayer1">
-            <p>test</p>
-          </div>
-        </div>
-        <div class="playerCollect">
-          <h1 id="winnerPlayer1">WINNER</h1>
-          <div class="manaCollect">
-            <p>Mana collecté</p>
-            <p id="manaCounter1">1289</p>
-          </div>
-          <div class="damageSend">
-            <p>Dégats infligés</p>
-            <p id="damageCounter1">2500</p>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="innerStat">
-      <div class="spellStatDiv">
-        <p class="numberStat" id="fireCounter1">40</p>
-        <div class="barSpellStatDiv">
-          <div class="previewBarSpellStatDiv red" id="fire1"></div>
-        </div>
-        <div class="barSpellStatDiv reverseBarSpell">
-          <div class="previewBarSpellStatDiv blue" id="fire2"></div>
-        </div>
-        <p class="numberStat numberStatReverse" id="fireCounter2">40</p>
-      </div>
-      <div class="spellStatDiv">
-        <p class="numberStat" id="waterCounter1">40</p>
-        <div class="barSpellStatDiv">
-          <div class="previewBarSpellStatDiv red" id="water1"></div>
-        </div>
-        <div class="barSpellStatDiv reverseBarSpell">
-          <div class="previewBarSpellStatDiv blue" id="water2"></div>
-        </div>
-        <p class="numberStat numberStatReverse" id="waterCounter2">40</p>
-      </div>
-      <div class="spellStatDiv">
-        <p class="numberStat" id="natureCounter1">40</p>
-        <div class="barSpellStatDiv">
-          <div class="previewBarSpellStatDiv red" id="nature1"></div>
-        </div>
-        <div class="barSpellStatDiv reverseBarSpell">
-          <div class="previewBarSpellStatDiv blue" id="nature2"></div>
-        </div>
-        <p class="numberStat numberStatReverse" id="natureCounter2">40</p>
-      </div>
-    </div>
-    <div class="playerStat">
-      <div class="innerPlayer2">
-        <div class="playerWizard">
-          <img src="../../medias/wizard/blue_wizard.png" alt="">
-          <div class="playerNameDiv">
-            <p id="namePlayer2">test</p>
-          </div>
-        </div>
-        <div class="playerCollect">
-          <h1 id="winnerPlayer2">WINNER</h1>
-          <div class="manaCollect">
-            <p>Mana collecté</p>
-            <p id="manaCounter2">1289</p>
-          </div>
-          <div class="damageSend">
-            <p>Dégats infligés</p>
-            <p id="damageCounter2">2500</p>
-          </div>
-        </div>
-      </div>  
-    </div>
-    <div class="datavizIcon">
-      <img src="../../medias/icons/feu.png" alt="">
-      <img src="../../medias/icons/eau.png" alt="">
-      <img src="../../medias/icons/nature.png" alt="">
-    </div>
-  </div>
-  <div class="downStat">
-    <p>Ultime lancés</p>
-    <div class="ultimeCounter">
-      <p class="ultimeCounter1" id="ultimeCounter1">3</p>
-      <img src="../../medias/icons/ultime.png" alt="">
-      <p class="ultimeCounter2" id="ultimeCounter2">4</p>
-    </div>
-  </div>
-</div>
+
+</body>
 
 
 <!-- Logic -->

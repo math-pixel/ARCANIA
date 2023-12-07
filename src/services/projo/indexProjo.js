@@ -2,7 +2,7 @@
 /*                                Init Variable                               */
 /* -------------------------------------------------------------------------- */
 // get / set information of the advencement of the game 
-let stateOfGame = "Init" //? Init | Rules | TrainingPlayer | InGame | End
+let stateOfGame = "Rules" //? Init | Rules | TrainingPlayer | InGame | End | dataviz
 
 let playerName1 = "";
 let playerName2 = "";
@@ -51,8 +51,8 @@ let player2 = {
 /* -------------------------------------------------------------------------- */
 /*                          Init interaction with DOM                         */
 /* -------------------------------------------------------------------------- */
+//* When button start is pressed => ##### play all background loop ####
 
-// when button start is pressed
 document.getElementById("introButton").addEventListener("click", () => {
   let introDiv = document.getElementById("intro")
   
@@ -62,7 +62,7 @@ document.getElementById("introButton").addEventListener("click", () => {
   trainingVideo.play()
   trainingVideo.loop = true
   
-  
+  // TODO change place
   // Play animation qrCode
   document.getElementById("qrCode1").classList.remove("screenOut")
   document.getElementById("qrCode2").classList.remove("screenOut")
@@ -72,19 +72,8 @@ document.getElementById("introButton").addEventListener("click", () => {
   let videoVersus = document.getElementById("videoVersus")
   videoVersus.play()
   videoVersus.loop = true
-  
-  // Intro arcania thunder
-  let videoIntro = document.getElementById("videoIntro")
-  videoIntro.play()
-  videoIntro.addEventListener("ended", () => {
-    
-    // remove video intro thunder
-    videoIntro.parentNode.removeChild(videoIntro)
 
-  })
-
-
-
+  //* remove waiting click
   introDiv.parentNode.removeChild(introDiv);
   updateStateExperience() //? its Init State
 })
@@ -92,6 +81,10 @@ document.getElementById("introButton").addEventListener("click", () => {
 let parentVideo = document.getElementById("videoDiv")
 let parentAudio = document.getElementById("audioDiv")
 
+
+/* -------------------------------------------------------------------------- */
+/*                                   QR Code                                  */
+/* -------------------------------------------------------------------------- */
 function generateQRCode(place, url) {
   new QRCode(place, {
     text: url,
@@ -136,60 +129,136 @@ function playRulesVideo() {
 
 }
 
+//* skip rules video
+document.getElementById("skipButton").addEventListener("click", () => {
+  rulesVideo.pause()
+  rulesVideo.style.display = "none" 
+  stateOfGame = "TrainingPlayer"
+  updateStateExperience()
+})
+
 /* -------------------------------------------------------------------------- */
 /*                        Change Visuelle Of Experience                       */
 /* -------------------------------------------------------------------------- */
+
+//? Waiting connection
+let pagewaitingConnection = document.getElementById("waiting_connection_container")
+// let videoIntroThunder = document.getElementById("videoIntro")
+
+//? Rules
+let pageRules = document.getElementById("containerRules")
+
+//? training
+let pageTraining = document.getElementById("training_container")
+
+//? In game
+let gui = document.getElementById("playerInfo")
+let videoBackgroundGame = document.getElementById("backgroundBattle")
+
+//? video winner 
+let videoWinner = document.getElementById("endGameVideo")
+
+//? dataViz
+let datavizPage = document.getElementById("datavizDiv")
+
 function updateStateExperience(){
   console.log(stateOfGame)
   switch(stateOfGame){
     case "Init":
       //? waiting connection of the two remote
-      //do nothing because its already init on dom
+      
+      // Intro arcania thunder
+      let videoIntro = document.getElementById("videoIntro")
+      videoIntro.play()
+      videoIntro.addEventListener("ended", () => {
+        
+        // remove video intro thunder
+        videoIntro.parentNode.removeChild(videoIntro)
+
+      })
+    
       break;
     case "Rules":
       //? display rules video
+      // document.getElementById("containerRules").display = "block"
+      // //* remove div of waiting player
+      // document.getElementById("waiting_connection_container").style.display = "none";
+      // document.getElementById("videoIntro").pause()
 
-      //* remove div of waiting player
-      document.getElementById("waiting_connection_container").style.display = "none";
-      document.getElementById("videoIntro").pause()
+
+      pagewaitingConnection.style.display = "none"
+      pageRules.style.display = "block"
+      pageTraining.style.display = "none"
+      gui.style.display = "none"
+      videoBackgroundGame.style.display = "none"
+      videoWinner.style.display = "none"
+      datavizPage.style.display = "none"
+
+
+
       //* play video
       playRulesVideo()
       break;
     case "TrainingPlayer":
       //? training part
 
-      document.getElementById("waiting_connection_container").style.display = "none";
-      document.getElementById("rulesVideo").style.display = "none"
-      document.getElementById("training_container").style.display = "flex" //TODO display block
-      document.getElementById("videoIntro").pause()
+      // document.getElementById("waiting_connection_container").style.display = "none";
+      // document.getElementById("rulesVideo").style.display = "none"
+      // document.getElementById("training_container").style.display = "flex" //TODO display block
+      // document.getElementById("videoIntro").pause()
+
+      pagewaitingConnection.style.display = "none"
+      pageRules.style.display = "none"
+      pageTraining.style.display = "block"
+      gui.style.display = "none"
+      videoBackgroundGame.style.display = "none"
+      videoWinner.style.display = "none"
+      datavizPage.style.display = "none"
 
 
-      //TODO call the trust fonction
       startTraining()
       // videoIntro.parentNode.removeChild(videoIntro);
       break;
     case "InGame":
-      document.getElementById("videoIntro").pause()
-      document.getElementById("backgroundBattle").play()
-      document.getElementById("waiting_connection_container").style.display = "none";
-      document.getElementById("rulesVideo").style.display = "none"
-      document.getElementById("training_container").style.display = 'none'
+      // document.getElementById("videoIntro").pause()
+      // document.getElementById("backgroundBattle").play()
+      // document.getElementById("waiting_connection_container").style.display = "none";
+      // document.getElementById("rulesVideo").style.display = "none"
+      // document.getElementById("training_container").style.display = 'none'
 
+      pagewaitingConnection.style.display = "none"
+      pageRules.style.display = "none"
+      pageTraining.style.display = "none"
+      gui.style.display = "flex"
+      videoBackgroundGame.style.display = "block"
+      videoWinner.style.display = "none"
+      datavizPage.style.display = "none"
+      
       startGame()
       break;
     case "End":
       //? end game
 
-      document.getElementById("videoIntro").pause()
+      // document.getElementById("videoIntro").pause()
 
-      document.getElementById("timerContainer").style.display = "none"
-      document.getElementById("videoDiv").style.display = "none"
-      document.getElementById("audioDiv").style.display = "none"
-      document.getElementById("playerInfo").style.display = "none"
+      // document.getElementById("timerContainer").style.display = "none"
+      // document.getElementById("videoDiv").style.display = "none"
+      // document.getElementById("audioDiv").style.display = "none"
+      // document.getElementById("playerInfo").style.display = "none"
 
-      document.getElementById("waiting_connection_container").style.display = "none";
-      document.getElementById("rulesVideo").style.display = "none"
-      document.getElementById("training_container").style.display = 'none'
+      // document.getElementById("waiting_connection_container").style.display = "none";
+      // document.getElementById("rulesVideo").style.display = "none"
+      // document.getElementById("training_container").style.display = 'none'
+
+
+      pagewaitingConnection.style.display = "none"
+      pageRules.style.display = "none"
+      pageTraining.style.display = "none"
+      gui.style.display = "none"
+      videoBackgroundGame.style.display = "none"
+      videoWinner.style.display = "block"
+      datavizPage.style.display = "none"
+
       break;
     case "dataviz":
       //? end screen
@@ -198,16 +267,24 @@ function updateStateExperience(){
       websocketValidation("player1", "resetOverlay")
       websocketValidation("player2", "resetOverlay")
 
-      document.getElementById("videoIntro").pause()
+      // document.getElementById("videoIntro").pause()
       
-      document.getElementById("timerContainer").style.display = "none"
-      document.getElementById("videoDiv").style.display = "none"
-      document.getElementById("audioDiv").style.display = "none"
-      document.getElementById("playerInfo").style.display = "none"
-      document.getElementById("backgroundBattle").style.display = "none"
-      document.getElementById("waiting_connection_container").style.display = "none";
-      document.getElementById("rulesVideo").style.display = "none"
-      document.getElementById("training_container").style.display = 'none'
+      // document.getElementById("timerContainer").style.display = "none"
+      // document.getElementById("videoDiv").style.display = "none"
+      // document.getElementById("audioDiv").style.display = "none"
+      // document.getElementById("playerInfo").style.display = "none"
+      // document.getElementById("backgroundBattle").style.display = "none"
+      // document.getElementById("waiting_connection_container").style.display = "none";
+      // document.getElementById("rulesVideo").style.display = "none"
+      // document.getElementById("training_container").style.display = 'none'
+
+      pagewaitingConnection.style.display = "none"
+      pageRules.style.display = "none"
+      pageTraining.style.display = "none"
+      gui.style.display = "none"
+      videoBackgroundGame.style.display = "none"
+      videoWinner.style.display = "none"
+      datavizPage.style.display = "block"
 
       updateData(winner)
       break;

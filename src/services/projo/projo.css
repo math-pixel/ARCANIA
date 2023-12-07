@@ -43,18 +43,30 @@
     }
 }
 
+@keyframes spawn{
+  from {
+    opacity: 0%;
+    transform: scale(0%);
+}
+
+to {
+    opacity: 100%;
+    transform: scale(100%);
+}
+}
+
 @font-face {
   font-family: 'Lexend';
   font-style: normal;
   font-weight: 500;
-  src: url('fonts/Lexend-Medium.ttf');
+  src: url('../fonts/Lexend-Medium.ttf');
 }
 
 @font-face {
   font-family: 'LexendExa';
   font-style: normal;
   font-weight: 500;
-  src: url('fonts/LexendExa-Medium.ttf');
+  src: url('../fonts/LexendExa-Medium.ttf');
 }
 
 *{
@@ -99,6 +111,20 @@ body {
     width: 100%;
     height: 100%;
     object-fit: cover;
+}
+
+.skipButton{
+  position: absolute;
+  top: 2%;
+  right: 5%;
+
+  width: 10%;
+  height: auto;
+
+  animation: spawn 1s ease forwards;
+  animation-delay: 2s;
+
+  z-index: 1000;
 }
 
 .waiting_connection_container {
