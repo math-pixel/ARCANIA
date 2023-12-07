@@ -177,7 +177,7 @@ function updateStateExperience(){
       //* wait 10 sec 
       setTimeout(() => {
         //* play crowd sound
-        createAudioElement({audioSrc : "../medias/audio_ambiant/crowd_loop.mp3"}, true)
+        createAudioElement({audioSrc : "../medias/audio_ambiant/crowd_loop.mp3"}, true, 0.4)
       }, 200)
 
       // When video thunder is end

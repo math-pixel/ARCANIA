@@ -85,13 +85,13 @@ function removeLoadingElement(player) {
 /*                            Create Audio ELement                            */
 /* -------------------------------------------------------------------------- */
 
-function createAudioElement(spellData, loop = false){
+function createAudioElement(spellData, loop = false, volume = 1){
     //* ##### Create Audio ELEMENT #####
     let audio = document.createElement('audio')
     audio.src = spellData.audioSrc
     audio.preload = "auto"
     audio.autoplay = true
-
+    audio.volume = volume
     //* ##### Catch Spell Video / Audio #####
     if (!loop) {
         audio.addEventListener("ended", () => {
