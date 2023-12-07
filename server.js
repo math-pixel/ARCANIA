@@ -15,6 +15,7 @@ app.use('/phone', express.static(path.join(__dirname, 'src/services/phone')))
 app.use('/projo', express.static(path.join(__dirname, 'src/services/projo')))
 app.use('/json', express.static(path.join(__dirname, 'src/json')))
 app.use('/model', express.static(path.join(__dirname, 'src/services/models')))
+app.use('/fonts', express.static(path.join(__dirname, 'src/fonts')))
 
 /* -------------------------------------------------------------------------- */
 /*                        Config/Init Websocket server                        */

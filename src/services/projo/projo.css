@@ -44,13 +44,17 @@
 }
 
 @font-face {
-    font-family: "LexendExaMedium";
-    src: url("/src/fonts/LexendExa-Medium.ttf");
+  font-family: 'Lexend';
+  font-style: normal;
+  font-weight: 500;
+  src: url('fonts/Lexend-Medium.ttf');
 }
 
 @font-face {
-    font-family: "LexendExaExtraBold";
-    src: url("/src/fonts/LexendExa-ExtraBold.ttf");
+  font-family: 'LexendExa';
+  font-style: normal;
+  font-weight: 500;
+  src: url('fonts/LexendExa-Medium.ttf');
 }
 
 *{
@@ -382,7 +386,7 @@ body {
 .timer{
     font-size: 3vw;
     margin-top: 13%;
-    font-family: "LexendExaExtraBold";
+    font-family: "LexendExa";
     font-weight: 900;
 }
 
@@ -468,24 +472,7 @@ video {
     object-fit: cover;
 }
 
-@font-face {
-    font-family: 'Lexend';
-    font-style: normal;
-    font-weight: 500;
-    src: url('../../medias/typos/Lexend-Medium.ttf');
-  }
 
-  @font-face {
-    font-family: 'LexendExa';
-    font-style: normal;
-    font-weight: 500;
-    src: url('../../medias/typos/LexendExa-Medium.ttf');
-  }
-
-  * {
-    margin: 0;
-    padding: 0;
-  }
 
   .datavizDiv {
     position: absolute;
