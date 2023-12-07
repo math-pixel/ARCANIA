@@ -63,6 +63,7 @@ function lifeManager(player, spellData) {
 
     // Display dammage
     let spellDamageData = getSpellInformation("damaged", player) 
+    spellDamageData.audioSrc = randomHurtSound()
     displaySpell(spellDamageData, player)
   }
   
@@ -84,4 +85,10 @@ function updateLife(player, state) {
     lifeDiv.style.clipPath  = `polygon(0px 0px, ${player.life}% 0%, ${player.life - 4}% 100%, 0% 100%)`
 
     // clip-path: polygon(0px 0px, {100.43}% 0%, {96.92}% 100%, 0% 100%);
+}
+
+function randomHurtSound() {
+  min = Math.ceil(1);
+  max = Math.floor(8);
+  return "/medias/audio_hurt/hurt_" + (Math.floor(Math.random() * (max - min + 1)) + min) + ".mp3";
 }

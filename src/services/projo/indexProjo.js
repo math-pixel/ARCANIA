@@ -151,7 +151,6 @@ function updateStateExperience(){
 
       //* remove div of waiting player
       document.getElementById("waiting_connection_container").style.display = "none";
-      document.getElementById("videoIntro").pause()
       //* play video
       playRulesVideo()
       break;
@@ -161,7 +160,7 @@ function updateStateExperience(){
       document.getElementById("waiting_connection_container").style.display = "none";
       document.getElementById("rulesVideo").style.display = "none"
       document.getElementById("training_container").style.display = "flex" //TODO display block
-      document.getElementById("videoIntro").pause()
+      // document.getElementById("videoIntro").pause()
 
 
       //TODO call the trust fonction
@@ -169,7 +168,7 @@ function updateStateExperience(){
       // videoIntro.parentNode.removeChild(videoIntro);
       break;
     case "InGame":
-      document.getElementById("videoIntro").pause()
+      // document.getElementById("videoIntro").pause()
       document.getElementById("backgroundBattle").play()
       document.getElementById("waiting_connection_container").style.display = "none";
       document.getElementById("rulesVideo").style.display = "none"
