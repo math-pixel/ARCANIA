@@ -49,9 +49,11 @@ function endGame(reason){
             break;
         case "winnerP1":
             startEndVideo("/medias/end/winner_red.webm")
+            winner = 'player1'
             break;
         case "winnerP2":
             startEndVideo("/medias/end/winner_blue.webm")
+            winner = 'player2'
             break;
     }
 
@@ -82,6 +84,8 @@ function newSpellFired(spellData, player){
     
     //* adding spell in game and display it
     addSpellInGameLogic(spellData, player)
+
+    registerDataPlayer(spellData, player)
 
     //* check if collision
     collisionManager()
@@ -279,4 +283,63 @@ function displayFlash(){
         flash.style.display = "none"
     }, 200) 
 
+}
+
+/* -------------------------------------------------------------------------- */
+/*                                 Data player                                */
+/* -------------------------------------------------------------------------- */
+let playersStat = {
+   "player1": {
+        fireSpell: 0,
+        waterSpell: 0,
+        natureSpell: 0,
+        ultimeSpell: 0,
+        sortTotal: 0,
+        manaTotal: 0,
+        degatTotal: 0,
+    },
+    "player2": {
+        fireSpell: 0,
+        waterSpell: 0,
+        natureSpell: 0,
+        ultimeSpell: 0,
+        sortTotal: 0,
+        manaTotal: 0,
+        degatTotal: 0,
+    }
+}
+
+
+function registerDataPlayer(spellData, player, damage = 0) {
+    if (Object.keys(spellData).length !== 0) {
+        switch (spellData.name) {
+            case "circle":
+                playersStat[player.name]["fireSpell"] += 1
+                playersStat[player.name]["sortTotal"] += 1
+                playersStat[player.name]["manaTotal"] += 10
+                break;
+        
+            case "lineH":
+                playersStat[player.name]["waterSpell"] += 1
+                playersStat[player.name]["sortTotal"] += 1
+                playersStat[player.name]["manaTotal"] += 10
+                break;
+        
+            case "lineV":
+                playersStat[player.name]["natureSpell"] += 1
+                playersStat[player.name]["sortTotal"] += 1
+                playersStat[player.name]["manaTotal"] += 10
+                break;
+        
+            case "ultime":
+                playersStat[player.name]["ultimeSpell"] += 1
+                playersStat[player.name]["sortTotal"] += 1
+                playersStat[player.name]["manaTotal"] += 10
+                break;
+        }
+    }
+
+    playersStat[player.name]["degatTotal"] += damage
+
+    console.log(playersStat)
 }

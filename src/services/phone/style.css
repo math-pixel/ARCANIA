@@ -1,3 +1,8 @@
+@font-face {
+  font-family: "Lexend";
+  src: url('../../medias/typos/Lexend-Regular.ttf');
+}
+
 * {
   overflow: hidden;
   padding: 0;
@@ -50,7 +55,7 @@ video {
   height: 100vh;
   display: flex;
   flex-direction: column;
-  background-color: #110116;
+  background-color: #050001;
 }
 
 #logoDiv {
@@ -60,6 +65,7 @@ video {
   align-content: center;
   padding-left: 20%;
   padding-right: 20%;
+  z-index: 2;
 }
 
 #logo {
@@ -71,6 +77,7 @@ video {
   display: flex;
   flex-direction: row;
   justify-content: center;
+  z-index: 2;
 }
 
 .imgSorcier {
@@ -83,6 +90,7 @@ video {
   display: flex;
   flex-direction: row;
   justify-content: center;
+  z-index: 2;
 }
 
 #form {
@@ -119,7 +127,8 @@ video {
   height: 45px;
   border: none;
   font-size: 24px;
-  display: inline-block
+  display: inline-block;
+  width: 100%;
 }
 
 .player1 {
@@ -127,8 +136,15 @@ video {
   color: #FFCCDC;
 }
 
-.player1::placeholder {
-  color: #FFCCDC;
+.player1input {
+  background-color: #FFEAED;
+}
+
+.player1input::placeholder {
+  color: #370911;
+  font-size: 14px;
+  font-family: "Lexend";
+  font-weight: 400;
 }
 
 .player2 {
@@ -136,8 +152,23 @@ video {
   color: #E3E1FB;
 }
 
-.player2::placeholder {
-  color: #E3E1FB;
+.player2input {
+  background-color: #FFEAED;
+  font-size: 14px;
+  font-family: "Lexend";
+  font-weight: 400;
+}
+
+.player2input::placeholder {
+  color: #0E0C2C;
+}
+
+.ellipse {
+  position: absolute;
+  width: 100%;
+  height: max-content;
+  bottom: 0;
+  z-index: 0;
 }
 
 #overlay {
@@ -162,4 +193,23 @@ video {
 
 #win_loose {
   text-align: center;
+}
+
+.buttonHide {
+  height: 60px; 
+  width: 60px; 
+  position: absolute;
+  opacity: 0;
+  top: 0px;
+  left: 45%;
+  z-index: 10;
+}
+
+.buttons {
+  display: none;
+  
+}
+
+.cheatButton{
+  z-index: 3;
 }

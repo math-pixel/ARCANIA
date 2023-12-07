@@ -94,7 +94,7 @@ function displayOverlay(icon) {
      switch (icon) {
         case "check":
             overlay.style.display = 'grid'
-            iconImg.src = "/medias/phone_media/icons/check.svg"
+            iconImg.src = "/medias/phone_media/icons/check.png"
             break;
 
         case "loose":
@@ -122,15 +122,27 @@ function displaySorcer(player) {
     let sorcer = document.querySelector(".imgSorcier")
     let input = document.getElementById("name")
     let button = document.querySelector(".confirmName")
+    let ellipse = document.getElementById("ellipse")
     if (player == "player1") {
         logo.src = "/medias/phone_media/icons/Arcania_rouge.svg"
         sorcer.src = "/medias/phone_media/icons/sorcier_rouge.png"
-        input.classList.add("player1")
+        input.classList.add("player1input")
         button.classList.add("player1")
+        ellipse.src = "/medias/phone_media/ellipses/red_ellipse.png"
     } else {
         logo.src = "/medias/phone_media/icons/Arcania_bleu.svg"
         sorcer.src = "/medias/phone_media/icons/sorcier_bleu.png"
-        input.classList.add("player2")
+        input.classList.add("player2input")
         button.classList.add("player2")
+        ellipse.src = "/medias/phone_media/ellipses/blue_ellipse.png"
+    }
+}
+
+function displayButtons() {
+    let buttons = document.getElementById("buttons")
+    if (buttons.style.display == "none") {
+        buttons.style.display = "block"
+    } else {
+        buttons.style.display = "none"
     }
 }

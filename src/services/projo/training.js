@@ -40,12 +40,12 @@ function trainingSpellDetected(spellData, player){
             case "horizontal":
                 if (spellData.name == "lineH_loading") {
                     if (player.name == "player1") {
-                        current_Spell1.src = "/medias/trainingPart/validation.gif"
+                        current_Spell1.src = "/medias/phone_media/icons/check_small.png"
                         player1State = true
-                        websocketValidation("player1", "check")
+                        websocketValidation("player1", "validate")
                     } else {
-                        current_Spell2.src = "/medias/trainingPart/validation.gif"
-                        websocketValidation("player2", "check")
+                        current_Spell2.src = "/medias/phone_media/icons/check_small.png"
+                        websocketValidation("player2", "validate")
                         player2State = true
                     }
                 }
@@ -53,26 +53,26 @@ function trainingSpellDetected(spellData, player){
             case "vertical":
                 if (spellData.name == "lineV_loading") {
                     if (player.name == "player1") {
-                        current_Spell1.src = "/medias/trainingPart/validation.gif"
+                        current_Spell1.src = "/medias/phone_media/icons/check_small.png"
                         player1State = true
-                        websocketValidation("player1", "check")
+                        websocketValidation("player1", "validate")
                     } else {
-                        current_Spell2.src = "/medias/trainingPart/validation.gif"
+                        current_Spell2.src = "/medias/phone_media/icons/check_small.png"
                         player2State = true
-                        websocketValidation("player2", "check")
+                        websocketValidation("player2", "validate")
                     }
                 }
                 break
             case "circle":
                 if (spellData.name == "circle_loading") {
                     if (player.name == "player1") {
-                        current_Spell1.src = "/medias/trainingPart/validation.gif"
+                        current_Spell1.src = "/medias/phone_media/icons/check_small.png"
                         player1State = true
-                        websocketValidation("player1", "check")
+                        websocketValidation("player1", "validate")
                     } else {
-                        current_Spell2.src = "/medias/trainingPart/validation.gif"
+                        current_Spell2.src = "/medias/phone_media/icons/check_small.png"
                         player2State = true
-                        websocketValidation("player2", "check")
+                        websocketValidation("player2", "validate")
                     }
                 }
                 break;

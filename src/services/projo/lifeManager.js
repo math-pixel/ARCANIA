@@ -7,6 +7,9 @@ function lifeManager(player, spellData) {
 
     //* Set Damage
     if (spellData.damage != 0) {
+        //* Update data damage player
+        registerDataPlayer({}, player, spellData.damage)
+
         //* Add dommage to player
         if (player.life - spellData.damage > tresholdLifeBar) {
             player.life -= spellData.damage

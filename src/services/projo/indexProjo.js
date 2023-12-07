@@ -55,27 +55,30 @@ let player2 = {
 // when button start is pressed
 document.getElementById("introButton").addEventListener("click", () => {
   let introDiv = document.getElementById("intro")
-  let trainingVideo = document.getElementById("training_vid")
-  let videoIntro = document.getElementById("videoIntro")
+  
 
+  // training video
+  let trainingVideo = document.getElementById("training_vid")
   trainingVideo.play()
   trainingVideo.loop = true
-
-
+  
+  
   // Play animation qrCode
   document.getElementById("qrCode1").classList.remove("screenOut")
   document.getElementById("qrCode2").classList.remove("screenOut")
-
-
-
+  
+  
+  // background versus
   let videoVersus = document.getElementById("videoVersus")
   videoVersus.play()
   videoVersus.loop = true
-
+  
+  // Intro arcania thunder
+  let videoIntro = document.getElementById("videoIntro")
   videoIntro.play()
   videoIntro.addEventListener("ended", () => {
     
-    // remove video intro eclair
+    // remove video intro thunder
     videoIntro.parentNode.removeChild(videoIntro)
 
   })
@@ -108,23 +111,28 @@ function generateQRCode(place, url) {
 /* -------------------------------------------------------------------------- */
 function playRulesVideo() {
   
-  let videoIntro = document.getElementById("vidIntro")
-  // console.log(videoIntro)
-  videoIntro.style.display = "block"
-  videoIntro.play()
+  let rulesVideo = document.getElementById("rulesVideo")
+  // console.log(rulesVideo)
+  rulesVideo.style.display = "block"
+  rulesVideo.play()
 
-  // videoIntro.addEventListener("ended", () => {
-  //   console.log("finish vid")
-  //   stateOfGame = "TrainingPlayer"
-  //   updateStateExperience()
-  // })
+  rulesVideo.addEventListener("ended", () => {
+    console.log("finish vid")
+    rulesVideo.pause()
+    rulesVideo.style.display = "none" 
+    stateOfGame = "TrainingPlayer"
+    updateStateExperience()
+  })
 
-  //! for debug comment the line above ( event listener ) and un-comment the line below
-  setTimeout(() => {
-      stateOfGame = "TrainingPlayer"
-      updateStateExperience()
+  // //! for debug comment the line above ( event listener ) and un-comment the line below
+  // setTimeout(() => {
 
-  }, 500)
+  //   rulesVideo.pause()
+  //   rulesVideo.style.display = "none"
+  //     stateOfGame = "TrainingPlayer"
+  //     updateStateExperience()
+
+  // }, 500)
 
 }
 
@@ -143,7 +151,7 @@ function updateStateExperience(){
 
       //* remove div of waiting player
       document.getElementById("waiting_connection_container").style.display = "none";
-
+      document.getElementById("videoIntro").pause()
       //* play video
       playRulesVideo()
       break;
@@ -151,17 +159,20 @@ function updateStateExperience(){
       //? training part
 
       document.getElementById("waiting_connection_container").style.display = "none";
-      document.getElementById("vidIntro").style.display = "none"
+      document.getElementById("rulesVideo").style.display = "none"
       document.getElementById("training_container").style.display = "flex" //TODO display block
+      document.getElementById("videoIntro").pause()
+
 
       //TODO call the trust fonction
       startTraining()
       // videoIntro.parentNode.removeChild(videoIntro);
       break;
     case "InGame":
+      document.getElementById("videoIntro").pause()
       document.getElementById("backgroundBattle").play()
       document.getElementById("waiting_connection_container").style.display = "none";
-      document.getElementById("vidIntro").style.display = "none"
+      document.getElementById("rulesVideo").style.display = "none"
       document.getElementById("training_container").style.display = 'none'
 
       startGame()
@@ -169,13 +180,15 @@ function updateStateExperience(){
     case "End":
       //? end game
 
+      document.getElementById("videoIntro").pause()
+
       document.getElementById("timerContainer").style.display = "none"
       document.getElementById("videoDiv").style.display = "none"
       document.getElementById("audioDiv").style.display = "none"
       document.getElementById("playerInfo").style.display = "none"
 
       document.getElementById("waiting_connection_container").style.display = "none";
-      document.getElementById("vidIntro").style.display = "none"
+      document.getElementById("rulesVideo").style.display = "none"
       document.getElementById("training_container").style.display = 'none'
       break;
     case "dataviz":
@@ -185,6 +198,7 @@ function updateStateExperience(){
       websocketValidation("player1", "resetOverlay")
       websocketValidation("player2", "resetOverlay")
 
+      document.getElementById("videoIntro").pause()
       
       document.getElementById("timerContainer").style.display = "none"
       document.getElementById("videoDiv").style.display = "none"
@@ -192,8 +206,10 @@ function updateStateExperience(){
       document.getElementById("playerInfo").style.display = "none"
       document.getElementById("backgroundBattle").style.display = "none"
       document.getElementById("waiting_connection_container").style.display = "none";
-      document.getElementById("vidIntro").style.display = "none"
+      document.getElementById("rulesVideo").style.display = "none"
       document.getElementById("training_container").style.display = 'none'
+
+      updateData(winner)
       break;
   }
 }

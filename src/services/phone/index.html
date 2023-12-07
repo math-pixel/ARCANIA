@@ -23,10 +23,11 @@
     </div>
     <div id="formDiv">
       <div id="form">
-        <input type="text" name="name" id="name" class="inputName" placeholder="Nom d'utilisateur">
+        <input type="text" name="name" id="name" class="inputName" placeholder="Pseudonyme">
         <button class="confirmName" onclick="startGame()">Jouer</button>
       </div>
     </div>
+    <img src="" alt="" class="ellipse" id="ellipse">
   </div>
   <div id="game">
     <img src="" alt="" id="baguette">
@@ -35,12 +36,15 @@
     <img src="" alt="" id="icon">
     <h2 id="win_loose"></h2>
   </div>
-  <button onclick="sendSpellInWebsocket('circle')" style="position: absolute; top: 0; left: 0;">circle</button>
-  <button onclick="sendSpellInWebsocket('hline')" style="position: absolute; top: 100px; left: 0;">hline</button>
-  <button onclick="sendSpellInWebsocket('vline')" style="position: absolute; top: 200px; left: 0;">vline</button>
-  <button onclick="sendSpellInWebsocket('circle_loading')" style="position: absolute; top: 50px; left: 0;">circle_loading</button>
-  <button onclick="sendSpellInWebsocket('hline_loading')" style="position: absolute; top: 150px; left: 0;">hline_loading</button>
-  <button onclick="sendSpellInWebsocket('vline_loading')" style="position: absolute; top: 250px; left: 0;">vline_loading</button>
+  <button class="buttonHide" id="buttonHide" onclick="displayButtons()">y</button>
+  <div class="buttons" id="buttons">
+    <button onclick="sendSpellInWebsocket('circle')" style="position: absolute; top: 0; left: 0;" class="cheatButton">circle</button>
+    <button onclick="sendSpellInWebsocket('hline')" style="position: absolute; top: 100px; left: 0;" class="cheatButton">hline</button>
+    <button onclick="sendSpellInWebsocket('vline')" style="position: absolute; top: 200px; left: 0;" class="cheatButton">vline</button>
+    <button onclick="sendSpellInWebsocket('circle_loading')" style="position: absolute; top: 50px; left: 0;" class="cheatButton">circle_loading</button>
+    <button onclick="sendSpellInWebsocket('hline_loading')" style="position: absolute; top: 150px; left: 0;" class="cheatButton">hline_loading</button>
+    <button onclick="sendSpellInWebsocket('vline_loading')" style="position: absolute; top: 250px; left: 0;" class="cheatButton">vline_loading</button>
+  </div>
   <script src="https://cdn.socket.io/4.5.4/socket.io.min.js"></script>
   <script src="/phone/ml5.js"></script>
   <script src="/phone/display.js"></script>
