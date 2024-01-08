@@ -26,12 +26,11 @@ node server.js
 
 On your computer open url :
 ```
-http://localhost:3000/projo
+http://localhost:3000/projo or http://[computer-ip]:3000/projo
 ```
-On your phone open url :
-```
-http://[computer-ip]:3000/
-```
+
+On your phone scan the qr code and use it a magic wand
+
 ## License
 
 GPL 3.0
