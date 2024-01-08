@@ -50,7 +50,7 @@ function displayPage(page) {
     }
 }
 
-function selectDamage(spellName) {
+function displayDammages(spellName) {
     navigator.vibrate([150,0,150]);
     switch (spellName) {
         case "circle":
@@ -86,6 +86,9 @@ function displayBaguette() {
 
     document.getElementById("baguette").src = src
 }
+
+
+//* ##### Overlay #####
 
 socket.on("validation", (state) => {
 
@@ -148,6 +151,9 @@ function displaySorcer(player) {
     }
 }
 
+/* -------------------------------------------------------------------------- */
+/*                                 debug mode                                 */
+/* -------------------------------------------------------------------------- */
 function displayButtons() {
     let buttons = document.getElementById("buttons")
     if (buttons.style.display == "none") {

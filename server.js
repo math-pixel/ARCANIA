@@ -47,6 +47,7 @@ io.on('connection', (socket) => {
     console.log(value)
   })
 
+  //* set up name of remote
   socket.on("phone_name", (value) => {
     managerIDWebsocket(value, socket)
   });

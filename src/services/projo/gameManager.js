@@ -330,7 +330,12 @@ let playersStat = {
     }
 }
 
-
+/**
+ * Save stat of the player
+ * @param {*} spellData 
+ * @param {*} player 
+ * @param {*} damage 
+ */
 function registerDataPlayer(spellData, player, damage = 0) {
     if (Object.keys(spellData).length !== 0) {
         switch (spellData.name) {
@@ -360,7 +365,7 @@ function registerDataPlayer(spellData, player, damage = 0) {
         }
     }
 
-    playersStat[player.name]["degatTotal"] += damage
+    playersStat[player.name]["degatTotal"] += damage //TODO change dammage by spelldata.damage
 
-    console.log(playersStat)
+    // console.log(playersStat)
 }

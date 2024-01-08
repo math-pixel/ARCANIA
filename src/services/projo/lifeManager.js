@@ -12,10 +12,10 @@ function lifeManager(player, spellData) {
 
         //* Add dommage to player
         if (player.life - spellData.damage > tresholdLifeBar) {
-            player.life -= spellData.damage
+          player.life -= spellData.damage
 
-            //* send phone feed back
-            socket.emit("takeDamage", JSON.stringify( { playerName : player.name, spellName : spellData.name} ))
+          //* send phone feed back
+          socket.emit("takeDamage", JSON.stringify( { playerName : player.name, spellName : spellData.name} ))
 
         } else {
 

@@ -9,15 +9,13 @@ function manaManager(player, state) {
             player.mana = 100
         }
     } else if(state == "reset") {
-        //TODO Here when ulti is launch
         player.mana = 0
     }
 
-    updateMana(player)
+    updateManaVisual(player)
 }
 
-//* Update visuel of mana
-function updateMana(player) {
+function updateManaVisual(player) {
     // console.log(player)
     let manaDiv;
     if (player.name == "player1") {
@@ -25,5 +23,7 @@ function updateMana(player) {
     } else {
         manaDiv = document.getElementById("infoMana2")
     }
+
+    //? 15 and 10 is the minimum percent of visual tricks  
     manaDiv.style.clipPath  = `polygon(0px 0px, ${player.mana + 15}% 0%, ${player.mana + 10}% 100%, 0% 100%)`
 }

@@ -120,6 +120,12 @@ function trainingSpellDetected(spellData, player){
     // else do nothing
 }
 
+//TODO change name of function and event name in server and client
+/**
+ * Change overlay on phone
+ * @param {String} name playerName => player1 || player2
+ * @param {String} state => validate || resetOverlay
+ */
 function websocketValidation(name, state) {
     socket.emit("validation", JSON.stringify( { playerName : name, state: state} ))
 }

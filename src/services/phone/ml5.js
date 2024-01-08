@@ -92,7 +92,7 @@ socket.on("connect", () => {
     socket.emit("phone_name", player)
     displaySorcer(player)
     socket.on("damaged", (spell) => {
-        selectDamage(spell)
+        displayDammages(spell)
     })
 });
 
