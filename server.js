@@ -12,7 +12,7 @@ const app = express();
 app.use('/medias', express.static(join(__dirname, 'src/medias')))
 app.use('/services', express.static(path.join(__dirname, 'src/services')))
 app.use('/phone', express.static(path.join(__dirname, 'src/services/phone')))
-app.use('/projo', express.static(path.join(__dirname, 'src/services/projo')))
+app.use('/', express.static(path.join(__dirname, 'src/services/projo')))
 app.use('/json', express.static(path.join(__dirname, 'src/json')))
 app.use('/model', express.static(path.join(__dirname, 'src/services/models')))
 app.use('/fonts', express.static(path.join(__dirname, 'src/fonts')))
@@ -26,11 +26,11 @@ const io = new Server(server);
 /* -------------------------------------------------------------------------- */
 /*                               Routage Express                              */
 /* -------------------------------------------------------------------------- */
-app.get('/', (req, res) => {
+app.get('/phone', (req, res) => {
   res.sendFile(join(__dirname, 'src/services/phone/index.html'));
 });
 
-app.get('/projo', (req, res) => {
+app.get('/', (req, res) => {
   res.sendFile(join(__dirname, 'src/services/projo/projo.html'));
 });
 
