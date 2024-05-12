@@ -12,6 +12,7 @@ let rawData = []; // Stocke les données brutes de l'accéléromètre
 let sequenceLength = 15; // La longueur de la séquence pour chaque axe
 let collectionInterval; // Pour stocker l'identifiant de l'intervalle de collecte
 
+//TODO separate lock orientation and fullscreen
 function lockOrientation() {
     // Check if the Fullscreen API is supported
     if (document.documentElement.requestFullscreen) {
@@ -87,10 +88,48 @@ if(urlParams.has('playerNumber')){
 /* -------------------------------------------------------------------------- */
 const socket = io();
 
+/* ---------------------------- Connection socket --------------------------- */
+
+// Function to extract room ID from the URI
+function extractRoomIdFromUri() {
+    const urlParams = new URLSearchParams(window.location.search);
+    return urlParams.get('roomId');
+}
+
+// Function to handle the connection status
+socket.on('connectionStatus', (data) => {
+    console.log('Connection status:', data.message);
+});
+
+// Function to handle the response from the server
+socket.on('slave_connected', (data) => {
+    console.log('Server response:', data.message);
+
+    // Extract room ID from the URI
+    const roomId = extractRoomIdFromUri();
+    console.log("emit room id: ", roomId)
+    // Join the room
+    socket.emit('joinRoom', roomId);
+});
+
+// when connected to the room
+socket.on("roomJoined", (roomID) => {
+    socket.emit("phone_name", player)
+    displaySorcer(player) 
+})
+
+// Get current room id : socket.emit("getRoom") 
+socket.on("getRoom", (roomID) => {
+    console.log(roomID)
+})
+
+// Send identification data to the server
+socket.emit('identification', 'Slave');
+
+/* -------------------------- socket event Arcania -------------------------- */
+
 //* send name of remote to identify it
 socket.on("connect", () => {
-    socket.emit("phone_name", player)
-    displaySorcer(player)
     socket.on("damaged", (spell) => {
         displayDammages(spell)
     })
