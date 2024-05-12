@@ -34,106 +34,194 @@ app.get('/', (req, res) => {
   res.sendFile(join(__dirname, 'src/services/projo/projo.html'));
 });
 
+/* -------------------------------------------------------------------------- */
+/*                              Rooms Information                             */
+/* -------------------------------------------------------------------------- */
+// rooms 0 is the template of rooms
+roomsDatabase = {
+  "0" : {
+    "idPlayer_1" : 0,
+    "idPlayer_2" : 0,
+    "namePlayer_1" : "name remote 1",
+    "namePlayer_2" : "name remote 2"
+  }
+  
+}
+// console.log(roomsDatabase["0"].idPlayer_1)
 
 /* -------------------------------------------------------------------------- */
-/*                              Websocket Server                              */
+/*                              Socket IO Server                              */
 /* -------------------------------------------------------------------------- */
-let usernameRemote = ["", ""]
-let idRemotes = [0, 0]
+
+// Gestionnaire de connexion Socket.IO
 io.on('connection', (socket) => {
-  console.log('a user connected in websocket');
+
+  let roomOfCurrentSocket = ""
+
+  console.log('New connection');
+
+  // Événement émis par le client (maître ou esclave)
+  // template : data = { "role" : "slave", "idRoom" : 1984632 }
+  socket.on('identification', (role) => {
+      console.log('##### Test Client role Identification. Role :', role, "#####");
+      if (role === 'Master') {
+          console.log('Client identified as Master');
+          // Créer une nouvelle salle de discussion pour le maître
+          const room = socket.id;
+          socket.join(room);
+          roomOfCurrentSocket = room
+          initNewRoomInDatabase(room)
+          // Émettre l'URL du serveur de socket et l'ID de la salle de discussion au client maître
+          socket.emit('qrCode_Setting', { roomId: room });
+
+      } else if (role === 'Slave') {
+          console.log('Client identified as Slave');
+
+          // Répondre au client esclave
+          socket.emit('slave_connected', { message: 'Connection established as Slave' });
+      } else {
+          socket.emit('response', { message: `Invalid client role`, role });
+          console.error('Invalid client role:', role);
+      }
+  });
+
+  socket.on('getRoom', () => {
+      socket.emit('getRoom', roomOfCurrentSocket)
+  })
+
+  socket.on('joinRoom', (idRoom) => {
+      // Joindre la salle de discussion correspondant à l'ID reçu du QR code
+      socket.join(idRoom);
+      roomOfCurrentSocket = idRoom
+
+      socket.emit("roomJoined", idRoom)
+  })
+
+  // Événement de vérification de la connexion du client maître
+  socket.on('checkConnection', () => {
+      // Envoyer une confirmation de connexion au client maître
+      io.to(roomOfCurrentSocket).emit('connectionStatus', { message: 'Connection OK' });
+  });
+
+
+  /* -------------------------------------------------------------------------- */
+  /*                              Your Event Socket                             */
+  /* -------------------------------------------------------------------------- */
 
   socket.on("console" ,(value) => {
     console.log(value)
   })
 
-  //* set up name of remote
-  socket.on("phone_name", (value) => {
-    managerIDWebsocket(value, socket)
-  });
+  /* ------------------------------- INIT PHASE ------------------------------- */
 
-
-  // * remote send a spell
-  socket.on('player1', (value, callback) => {
-    if (idRemotes[0] == socket.id) {
-      actionWebsocket(value, "player1")
-    }
+  //* set up ID of remote
+  socket.on("phone_name", (value) => { //TODO rename event name to setupRemoteID
+    setIDRemoteInRoom(roomOfCurrentSocket, value, socket)
   });
-  socket.on('player2', (value, callback) => {
-    if (idRemotes[1] == socket.id) {
-      actionWebsocket(value, "player2")
-    }
-  });
-
 
   //* remote send the username of the player
   socket.on('username', (value) => {
-    // console.log(socket.id + " username : " + value)
-    if (idRemotes[0] == socket.id) {
-      usernameRemote[0] = value 
-      io.emit("playerName1", value)
-    } else {
-      usernameRemote[1] = value
-      io.emit("playerName2", value)
-    }
-    // console.log(usernameRemote)
-
-    // When 2 remote are connected
-    if (usernameRemote[0] != 0 && usernameRemote[1] != 0) {
-      io.emit("allplayerConnected", "toto")
-    }
+    setUserNameInRoom(roomOfCurrentSocket, value, socket)
   })
+
+  /* ------------------------------- GAME PHASE ------------------------------- */
+  
+  // * remote send a spell
+  socket.on('player1', (value, callback) => {
+    if (roomsDatabase[roomOfCurrentSocket].idPlayer_1 == socket.id) {
+      broadcastSpeelWebsocket(roomOfCurrentSocket, value, "player1")
+    }
+  });
+  socket.on('player2', (value, callback) => {
+    if (roomsDatabase[roomOfCurrentSocket].idPlayer_2 == socket.id) {
+      broadcastSpeelWebsocket(roomOfCurrentSocket, value, "player2")
+    }
+  });
+
 
   socket.on('takeDamage', (information) => {
     let dataSocket = JSON.parse(information)
-    let socketId = "";
+    let socketIdOfPlayerHurted = "";
+
+    // set the id player who take dommage
+    // if player1 send spell => player 2 take dommage
     if (dataSocket.playerName == 'player1') {
-      socketId = idRemotes[1]
+      socketIdOfPlayerHurted = roomsDatabase[roomOfCurrentSocket].idPlayer_2
     } else {
-      socketId = idRemotes[0]
+      socketIdOfPlayerHurted = roomsDatabase[roomOfCurrentSocket].idPlayer_1
     }
-    socket.to(socketId).emit('damaged', dataSocket.spellName)
+    socket.to(socketIdOfPlayerHurted).emit('damaged', dataSocket.spellName)
   })
 
+
+  /* ---------------------------- In training phase --------------------------- */
+  // send validation to main screen
   socket.on('validation', (information) => {
     let dataSocket = JSON.parse(information)
-    let socketId = "";
+    let socketPlayerValidateSpell = "";
     if (dataSocket.playerName == 'player1') {
-      socketId = idRemotes[0]
+      socketPlayerValidateSpell = roomsDatabase[roomOfCurrentSocket].idPlayer_1
     } else {
-      socketId = idRemotes[1]
+      socketPlayerValidateSpell = roomsDatabase[roomOfCurrentSocket].idPlayer_2
     }
 
-    socket.to(socketId).emit('validation', dataSocket.state)
+    socket.to(socketPlayerValidateSpell).emit('validation', dataSocket.state) 
   })
   
-  //* ##### when save's remote is disconnected remove id #####
+  /* -------------- when save's remote is disconnected remove id -------------- */
   socket.on("disconnect", () => {
  
-    for (indexRemote in idRemotes) {
-      if (idRemotes[indexRemote] == socket.id) {
-        idRemotes[indexRemote] = 0
-        usernameRemote[indexRemote] = ""
-        if (indexRemote == 0) {
-          io.emit("playerName1", "")
-        } else {
-          io.emit("playerName2", "")
-        }
-      }
+    // RESET remote on disconnect
+    // determinate witch remote is disconnected
+    if(roomsDatabase[roomOfCurrentSocket].idPlayer_1 == socket.id ){ //TODO error when player is not connected
+      roomsDatabase[roomOfCurrentSocket].idPlayer_1 = 0
+      roomsDatabase[roomOfCurrentSocket].namePlayer_1 = ""
+      broadcastMessageToRoom(roomOfCurrentSocket, "playerName1", "nothing")
     }
-    console.log(usernameRemote)
+    if(roomsDatabase[roomOfCurrentSocket].idPlayer_2 == socket.id){
+      roomsDatabase[roomOfCurrentSocket].idPlayer_2 = 0
+      roomsDatabase[roomOfCurrentSocket].namePlayer_2 = ""
+      broadcastMessageToRoom(roomOfCurrentSocket, "playerName2", "nothing")
+    }
 
-    // console.log(idRemotes)
+    console.warn("Client Deconnected : ", socket.id, " On Room : ", roomOfCurrentSocket)
+
+  });
+
+  socket.on('<your-event>', (data) => {
+      // Envoyer une confirmation de connexion au client maître
+      broadcastMessageToRoom(roomOfCurrentSocket, data)
   });
 
 });
 
+/* -------------------------------------------------------------------------- */
+/*                              OLD Websocket Server                              */
+/* -------------------------------------------------------------------------- */
+//#region 
+// let usernameRemote = ["", ""]
+// let idRemotes = [0, 0]
+// io.on('connection', (socket) => {
+//   console.log('a user connected in websocket');
+
+// });
+//#endregion
+
+/* -------------------------------------------------------------------------- */
+/*                               Tools function                               */
+/* -------------------------------------------------------------------------- */
+//todo get in room database information
 // * add id if idRemote is equal to 0
-function managerIDWebsocket(phone_name, socket){
-  switch (phone_name){
+function setIDRemoteInRoom(roomID, playerNumber, socket){
+
+  let roomInformation = roomsDatabase[roomID]
+  console.log("room info",roomID, roomInformation)
+
+  console.log(roomInformation["idPlayer_1"])
+  switch (playerNumber){ // playerNumber => player1 || player2
     case "player1":
-      if (idRemotes[0] == 0) {
-        idRemotes[0] = socket.id
+      if (roomInformation.idPlayer_1 == 0) {
+        roomInformation.idPlayer_1 = socket.id
         console.log("new phone connection player 1", socket.id)
       }else{
         // console.log("new phone player 1 try connection but place already taken", socket.id)
@@ -141,8 +229,8 @@ function managerIDWebsocket(phone_name, socket){
 
       break;
     case "player2":
-      if (idRemotes[1] == 0) {
-        idRemotes[1] = socket.id
+      if (roomInformation.idPlayer_2 == 0) {
+        roomInformation.idPlayer_2 = socket.id
         console.log("new phone connection player 2", socket.id)
       }else{
         // console.log("new phone player 2 try connection but place already taken", socket.id)
@@ -155,35 +243,65 @@ function managerIDWebsocket(phone_name, socket){
   }
 }
 
-function actionWebsocket(value, player){
+function setUserNameInRoom(roomID, value, socket){
+  // console.log(socket.id + " username : " + value)
 
-  console.log(value, player)
+  let roomInformation = roomsDatabase[roomID] 
+  if (roomInformation.idPlayer_1 == socket.id) {
+    roomInformation.namePlayer_1 = value 
+    broadcastMessageToRoom(roomID, "playerName1", value)
+  } 
+  if (roomInformation.idPlayer_2 == socket.id) {
+    roomInformation.namePlayer_2 = value
+    broadcastMessageToRoom(roomID, "playerName2", value)
+  }
+
+  // When 2 remote are connected
+  if (roomInformation.namePlayer_1 != 0 && roomInformation.namePlayer_2 != 0) {
+    broadcastMessageToRoom(roomID, "allplayerConnected", "no Information")
+  }
+}
+
+function broadcastSpeelWebsocket(roomID, value, player){
+
+  // console.log(value, player)
   switch (value){
-    case 'Connection':
-      //TODO do action when player is connected
-      break;
     case 'circle_loading':
-      io.emit(player, "circle_loading")
+      broadcastMessageToRoom(roomID, player, "circle_loading")
       break;
     case 'circle':
-      io.emit(player, "circle")
+      broadcastMessageToRoom(roomID, player, "circle")
       break;
     case 'lineH_loading':
-      io.emit(player, "lineH_loading")
+      broadcastMessageToRoom(roomID, player, "lineH_loading")
       break;
     case 'lineH':
-      io.emit(player, "lineH")
+      broadcastMessageToRoom(roomID, player, "lineH")
       break;
     case 'lineV_loading':
-      io.emit(player, "lineV_loading")
+      broadcastMessageToRoom(roomID, player, "lineV_loading")
       break;
     case 'lineV':
-      io.emit(player, "lineV")
+      broadcastMessageToRoom(roomID, player, "lineV")
       break;
     case 'cast_spell':
       break;
   }
 
+}
+
+function broadcastMessageToRoom(room, message, value){
+  io.to(room).emit(message, value)
+}
+
+function initNewRoomInDatabase(roomID){
+  roomsDatabase[roomID] = {
+    "idPlayer_1" : 0,
+    "idPlayer_2" : 0,
+    "namePlayer_1" : "",
+    "namePlayer_2" : ""
+  }
+  console.log(roomsDatabase)
 }
 
 // Listen HTTP server
