@@ -87,17 +87,25 @@ let parentAudio = document.getElementById("audioDiv")
 /* -------------------------------------------------------------------------- */
 /*                                   QR Code                                  */
 /* -------------------------------------------------------------------------- */
-function generateQRCode(place, url) {
-  new QRCode(place, {
-    text: url,
-    width: 288,
-    height: 288,
-    colorDark: "white",
-    colorLight: "black",
-    correctLevel: QRCode.CorrectLevel.H
-  });
-}
+// Function to generate QR code
+		//Template = generateQRCode("containerID", 'localhost', '3000', parameters='param1=value1&param2=value2');
+		function generateQRCode(canvasContainerID, url, port, subdirectory = "", parameters = "") {
+			// Create URL
+			const qrCodeUrl = `http://${url}:${port}/${subdirectory}?${parameters}`;
+			console.log(qrCodeUrl)
+			// Generate QrCode
+			const qrCodeContainer = document.getElementById(canvasContainerID);
 
+			// Clear previous QR code if exists
+			qrCodeContainer.innerHTML = '';
+
+			// Generate QR code
+			new QRCode(qrCodeContainer, {
+				text: qrCodeUrl,
+				width: 200,
+				height: 200
+			});
+		}
 
 
 
@@ -315,6 +323,42 @@ function updateStateExperience(){
 /* -------------------------------------------------------------------------- */
 /*                                  Websocket                                 */
 /* -------------------------------------------------------------------------- */
+// Emit 'identification' event when the socket connection is established
+socket.on('connect', () => {
+  console.log('Connected to server');
+
+  // Emit 'identification' event with role 'Master'
+  socket.emit('identification', 'Master');
+});
+
+// Event handler for 'qrCode_Setting' event
+socket.on('qrCode_Setting', (data) => {
+  console.log('Received QR code setting:', data);
+  // Generate QR code with the received room ID
+
+  // let qrcode1 = document.getElementById("qrCode1")
+  // let qrcode2 = document.getElementById("qrCode2")
+  generateQRCode("qrCode1", window.location.hostname, window.location.port, "phone", parameters = `roomId=${data.roomId}&playerNumber=1`);
+  generateQRCode("qrCode2", window.location.hostname, window.location.port, "phone", parameters = `roomId=${data.roomId}&playerNumber=2`);
+})
+
+// Event handler for 'response' event
+socket.on('response', (data) => {
+  console.log('Response from server:', data.message);
+});
+
+// Event handler for 'connectionStatus' event
+socket.on('connectionStatus', (data) => {
+  console.log('Connection status:', data.message);
+});
+
+
+// Get current room id : socket.emit("getRoom") 
+socket.on("getRoom", (roomID) => {
+  console.log(roomID)
+})
+
+
 let rulesAlreadyPassed = false
 socket.on("allplayerConnected", (player) => {
 
