@@ -3,7 +3,7 @@ const { createServer } = require('node:http');
 const { join } = require('node:path');
 const { Server } = require('socket.io');
 const path = require('path');
-const { Socket } = require('node:dgram');
+const { Socket } = require('node:dgram'); 
 
 /* -------------------------------------------------------------------------- */
 /*                         Config/Init Express server                         */
@@ -71,7 +71,8 @@ io.on('connection', (socket) => {
       if (role === 'Master') {
           console.log('Client identified as Master');
           // Créer une nouvelle salle de discussion pour le maître
-          const room = socket.id;
+          const room = socket.id.slice(0,6);
+          console.log(room)
           socket.join(room);
           roomOfCurrentSocket = room
           initNewRoomInDatabase(room)
