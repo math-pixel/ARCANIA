@@ -9,7 +9,9 @@ let playerName2 = "";
 
 let crowdSoundPlayed = false
 
-//* ##### Spells #####
+/* -------------------------------------------------------------------------- */
+/*                                   Spells                                   */
+/* -------------------------------------------------------------------------- */
 let spells ;
 //? Load Json spell information at start
 preloadSpells()
@@ -30,10 +32,14 @@ async function preloadSpells(){
 }
 
 
-// ##### Init websocket #####
+/* -------------------------------------------------------------------------- */
+/*                               Init websocket                               */
+/* -------------------------------------------------------------------------- */
 const socket = io();
 
-// ##### Init Player #####
+/* -------------------------------------------------------------------------- */
+/*                                 Init Player                                */
+/* -------------------------------------------------------------------------- */
 let player1 = {
   name: "player1",
   life: 100, 
@@ -59,23 +65,23 @@ document.getElementById("introButton").addEventListener("click", () => {
   let introDiv = document.getElementById("intro")
   
 
-  // training video
+  /* ----------------------------- training video ----------------------------- */
   let trainingVideo = document.getElementById("training_vid")
   trainingVideo.play()
   trainingVideo.loop = true
   
   // TODO change place
-  // Play animation qrCode
+  /* --------------------------- animation qrCode IN -------------------------- */
   document.getElementById("qrCode1").classList.remove("screenOut")
   document.getElementById("qrCode2").classList.remove("screenOut")
   
   
-  // background versus
+  /* ------------------------ Background versus qrCode ------------------------ */
   let videoVersus = document.getElementById("videoVersus")
   videoVersus.play()
   videoVersus.loop = true
 
-  //* remove waiting click
+  /* -------------------------- remove waiting click -------------------------- */
   introDiv.parentNode.removeChild(introDiv);
   updateStateExperience() //? its Init State
 })
@@ -90,16 +96,18 @@ let parentAudio = document.getElementById("audioDiv")
 // Function to generate QR code
 		//Template = generateQRCode("containerID", 'localhost', '3000', parameters='param1=value1&param2=value2');
 		function generateQRCode(canvasContainerID, url, port, subdirectory = "", parameters = "") {
-			// Create URL
+
+			/* ------------------------------- Create URL ------------------------------- */
 			const qrCodeUrl = `http://${url}:${port}/${subdirectory}?${parameters}`;
 			console.log(qrCodeUrl)
-			// Generate QrCode
+
+			/* ----------------------------- Generate QrCode ---------------------------- */
 			const qrCodeContainer = document.getElementById(canvasContainerID);
 
-			// Clear previous QR code if exists
+			/* -------------------- Clear previous QR code if exists -------------------- */
 			qrCodeContainer.innerHTML = '';
 
-			// Generate QR code
+			/* ---------------------------- Generate QR code ---------------------------- */
 			new QRCode(qrCodeContainer, {
 				text: qrCodeUrl,
 				width: 200,
@@ -114,11 +122,13 @@ let parentAudio = document.getElementById("audioDiv")
 /* -------------------------------------------------------------------------- */
 function playRulesVideo() {
   
+  /* ------------------------------- Play Video ------------------------------- */
   let rulesVideo = document.getElementById("rulesVideo")
   // console.log(rulesVideo)
   rulesVideo.style.display = "block"
   rulesVideo.play()
 
+  /* ----------------------------- Event End video ---------------------------- */
   rulesVideo.addEventListener("ended", () => {
     console.log("finish vid")
     rulesVideo.pause()
@@ -139,7 +149,7 @@ function playRulesVideo() {
 
 }
 
-//* skip rules video
+/* ---------------------------- skip rules video ---------------------------- */
 document.getElementById("skipButton").addEventListener("click", () => {
   rulesVideo.pause()
   rulesVideo.style.display = "none" 
@@ -178,19 +188,17 @@ function updateStateExperience(){
     case "Init":
       //? waiting connection of the two remote
       
-      // Intro arcania thunder
+      /* -------------------- Play video Intro arcania thunder -------------------- */
       let videoIntro = document.getElementById("videoIntro")
       videoIntro.play()
 
-      //* wait 10 sec 
+      /* --------------------- wait 10 sec and add crowd sound -------------------- */
       setTimeout(() => {
-        //* play crowd sound
         createAudioElement({audioSrc : "../medias/audio_ambiant/crowd_loop.mp3"}, true, 0.4)
       }, 200)
 
-      // When video thunder is end
+      /* ------------------------ When video thunder is end ----------------------- */
       videoIntro.addEventListener("ended", () => {
-        
         // remove video intro thunder
         videoIntro.parentNode.removeChild(videoIntro)
 
@@ -215,7 +223,7 @@ function updateStateExperience(){
 
 
 
-      //* play video
+      /* ---------------------------- play rules video ---------------------------- */
       playRulesVideo()
       break;
     case "TrainingPlayer":
@@ -252,13 +260,14 @@ function updateStateExperience(){
       videoWinner.style.display = "none"
       datavizPage.style.display = "none"
 
-      // play background video
+      /* -------------------------- play background video ------------------------- */
       document.getElementById("backgroundBattle").play()
       
-      // Play video preparation
+      /* ------------------------- Play video preparation ------------------------- */
       fightPositionIndication.style.display = "block"
       fightPositionIndication.play()
-      // event when position indication is end
+
+      /* ------------------ event when position indication is end ----------------- */
       fightPositionIndication.addEventListener("ended", () => {
         fightPositionIndication.style.display = "none"
         startGame()
@@ -358,10 +367,10 @@ socket.on("getRoom", (roomID) => {
   console.log(roomID)
 })
 
-
-let rulesAlreadyPassed = false
+let rulesAlreadyPassed = false // when remote deconnect and reconnect => does not display rules video 2 times
+/* ---------- When all player is connected => change state of game ---------- */
 socket.on("allplayerConnected", (player) => {
-
+  
   if (rulesAlreadyPassed == false) {
     setTimeout(() => {
       // console.log("toto")
