@@ -197,6 +197,7 @@ io.on('connection', (socket) => {
     if (roomsDatabase[roomOfCurrentSocket].idMasterOfRoom == socket.id) {
       console.log("rooms number : ", roomOfCurrentSocket, " as been deleted")
       delete roomsDatabase[roomOfCurrentSocket]
+      broadcastMessageToRoom(roomOfCurrentSocket, "ROOM_CLOSED", "NO MESSAGE")
     }
 
     console.warn("Client Deconnected : ", socket.id, " On Room : ", roomOfCurrentSocket)
