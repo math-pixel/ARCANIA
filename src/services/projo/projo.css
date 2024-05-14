@@ -50,7 +50,7 @@
 }
 
 to {
-    opacity: 100%;
+    opacity: 40%;
     transform: scale(100%);
 }
 }
@@ -144,11 +144,16 @@ body {
 
   opacity: 0;
 
-  animation: spawn 1s ease;
-  animation-direction: alternate;
+  animation: spawn 1s ease forwards;
   animation-delay: 2s;
 
   z-index: 1000;
+}
+
+.skipButton:hover{
+  animation-fill-mode:none;
+  opacity: 100%;
+  cursor: pointer;
 }
 
 .waiting_connection_container {
