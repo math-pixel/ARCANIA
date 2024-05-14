@@ -137,12 +137,15 @@ body {
 .skipButton{
   position: absolute;
   top: 2%;
-  right: 5%;
+  right: 1%;
 
   width: 10%;
   height: auto;
 
-  animation: spawn 1s ease forwards;
+  opacity: 0;
+
+  animation: spawn 1s ease;
+  animation-direction: alternate;
   animation-delay: 2s;
 
   z-index: 1000;
