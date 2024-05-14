@@ -44,6 +44,7 @@ app.get('/panelAdmin', (req, res) => {
 // rooms 0 is the template of rooms
 roomsDatabase = {
   "0" : {
+    "idMasterOfRoom": 0,
     "idPlayer_1" : 0,
     "idPlayer_2" : 0,
     "namePlayer_1" : "name remote 1",
@@ -70,12 +71,17 @@ io.on('connection', (socket) => {
       console.log('##### Test Client role Identification. Role :', role, "#####");
       if (role === 'Master') {
           console.log('Client identified as Master');
+
           // Créer une nouvelle salle de discussion pour le maître
           const room = socket.id.slice(0,6);
           console.log(room)
           socket.join(room);
           roomOfCurrentSocket = room
           initNewRoomInDatabase(room)
+
+          //set up the master of the room
+          roomsDatabase[room].idMasterOfRoom = socket.id
+
           // Émettre l'URL du serveur de socket et l'ID de la salle de discussion au client maître
           socket.emit('qrCode_Setting', { roomId: room });
 
@@ -187,6 +193,10 @@ io.on('connection', (socket) => {
       roomsDatabase[roomOfCurrentSocket].idPlayer_2 = 0
       roomsDatabase[roomOfCurrentSocket].namePlayer_2 = ""
       broadcastMessageToRoom(roomOfCurrentSocket, "playerName2", "nothing")
+    }
+    if (roomsDatabase[roomOfCurrentSocket].idMasterOfRoom == socket.id) {
+      console.log("rooms number : ", roomOfCurrentSocket, " as been deleted")
+      delete roomsDatabase[roomOfCurrentSocket]
     }
 
     console.warn("Client Deconnected : ", socket.id, " On Room : ", roomOfCurrentSocket)
@@ -301,6 +311,7 @@ function broadcastMessageToRoom(room, message, value){
 
 function initNewRoomInDatabase(roomID){
   roomsDatabase[roomID] = {
+    "idMasterOfRoom": 0,
     "idPlayer_1" : 0,
     "idPlayer_2" : 0,
     "namePlayer_1" : "",
