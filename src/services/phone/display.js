@@ -8,14 +8,13 @@ async function startGame() {
 
     if (is_iOS()) {
         try {
-            const orientationGranted = await request(DeviceOrientationEvent);
+            const orientationGranted = DeviceMotionEvent.requestPermission()//await request(DeviceOrientationEvent);
             if (!orientationGranted) return;
         } catch (error) {
-            console.error(error);
+            alert(error);
             return;
         }
     }
-
     // lockOrientation()
 
     sendName(playerName);
