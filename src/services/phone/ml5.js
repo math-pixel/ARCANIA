@@ -114,7 +114,7 @@ socket.on('slave_connected', (data) => {
 
 // when connected to the room
 socket.on("roomJoined", (roomID) => {
-    socket.emit("phone_name", player)
+    socket.emit("setupRemoteID", player)
     displaySorcer(player) 
 })
 

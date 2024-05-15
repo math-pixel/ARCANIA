@@ -126,7 +126,7 @@ io.on('connection', (socket) => {
   /* ------------------------------- INIT PHASE ------------------------------- */
 
   //* set up ID of remote
-  socket.on("phone_name", (value) => { //TODO rename event name to setupRemoteID
+  socket.on("setupRemoteID", (value) => {
     setIDRemoteInRoom(roomOfCurrentSocket, value, socket)
   });
 
@@ -222,21 +222,8 @@ io.on('connection', (socket) => {
 });
 
 /* -------------------------------------------------------------------------- */
-/*                              OLD Websocket Server                              */
-/* -------------------------------------------------------------------------- */
-//#region 
-// let usernameRemote = ["", ""]
-// let idRemotes = [0, 0]
-// io.on('connection', (socket) => {
-//   console.log('a user connected in websocket');
-
-// });
-//#endregion
-
-/* -------------------------------------------------------------------------- */
 /*                               Tools function                               */
 /* -------------------------------------------------------------------------- */
-//todo get in room database information
 // * add id if idRemote is equal to 0
 function setIDRemoteInRoom(roomID, playerNumber, socket){
 
