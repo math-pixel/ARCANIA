@@ -81,6 +81,7 @@ if(urlParams.has('playerNumber')){
 
 }else{
     console.error("there is not 'playerNumber' in URL")
+    //TODO fullscreen page for this error
 }
 
 /* -------------------------------------------------------------------------- */
@@ -424,14 +425,25 @@ function startCollecting() {
             if (window.DeviceMotionEvent && window.latestDeviceMotionEvent && latestDeviceOrientationEvent) {
                 let event = window.latestDeviceMotionEvent;
                 let eventOrientation = latestDeviceOrientationEvent
-                collectData(
-                    event.accelerationIncludingGravity.x,
-                    event.accelerationIncludingGravity.y,
-                    event.accelerationIncludingGravity.z,
-                    eventOrientation.x,
-                    eventOrientation.y,
-                    eventOrientation.z
-                );
+                if (is_iOS()) {
+                    collectData(
+                        event.accelerationIncludingGravity.x * -1,
+                        event.accelerationIncludingGravity.y * -1,
+                        event.accelerationIncludingGravity.z * -1,
+                        eventOrientation.x * -1,
+                        eventOrientation.y * -1,
+                        eventOrientation.z * -1
+                    );
+                }else{
+                    collectData(
+                        event.accelerationIncludingGravity.x,
+                        event.accelerationIncludingGravity.y,
+                        event.accelerationIncludingGravity.z,
+                        eventOrientation.x,
+                        eventOrientation.y,
+                        eventOrientation.z
+                    );
+                }
             }
         }, 100);
     }
