@@ -74,7 +74,7 @@ io.on('connection', (socket) => {
 
           // Créer une nouvelle salle de discussion pour le maître
           const room = socket.id.slice(0,6);
-          console.log(room)
+          // console.log(room)
           socket.join(room);
           roomOfCurrentSocket = room
           initNewRoomInDatabase(room)
@@ -120,7 +120,7 @@ io.on('connection', (socket) => {
   /* -------------------------------------------------------------------------- */
 
   socket.on("console" ,(value) => {
-    console.log(value)
+    // console.log(value)
   })
 
   /* ------------------------------- INIT PHASE ------------------------------- */
@@ -180,27 +180,37 @@ io.on('connection', (socket) => {
   })
   
   /* -------------- when save's remote is disconnected remove id -------------- */
-  socket.on("disconnect", () => {
- 
+  socket.on("disconnect", (message) => {
     // RESET remote on disconnect
     // determinate witch remote is disconnected
-    if(roomsDatabase[roomOfCurrentSocket].idPlayer_1 == socket.id ){ //TODO error when player is not connected
-      roomsDatabase[roomOfCurrentSocket].idPlayer_1 = 0
-      roomsDatabase[roomOfCurrentSocket].namePlayer_1 = ""
-      broadcastMessageToRoom(roomOfCurrentSocket, "playerName1", "nothing")
-    }
-    if(roomsDatabase[roomOfCurrentSocket].idPlayer_2 == socket.id){
-      roomsDatabase[roomOfCurrentSocket].idPlayer_2 = 0
-      roomsDatabase[roomOfCurrentSocket].namePlayer_2 = ""
-      broadcastMessageToRoom(roomOfCurrentSocket, "playerName2", "nothing")
-    }
-    if (roomsDatabase[roomOfCurrentSocket].idMasterOfRoom == socket.id) {
-      console.log("rooms number : ", roomOfCurrentSocket, " as been deleted")
-      delete roomsDatabase[roomOfCurrentSocket]
-      broadcastMessageToRoom(roomOfCurrentSocket, "ROOM_CLOSED", "NO MESSAGE")
+    if (roomsDatabase[roomOfCurrentSocket]) {
+      
+      /* --------------------------- Player 1 Disconnect -------------------------- */
+      if(roomsDatabase[roomOfCurrentSocket].idPlayer_1 == socket.id ){
+        roomsDatabase[roomOfCurrentSocket].idPlayer_1 = 0
+        roomsDatabase[roomOfCurrentSocket].namePlayer_1 = ""
+        broadcastMessageToRoom(roomOfCurrentSocket, "playerName1", "nothing")
+      }
+
+      /* --------------------------- Player 2 Disconnect -------------------------- */
+      if(roomsDatabase[roomOfCurrentSocket].idPlayer_2 == socket.id){
+        roomsDatabase[roomOfCurrentSocket].idPlayer_2 = 0
+        roomsDatabase[roomOfCurrentSocket].namePlayer_2 = ""
+        broadcastMessageToRoom(roomOfCurrentSocket, "playerName2", "nothing")
+      }
+
+      /* ------------------------ Master of Room Disconnect ----------------------- */
+      if (roomsDatabase[roomOfCurrentSocket].idMasterOfRoom == socket.id) {
+        console.log("rooms number : ", roomOfCurrentSocket, " as been deleted")
+        delete roomsDatabase[roomOfCurrentSocket]
+        broadcastMessageToRoom(roomOfCurrentSocket, "ROOM_CLOSED", roomOfCurrentSocket)
+      }
+
+      console.warn("Client Deconnected : ", socket.id, " On Room : ", roomOfCurrentSocket, " message : ", message)
+    }else{
+      console.warn("Client Deconnection out of room", socket.id, " message : ", message)
     }
 
-    console.warn("Client Deconnected : ", socket.id, " On Room : ", roomOfCurrentSocket)
 
   });
 
@@ -231,9 +241,9 @@ io.on('connection', (socket) => {
 function setIDRemoteInRoom(roomID, playerNumber, socket){
 
   let roomInformation = roomsDatabase[roomID]
-  console.log("room info",roomID, roomInformation)
+  // console.log("room info",roomID, roomInformation)
 
-  console.log(roomInformation["idPlayer_1"])
+  // console.log(roomInformation["idPlayer_1"])
   switch (playerNumber){ // playerNumber => player1 || player2
     case "player1":
       if (roomInformation.idPlayer_1 == 0) {
@@ -318,7 +328,7 @@ function initNewRoomInDatabase(roomID){
     "namePlayer_1" : "",
     "namePlayer_2" : ""
   }
-  console.log(roomsDatabase)
+  // console.log(roomsDatabase)
 }
 
 // Listen HTTP server
