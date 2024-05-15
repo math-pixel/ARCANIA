@@ -2,7 +2,7 @@
 /*                                Init Variable                               */
 /* -------------------------------------------------------------------------- */
 // get / set information of the advencement of the game 
-let stateOfGame = "Init" //? Init | Rules | TrainingPlayer | InGame | End | dataviz
+let stateOfGame = "Init" //? Init | Rules | TrainingPlayer | BeforeGame |  InGame | End | dataviz
 
 let playerName1 = "";
 let playerName2 = "";
@@ -270,12 +270,32 @@ function updateStateExperience(){
       startTraining()
       // videoIntro.parentNode.removeChild(videoIntro);
       break;
+    case "BeforeGame":
+
+      pagewaitingConnection.style.display = "none"
+      pageRules.style.display = "none"
+      pageTraining.style.display = "none"
+      gui.style.display = "none"
+      videoBackgroundGame.style.display = "none"
+      videoWinner.style.display = "none"
+      datavizPage.style.display = "none"
+      fightPositionIndication.style.display = "block"
+      
+
+      /* ------------------------- Play video preparation ------------------------- */
+      fightPositionIndication.play()
+      /* ------------------ event when position indication is end ----------------- */
+      fightPositionIndication.addEventListener("ended", () => {
+        fightPositionIndication.style.display = "none"
+        startGame()
+      }) 
+
+      break
     case "InGame":
       // document.getElementById("videoIntro").pause()
       // document.getElementById("waiting_connection_container").style.display = "none";
       // document.getElementById("rulesVideo").style.display = "none"
       // document.getElementById("training_container").style.display = 'none'
-      
       pagewaitingConnection.style.display = "none"
       pageRules.style.display = "none"
       pageTraining.style.display = "none"
@@ -287,15 +307,6 @@ function updateStateExperience(){
       /* -------------------------- play background video ------------------------- */
       document.getElementById("backgroundBattle").play()
       
-      /* ------------------------- Play video preparation ------------------------- */
-      fightPositionIndication.style.display = "block"
-      fightPositionIndication.play()
-
-      /* ------------------ event when position indication is end ----------------- */
-      fightPositionIndication.addEventListener("ended", () => {
-        fightPositionIndication.style.display = "none"
-        startGame()
-      }) 
 
       break;
     case "End":
@@ -459,6 +470,9 @@ function actionWebsocket(spell, player){
         trainingSpellDetected(spellData, player)
       break; 
 
+    case "BeforeGame":
+      // no action when player is placed
+      break;
     case "InGame":
 
     // Catch special spell in function of mana

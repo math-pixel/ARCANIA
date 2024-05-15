@@ -6,6 +6,7 @@ let ambianceSound
 /* -------------------------------------------------------------------------- */
 function startGame(){
     stateOfGame = "InGame"
+    updateStateExperience()
     startTimer()
     startAmbianceAudio()
     console.warn(stateOfGame)

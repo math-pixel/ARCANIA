@@ -106,9 +106,11 @@ function trainingSpellDetected(spellData, player){
                     nextSpell = true
                 }, 2000)
             } else {
+                
+                /* -------------------------- End of training part -------------------------- */
                 websocketValidation("player1", "resetOverlay")
                 websocketValidation("player2", "resetOverlay")
-                stateOfGame = "InGame"
+                stateOfGame = "BeforeGame"
                 updateStateExperience()
             }
         }
