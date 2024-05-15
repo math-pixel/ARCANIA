@@ -9,6 +9,9 @@ let playerName2 = "";
 
 let crowdSoundPlayed = false
 
+let parentVideo = document.getElementById("videoDiv")
+let parentAudio = document.getElementById("audioDiv")
+
 /* -------------------------------------------------------------------------- */
 /*                                   Spells                                   */
 /* -------------------------------------------------------------------------- */
@@ -31,11 +34,6 @@ async function preloadSpells(){
   console.log('Variable globale définie :', spells);
 }
 
-
-/* -------------------------------------------------------------------------- */
-/*                               Init websocket                               */
-/* -------------------------------------------------------------------------- */
-const socket = io();
 
 /* -------------------------------------------------------------------------- */
 /*                                 Init Player                                */
@@ -62,33 +60,55 @@ let player2 = {
 //* When button start is pressed => ##### play all background loop ####
 
 document.getElementById("introButton").addEventListener("click", () => {
+  playLoopVideo()
+
+  displayQrCode()
+
+  removeSplashScreen()
+
+  updateStateExperience() //? Start with Init State
+})
+
+function removeSplashScreen(){
+  /* -------------------------- remove waiting click -------------------------- */
   let introDiv = document.getElementById("intro")
-  
+  introDiv.parentNode.removeChild(introDiv);
+}
+
+function displayQrCode(){
+  /* --------------------------- animation qrCode IN -------------------------- */
+  document.getElementById("qrCode1").classList.remove("screenOut")
+  document.getElementById("qrCode2").classList.remove("screenOut")
+}
+
+function playLoopVideo(){
 
   /* ----------------------------- training video ----------------------------- */
   let trainingVideo = document.getElementById("training_vid")
   trainingVideo.play()
   trainingVideo.loop = true
   
-  // TODO change place
-  /* --------------------------- animation qrCode IN -------------------------- */
-  document.getElementById("qrCode1").classList.remove("screenOut")
-  document.getElementById("qrCode2").classList.remove("screenOut")
-  
-  
   /* ------------------------ Background versus qrCode ------------------------ */
   let videoVersus = document.getElementById("videoVersus")
   videoVersus.play()
   videoVersus.loop = true
 
-  /* -------------------------- remove waiting click -------------------------- */
-  introDiv.parentNode.removeChild(introDiv);
-  updateStateExperience() //? its Init State
+}
+
+/* -------------------------------------------------------------------------- */
+/*                           Shortcut for skip state                          */
+/* -------------------------------------------------------------------------- */
+
+window.addEventListener("keydown", (event) => {
+  
+  /* -------------------------- Remove thunder video -------------------------- */
+  if (event.key == "1") {
+    let videoIntro = document.getElementById("videoIntro")
+    videoIntro.pause()
+    videoIntro.parentNode.removeChild(videoIntro)
+  }
+
 })
-
-let parentVideo = document.getElementById("videoDiv")
-let parentAudio = document.getElementById("audioDiv")
-
 
 /* -------------------------------------------------------------------------- */
 /*                                   QR Code                                  */
@@ -181,6 +201,10 @@ let videoWinner = document.getElementById("endGameVideo")
 
 //? dataViz
 let datavizPage = document.getElementById("datavizDiv")
+
+/* -------------------------------------------------------------------------- */
+/*                         Update State of Experience                         */
+/* -------------------------------------------------------------------------- */
 
 function updateStateExperience(){
   console.log(stateOfGame)
@@ -332,6 +356,9 @@ function updateStateExperience(){
 /* -------------------------------------------------------------------------- */
 /*                                  Websocket                                 */
 /* -------------------------------------------------------------------------- */
+
+const socket = io();
+
 // Emit 'identification' event when the socket connection is established
 socket.on('connect', () => {
   console.log('Connected to server');
