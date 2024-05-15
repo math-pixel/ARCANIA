@@ -189,14 +189,14 @@ io.on('connection', (socket) => {
       if(roomsDatabase[roomOfCurrentSocket].idPlayer_1 == socket.id ){
         roomsDatabase[roomOfCurrentSocket].idPlayer_1 = 0
         roomsDatabase[roomOfCurrentSocket].namePlayer_1 = ""
-        broadcastMessageToRoom(roomOfCurrentSocket, "playerName1", "nothing")
+        broadcastMessageToRoom(roomOfCurrentSocket, "playerName1", "")
       }
 
       /* --------------------------- Player 2 Disconnect -------------------------- */
       if(roomsDatabase[roomOfCurrentSocket].idPlayer_2 == socket.id){
         roomsDatabase[roomOfCurrentSocket].idPlayer_2 = 0
         roomsDatabase[roomOfCurrentSocket].namePlayer_2 = ""
-        broadcastMessageToRoom(roomOfCurrentSocket, "playerName2", "nothing")
+        broadcastMessageToRoom(roomOfCurrentSocket, "playerName2", "")
       }
 
       /* ------------------------ Master of Room Disconnect ----------------------- */
