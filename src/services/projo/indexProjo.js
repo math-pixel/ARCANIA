@@ -12,6 +12,8 @@ let crowdSoundPlayed = false
 let parentVideo = document.getElementById("videoDiv")
 let parentAudio = document.getElementById("audioDiv")
 
+let PRODUCTION_MODE = "Production" //? Production | Development
+
 /* -------------------------------------------------------------------------- */
 /*                                   Spells                                   */
 /* -------------------------------------------------------------------------- */
@@ -118,7 +120,11 @@ window.addEventListener("keydown", (event) => {
 		function generateQRCode(canvasContainerID, url, port, subdirectory = "", parameters = "") {
 
 			/* ------------------------------- Create URL ------------------------------- */
-			const qrCodeUrl = `http://${url}:${port}/${subdirectory}?${parameters}`;
+      if (PRODUCTION_MODE == "Production") {
+        const qrCodeUrl = `https://${url}:${port}/${subdirectory}?${parameters}`;
+      }else if(PRODUCTION_MODE == "Development"){
+        const qrCodeUrl = `http://${url}:${port}/${subdirectory}?${parameters}`;
+      }
 			console.log(qrCodeUrl)
 
 			/* ----------------------------- Generate QrCode ---------------------------- */
