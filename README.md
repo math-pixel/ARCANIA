@@ -1,32 +1,28 @@
-# ARCANIA 🪄
-## The last figth of magic
-
-![NodeJS](https://img.shields.io/badge/node.js-00d866?style=flat&logo=node.js&logoColor=white) ![NodeJS](https://img.shields.io/badge/Ml5.js-aa00ff?style=flat&logo=tensorflow&logoColor=white) ![Socket.io](https://img.shields.io/badge/Socket.io-black?style=flat&logo=socket.io&badgeColor=010101) ![HTML5](https://img.shields.io/badge/html5-ff5d00.svg?style=flat&logo=html5&logoColor=white) ![CSS3](https://img.shields.io/badge/css3-%231572B6.svg?style=flat&logo=css3&logoColor=white) ![JavaScript](https://img.shields.io/badge/javascript-FFC300.svg?style=flat&logo=javascript&logoColor=white)
-
-### Pitch
-Welcome to the realm of Arcania. 
-In this immersive **interactive experience**, you embody two wizards from the Citadel, whose families have been at war since time immemorial. Prepare yourself to engage in your ultimate battle and determine who will be the next king of the world of the Twelve. Use your phone as a magical wand and cast spells at your opponent using your own movements. At the end of the battle, review your performance and unlock achievements.
+![Image](https://github.com/math-pixel/ARCANIA/blob/main/src/medias/icons/LOGO_ROUGE.png)
+        
+  
+Welcome to the realm of Arcania. In this immersive interactive experience, you embody two wizards from the Citadel, whose families have been at war since time immemorial. Prepare yourself to engage in your ultimate battle and determine who will be the next king of the world of the Twelve. Use your phone as a magical wand and cast spells at your opponent using your own movements. At the end of the battle, review your performance and unlock achievements.
 
 ![GIF DEMO](https://github.com/math-pixel/ARCANIA/blob/main/src/medias/magic-wizard.gif)
 
-## Installation
 
-Requires :
-- [Node.js](https://nodejs.org/) v10+ to run.
-- Phone and Computer on same network 
-
-Install the dependencies and start the server.
-```sh
-cd arcania
+##  Install Dependencies    
+```bash
+git clone https://github.com/math-pixel/ARCANIA.git
+cd ARCANIA
 npm i
-node server.js
 ```
+
+## Change Mode to Development
+
+To run the application in localhost mode, open the `./src/services/projo/indexProjo.js` file on line 15 and switch the mode to `development`.
+
 
 ## Use
 
 On your computer open url :
 ```
-http://localhost:3000/projo or http://[computer-ip]:3000/projo
+http://localhost:3000/ or http://[computer-ip]:3000/
 ```
 
 On your phone scan the qr code and use it a magic wand
@@ -34,3 +30,6 @@ On your phone scan the qr code and use it a magic wand
 ## License
 
 GPL 3.0
+
+        
+    
