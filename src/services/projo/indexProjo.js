@@ -120,10 +120,11 @@ window.addEventListener("keydown", (event) => {
 		function generateQRCode(canvasContainerID, url, port, subdirectory = "", parameters = "") {
 
 			/* ------------------------------- Create URL ------------------------------- */
+      let qrCodeUrl = "error"
       if (PRODUCTION_MODE == "Production") {
-        const qrCodeUrl = `https://${url}:${port}/${subdirectory}?${parameters}`;
+        qrCodeUrl = `https://${url}:${port}/${subdirectory}?${parameters}`;
       }else if(PRODUCTION_MODE == "Development"){
-        const qrCodeUrl = `http://${url}:${port}/${subdirectory}?${parameters}`;
+        qrCodeUrl = `http://${url}:${port}/${subdirectory}?${parameters}`;
       }
 			console.log(qrCodeUrl)
 
