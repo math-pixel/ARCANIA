@@ -15,7 +15,7 @@ async function startGame() {
             return;
         }
     }
-    // lockOrientation()
+    lockOrientation()
 
     sendName(playerName);
 
