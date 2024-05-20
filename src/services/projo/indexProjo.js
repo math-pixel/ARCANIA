@@ -12,7 +12,7 @@ let crowdSoundPlayed = false
 let parentVideo = document.getElementById("videoDiv")
 let parentAudio = document.getElementById("audioDiv")
 
-let PRODUCTION_MODE = "Production" //? Production | Development
+let PRODUCTION_MODE = "Development" //? Production | Development
 
 /* -------------------------------------------------------------------------- */
 /*                                   Spells                                   */

@@ -12,35 +12,37 @@ let rawData = []; // Stocke les données brutes de l'accéléromètre
 let sequenceLength = 15; // La longueur de la séquence pour chaque axe
 let collectionInterval; // Pour stocker l'identifiant de l'intervalle de collecte
 
-//TODO separate lock orientation and fullscreen
 function lockOrientation() {
+    // Check if the screen.orientation property is supported
+    if (screen.orientation) {
+        // Lock the screen orientation to landscape
+        screen.orientation.lock('portrait')
+            .then(() => {
+                console.log('Orientation locked');
+            })
+            .catch((err) => {
+                console.error('Unable to lock orientation: ', err);
+            });
+        } else {
+            console.warn('Screen orientation API not supported');
+        }
+} 
+  
+function setFullscreen(){
     // Check if the Fullscreen API is supported
     if (document.documentElement.requestFullscreen) {
-      // Request fullscreen
-      document.documentElement.requestFullscreen()
-        .then(() => {
-          // Check if the screen.orientation property is supported
-          if (screen.orientation) {
-            // Lock the screen orientation to landscape
-            screen.orientation.lock('portrait')
-              .then(() => {
-                console.log('Orientation locked');
-              })
-              .catch((err) => {
-                console.error('Unable to lock orientation: ', err);
-              });
-          } else {
-            console.warn('Screen orientation API not supported');
-          }
+        // Request fullscreen
+        document.documentElement.requestFullscreen().then(() => {
+            console.log("Fullscreen OK !")
         })
         .catch((err) => {
-          console.error('Unable to enter fullscreen mode: ', err);
+            console.error('Unable to enter fullscreen mode: ', err);
         });
-    } else {
-      console.warn('Fullscreen API not supported');
+    
+    }else {
+        console.warn('Fullscreen API not supported');
     }
-  }
-  
+}
 
 
 // ##### Song #####
