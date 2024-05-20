@@ -102,6 +102,7 @@ function displayOverlay(icon) {
     let overlay = document.getElementById("overlay")
     let iconImg = document.getElementById("icon")
     let win_loose = document.getElementById("win_loose")
+    let videoStatusVictory = document.getElementById("video_Status_victory")
 
      switch (icon) {
         case "check":
@@ -111,13 +112,17 @@ function displayOverlay(icon) {
 
         case "loose":
             overlay.style.display = 'grid'
-            iconImg.src = "/medias/phone_media/icons/loose.svg"
+            // iconImg.src = "/medias/phone_media/icons/loose.svg"
+            videoStatusVictory.src = "/medias/phone_media/icons/loose_anim.mp4"
+            videoStatusVictory.play()
             win_loose.innerText = 'You loose'
             break;
 
         case "win":
             overlay.style.display = 'grid'
-            iconImg.src = "/medias/phone_media/icons/win.svg"
+            videoStatusVictory.src = "/medias/phone_media/icons/win_anim.mp4"
+            videoStatusVictory.play()
+            // iconImg.src = "/medias/phone_media/icons/win.svg"
             win_loose.innerText = 'You win'
             break;
      

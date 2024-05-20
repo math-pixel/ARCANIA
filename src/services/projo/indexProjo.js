@@ -338,6 +338,8 @@ function updateStateExperience(){
       videoBackgroundGame.style.display = "none"
       videoWinner.style.display = "block"
       datavizPage.style.display = "none"
+      // parentVideo.style.display = "none"
+
 
       break;
     case "dataviz":
