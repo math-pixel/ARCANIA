@@ -78,12 +78,12 @@ if(urlParams.has('playerNumber')){
         // remove indication of player connection
         indicationPlayerConnection.innerHTML = ""
     }else{
-        indicationPlayerConnection.innerHTML = "Wrong id Player must be 1 or 2"
+        indicationPlayerConnection.innerHTML = "Error : 'playerNumber' params must be 1 or 2"
     }
 
 }else{
     console.error("there is not 'playerNumber' in URL")
-    //TODO fullscreen page for this error
+    indicationPlayerConnection = "Error : 'playerNumber' miss parameters in URL"
 }
 
 /* -------------------------------------------------------------------------- */

@@ -3,20 +3,31 @@ let videoDiv = document.getElementById("game")
 
 displayPage("name")
 
-async function startGame() {
+async function setUpBeforeGame() {
     let playerName = document.getElementById("name").value;
 
     if (is_iOS()) {
         try {
-            const orientationGranted = DeviceMotionEvent.requestPermission()//await request(DeviceOrientationEvent);
+            const orientationGranted = await DeviceMotionEvent.requestPermission().then(() => {
+                startGame()
+            }) //await request(DeviceOrientationEvent);
             if (!orientationGranted) return;
         } catch (error) {
+            indicationPlayerConnection = "Error : You need to accept motion permission for use this mobile game"
             alert(error);
             return;
         }
+    }else{
+        startGame()
     }
-    lockOrientation()
+}
 
+function startGame(){
+
+    setFullscreen()
+
+    lockOrientation()
+    
     sendName(playerName);
 
     prepareToCollect()
