@@ -1,10 +1,10 @@
 let videoDiv = document.getElementById("game")
 
-
+let playerName
 displayPage("name")
 
 async function setUpBeforeGame() {
-    let playerName = document.getElementById("name").value;
+    playerName = document.getElementById("name").value;
 
     if (is_iOS()) {
         try {
