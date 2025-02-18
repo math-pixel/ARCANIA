@@ -310,6 +310,11 @@ body {
     animation: screenInAnimationRight 2s ease forwards;
 }
 
+.borderQRCODE{
+  border: white 5px solid;
+  width: fit-content;
+}
+
 .screenOut{
     animation: screenOutAnimation 2s ease forwards;
 }
