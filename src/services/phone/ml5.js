@@ -14,18 +14,20 @@ let collectionInterval; // Pour stocker l'identifiant de l'intervalle de collect
 
 function lockOrientation() {
     // Check if the screen.orientation property is supported
-    if (screen.orientation) {
         // Lock the screen orientation to landscape
-        screen.orientation.lock('portrait')
-            .then(() => {
-                console.log('Orientation locked');
-            })
-            .catch((err) => {
-                console.error('Unable to lock orientation: ', err);
-            });
+        if(screen.orientation.lock){
+            screen.orientation.lock('portrait')
+                .then(() => {
+                    console.log('Orientation locked');
+                })
+                .catch((err) => {
+                    console.error('Unable to lock orientation: ', err);
+                });
         } else {
             console.warn('Screen orientation API not supported');
+            alert("Screen orientation API not supported ")
         }
+    
 } 
   
 function setFullscreen(){
@@ -41,6 +43,7 @@ function setFullscreen(){
     
     }else {
         console.warn('Fullscreen API not supported');
+        alert("Fullscreen not available")
     }
 }
 

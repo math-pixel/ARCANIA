@@ -387,11 +387,16 @@ socket.on('connect', () => {
   socket.emit('identification', 'Master');
 });
 
+socket.on("disconnect", (e) =>{
+  alert("Oups :/ Une erreur c'est produise ! La page vas ce recharger. \n Info dev : connection websocket au server c'est perdu : ", e)
+  location.reload()
+})
+
 // Event handler for 'qrCode_Setting' event
 socket.on('qrCode_Setting', (data) => {
   console.log('Received QR code setting:', data);
   // Generate QR code with the received room ID
-
+  alert("new qrCode : ", data)
   // let qrcode1 = document.getElementById("qrCode1")
   // let qrcode2 = document.getElementById("qrCode2")
   generateQRCode("qrCode1", window.location.hostname, window.location.port, "phone", parameters = `roomId=${data.roomId}&playerNumber=1`);
@@ -439,6 +444,7 @@ socket.on("playerName1", (name) => {
     document.getElementById("User1").innerHTML = name
     document.getElementById("qrCode1").classList.add("screenOut")
   } else {
+    alert("Player 1 is disconnected")
     document.getElementById("wizardDiv1").style.display = 'none'
     document.getElementById("qrCode1").classList.remove("screenOut")
   }
@@ -451,6 +457,7 @@ socket.on("playerName2", (name) => {
     document.getElementById("User2").innerHTML = name
     document.getElementById("qrCode2").classList.add("screenOut")
   } else {
+    alert("Player 2 is disconnected")
     document.getElementById("wizardDiv2").style.display = 'none'
     document.getElementById("qrCode2").classList.remove("screenOut")
   }
@@ -499,4 +506,13 @@ function actionWebsocket(spell, player){
       
   }
 
+}
+
+
+/* -------------------------------------------------------------------------- */
+/*                              Tools develloper                              */
+/* -------------------------------------------------------------------------- */
+
+function tool(value){
+  socket.emit("console", value)
 }

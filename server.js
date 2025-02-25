@@ -83,6 +83,7 @@ io.on('connection', (socket) => {
           roomsDatabase[room].idMasterOfRoom = socket.id
 
           // Émettre l'URL du serveur de socket et l'ID de la salle de discussion au client maître
+          console.log("QRCODE EMIT")
           socket.emit('qrCode_Setting', { roomId: room });
 
       } else if (role === 'Slave') {
@@ -121,6 +122,7 @@ io.on('connection', (socket) => {
 
   socket.on("console" ,(value) => {
     console.log(value)
+    console.log(roomsDatabase)
   })
 
   /* ------------------------------- INIT PHASE ------------------------------- */
