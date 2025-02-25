@@ -310,6 +310,10 @@ body {
     animation: screenInAnimationRight 2s ease forwards;
 }
 
+.qrCodeFloating{
+  display: none;
+}
+
 .borderQRCODE{
   border: white 5px solid;
   width: fit-content;

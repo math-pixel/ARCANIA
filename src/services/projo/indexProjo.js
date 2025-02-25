@@ -401,6 +401,8 @@ socket.on('qrCode_Setting', (data) => {
   // let qrcode2 = document.getElementById("qrCode2")
   generateQRCode("qrCode1", window.location.hostname, window.location.port, "phone", parameters = `roomId=${data.roomId}&playerNumber=1`);
   generateQRCode("qrCode2", window.location.hostname, window.location.port, "phone", parameters = `roomId=${data.roomId}&playerNumber=2`);
+  generateQRCode("qrCodeFloating1", window.location.hostname, window.location.port, "phone", parameters = `roomId=${data.roomId}&playerNumber=1`);
+  generateQRCode("qrCodeFloating2", window.location.hostname, window.location.port, "phone", parameters = `roomId=${data.roomId}&playerNumber=2`);
 })
 
 // Event handler for 'response' event
@@ -443,10 +445,14 @@ socket.on("playerName1", (name) => {
     document.getElementById("wizardDiv1").style.display = 'flex'
     document.getElementById("User1").innerHTML = name
     document.getElementById("qrCode1").classList.add("screenOut")
+    document.getElementById("qrCodeFloating1").style.display = "none"
   } else {
     alert("Player 1 is disconnected")
+    document.getElementById("qrCodeFloating1").style.display = "block"
     document.getElementById("wizardDiv1").style.display = 'none'
     document.getElementById("qrCode1").classList.remove("screenOut")
+
+    document.getElementById("q")
   }
 })
 socket.on("playerName2", (name) => {
@@ -456,8 +462,10 @@ socket.on("playerName2", (name) => {
     document.getElementById("wizardDiv2").style.display = 'flex'
     document.getElementById("User2").innerHTML = name
     document.getElementById("qrCode2").classList.add("screenOut")
+    document.getElementById("qrCodeFloating2").style.display = "none"
   } else {
     alert("Player 2 is disconnected")
+    document.getElementById("qrCodeFloating2").style.display = "block"
     document.getElementById("wizardDiv2").style.display = 'none'
     document.getElementById("qrCode2").classList.remove("screenOut")
   }
