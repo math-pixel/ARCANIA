@@ -310,8 +310,18 @@ body {
     animation: screenInAnimationRight 2s ease forwards;
 }
 
-.qrCodeFloating{
+.containerQrCodeFloating{
+  width: 100vw;
+  height: 100vh;
+  background-color: #280530a3;
   display: none;
+}
+
+.qrCodeFloating{
+  position: absolute;
+  z-index: 999999;
+  width: 15%;
+  margin: auto;
 }
 
 .borderQRCODE{

@@ -14,6 +14,8 @@ let parentAudio = document.getElementById("audioDiv")
 
 let PRODUCTION_MODE = "Development" //? Production | Development
 
+let roomID = null
+
 /* -------------------------------------------------------------------------- */
 /*                                   Spells                                   */
 /* -------------------------------------------------------------------------- */
@@ -397,12 +399,11 @@ socket.on('qrCode_Setting', (data) => {
   console.log('Received QR code setting:', data);
   // Generate QR code with the received room ID
   alert("new qrCode : ", data)
+  roomID = data.roomId
   // let qrcode1 = document.getElementById("qrCode1")
   // let qrcode2 = document.getElementById("qrCode2")
   generateQRCode("qrCode1", window.location.hostname, window.location.port, "phone", parameters = `roomId=${data.roomId}&playerNumber=1`);
   generateQRCode("qrCode2", window.location.hostname, window.location.port, "phone", parameters = `roomId=${data.roomId}&playerNumber=2`);
-  generateQRCode("qrCodeFloating1", window.location.hostname, window.location.port, "phone", parameters = `roomId=${data.roomId}&playerNumber=1`);
-  generateQRCode("qrCodeFloating2", window.location.hostname, window.location.port, "phone", parameters = `roomId=${data.roomId}&playerNumber=2`);
 })
 
 // Event handler for 'response' event
@@ -445,14 +446,15 @@ socket.on("playerName1", (name) => {
     document.getElementById("wizardDiv1").style.display = 'flex'
     document.getElementById("User1").innerHTML = name
     document.getElementById("qrCode1").classList.add("screenOut")
-    document.getElementById("qrCodeFloating1").style.display = "none"
+    document.getElementById("qrCodeFloating").style.display = "none"
   } else {
     alert("Player 1 is disconnected")
-    document.getElementById("qrCodeFloating1").style.display = "block"
+
+    generateQRCode("qrCodeFloating", window.location.hostname, window.location.port, "phone", parameters = `roomId=${roomID}&playerNumber=1`);
+    document.getElementById("qrCodeFloating").style.display = "block"
+    
     document.getElementById("wizardDiv1").style.display = 'none'
     document.getElementById("qrCode1").classList.remove("screenOut")
-
-    document.getElementById("q")
   }
 })
 socket.on("playerName2", (name) => {
@@ -462,10 +464,12 @@ socket.on("playerName2", (name) => {
     document.getElementById("wizardDiv2").style.display = 'flex'
     document.getElementById("User2").innerHTML = name
     document.getElementById("qrCode2").classList.add("screenOut")
-    document.getElementById("qrCodeFloating2").style.display = "none"
+    document.getElementById("qrCodeFloating").style.display = "none"
   } else {
     alert("Player 2 is disconnected")
-    document.getElementById("qrCodeFloating2").style.display = "block"
+
+    generateQRCode("qrCodeFloating", window.location.hostname, window.location.port, "phone", parameters = `roomId=${roomID}&playerNumber=2`);
+    document.getElementById("qrCodeFloating").style.display = "block"
     document.getElementById("wizardDiv2").style.display = 'none'
     document.getElementById("qrCode2").classList.remove("screenOut")
   }
