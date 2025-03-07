@@ -15,8 +15,7 @@ function playRulesVideo() {
       console.log("finish vid")
       rulesVideo.pause()
       rulesVideo.style.display = "none" 
-      stateOfGame = "TrainingPlayer"
-      updateStateExperience()
+      updateStateExperience("TrainingPlayer")
     })
   
     // //! for debug comment the line above ( event listener ) and un-comment the line below
@@ -35,6 +34,5 @@ function playRulesVideo() {
   document.getElementById("skipButton").addEventListener("click", () => {
     rulesVideo.pause()
     rulesVideo.style.display = "none" 
-    stateOfGame = "TrainingPlayer"
-    updateStateExperience()
+    updateStateExperience("TrainingPlayer")
   })

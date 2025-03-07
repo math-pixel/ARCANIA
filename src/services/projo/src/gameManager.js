@@ -5,8 +5,7 @@ let ambianceSound
 /*                                 Start Game                                 */
 /* -------------------------------------------------------------------------- */
 function startGame(){
-    stateOfGame = "InGame"
-    updateStateExperience()
+    updateStateExperience("InGame")
     startTimer()
     startAmbianceAudio()
     console.warn(stateOfGame)
@@ -48,8 +47,7 @@ function endGame(reason){
 
 
     // * set state "end" for there is not enought spell 
-    stateOfGame = "End"
-    updateStateExperience()
+    updateStateExperience("End")
     // let a = document.getElementById("endVideoWin")
     // a.play()
     // a.addEventListener("ended", () => {
@@ -91,8 +89,7 @@ function startEndVideo(src){
     video.addEventListener("ended", () => {
         video.parentNode.removeChild(video)
         ambianceSound.parentNode.removeChild(ambianceSound)
-        stateOfGame = "dataviz"
-        updateStateExperience()
+        updateStateExperience("dataviz")
     })
   }
 

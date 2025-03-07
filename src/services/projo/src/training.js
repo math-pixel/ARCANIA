@@ -110,8 +110,7 @@ function trainingSpellDetected(spellData, player){
                 /* -------------------------- End of training part -------------------------- */
                 websocketValidation("player1", "resetOverlay")
                 websocketValidation("player2", "resetOverlay")
-                stateOfGame = "BeforeGame"
-                updateStateExperience()
+                updateStateExperience("BeforeGame")
             }
         }
     }

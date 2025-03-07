@@ -28,8 +28,8 @@ let datavizPage = document.getElementById("datavizDiv")
 /*                         Update State of Experience                         */
 /* -------------------------------------------------------------------------- */
 
-function updateStateExperience(){
-  console.log(stateOfGame)
+function updateStateExperience(state){
+  // console.log(stateOfGame)
   switch(stateOfGame){
     case "Init":
       //? waiting connection of the two remote

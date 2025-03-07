@@ -62,8 +62,7 @@ socket.on('connect', () => {
     if (rulesAlreadyPassed == false) {
       setTimeout(() => {
         // console.log("toto")
-        stateOfGame = "Rules"
-        updateStateExperience()
+        updateStateExperience("Rules")
         rulesAlreadyPassed = true
       }, 5000)
     }

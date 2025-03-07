@@ -67,13 +67,13 @@ function playLoopVideo(){
 
   /* ----------------------------- training video ----------------------------- */
   let trainingVideo = document.getElementById("training_vid")
-  trainingVideo.play()
   trainingVideo.loop = true
+  trainingVideo.play()
   
   /* ------------------------ Background versus qrCode ------------------------ */
   let videoVersus = document.getElementById("videoVersus")
-  videoVersus.play()
   videoVersus.loop = true
+  videoVersus.play()
 }
 
 
@@ -89,7 +89,7 @@ document.getElementById("introButton").addEventListener("click", () => {
 
   removeSplashScreen()
 
-  updateStateExperience() //? Start with Init State
+  updateStateExperience("Init") //? Start with Init State
 })
 
 /* -------------------------------------------------------------------------- */
