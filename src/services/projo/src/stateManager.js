@@ -29,8 +29,8 @@ let datavizPage = document.getElementById("datavizDiv")
 /* -------------------------------------------------------------------------- */
 
 function updateStateExperience(state){
-  // console.log(stateOfGame)
-  switch(stateOfGame){
+  console.warn(state)
+  switch(state){
     case "Init":
       //? waiting connection of the two remote
 
@@ -42,7 +42,10 @@ function updateStateExperience(state){
       /* -------------------- Play video Intro arcania thunder -------------------- */
       let videoIntro = document.getElementById("videoIntro")
       videoIntro.play()
-
+      displayQrCode()
+    
+     
+      
       /* --------------------- wait 10 sec and add crowd sound -------------------- */
       setTimeout(() => {
         createAudioElement({audioSrc : "../medias/audio_ambiant/crowd_loop.mp3"}, true, 0.4)
@@ -56,7 +59,7 @@ function updateStateExperience(state){
       })
     
       break;
-    case "Rules":
+    case "Rules": 8
       //? display rules video
       // document.getElementById("containerRules").display = "block"
       // //* remove div of waiting player

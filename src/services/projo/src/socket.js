@@ -21,7 +21,8 @@ socket.on("disconnect", (e) =>{
 socket.on('qrCode_Setting', (data) => {
   console.log('Received QR code setting:', data);
   // Generate QR code with the received room ID
-  alert("new qrCode : ", data)
+  // alert("new qrCode : ", data)
+  console.log("new qrcode : ", data)
   roomID = data.roomId
   // let qrcode1 = document.getElementById("qrCode1")
   // let qrcode2 = document.getElementById("qrCode2")

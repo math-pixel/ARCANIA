@@ -71,13 +71,11 @@ function removeSplashScreen(){
 
 document.getElementById("introButton").addEventListener("click", () => {
 
-  displayQrCode()
-
   removeSplashScreen()
+
 
   updateStateExperience("Init") //? Start with Init State
 })
-
 /* -------------------------------------------------------------------------- */
 /*                           Shortcut for skip state                          */
 /* -------------------------------------------------------------------------- */
