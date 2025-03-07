@@ -63,19 +63,6 @@ function removeSplashScreen(){
   introDiv.parentNode.removeChild(introDiv);
 }
 
-function playLoopVideo(){
-
-  /* ----------------------------- training video ----------------------------- */
-  let trainingVideo = document.getElementById("training_vid")
-  trainingVideo.loop = true
-  trainingVideo.play()
-  
-  /* ------------------------ Background versus qrCode ------------------------ */
-  let videoVersus = document.getElementById("videoVersus")
-  videoVersus.loop = true
-  videoVersus.play()
-}
-
 
 /* -------------------------------------------------------------------------- */
 /*                                 Start Game                                 */
@@ -83,7 +70,6 @@ function playLoopVideo(){
 //* When button start is pressed => ##### play all background loop ####
 
 document.getElementById("introButton").addEventListener("click", () => {
-  playLoopVideo()
 
   displayQrCode()
 

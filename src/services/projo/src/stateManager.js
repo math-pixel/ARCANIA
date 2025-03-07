@@ -33,6 +33,11 @@ function updateStateExperience(state){
   switch(stateOfGame){
     case "Init":
       //? waiting connection of the two remote
+
+      /* ------------------------ Background versus qrCode ------------------------ */
+      let videoVersus = document.getElementById("videoVersus")
+      videoVersus.loop = true
+      videoVersus.play()
       
       /* -------------------- Play video Intro arcania thunder -------------------- */
       let videoIntro = document.getElementById("videoIntro")
@@ -74,6 +79,11 @@ function updateStateExperience(state){
       break;
     case "TrainingPlayer":
       //? training part
+
+      /* ----------------------------- training video ----------------------------- */
+      let trainingVideo = document.getElementById("training_vid")
+      trainingVideo.loop = true
+      trainingVideo.play()
 
       // document.getElementById("waiting_connection_container").style.display = "none";
       // document.getElementById("rulesVideo").style.display = "none"
